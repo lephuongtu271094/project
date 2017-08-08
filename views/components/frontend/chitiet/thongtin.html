@@ -1,0 +1,145 @@
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12 col-md-6">
+        <div class="image-product">
+            <img src="/images/toco1.jpg" class="width-img-100">
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="diachi">
+            <ol class="breadcrumb">
+                <li><a href="#">Hà Nội <i class="fa fa-angle-right"></i></a></li>
+                <li><a href="#">Quận Cầu Giấy <i class="fa fa-angle-right"></i></a></li>
+                <li class="active-breadcrumb"><a href="#">Khu vực Đại học Quốc Gia</a></li>
+            </ol>
+        </div>
+
+        <h2 class="mr0">Trà Sữa Tocotoco - Hồ Tùng Mậu</h2>
+        <div class="description-product">
+            <p><i class="fa fa-location-arrow"></i><span>60 Hồ Tùng Mậu, Quận Cầu Giấy, Hà Nội</span></p>
+            <hr/>
+
+            <div class="course-detail-tittle">
+                <div class="course-info-numberStd">
+                    <div>
+                        <p><span class="counter" data-count="9.6">0,0</span>Vị trí</p>
+                        <p><span class="counter" data-count="6.9">0.0</span>Không gian</p>
+                        <p><span class="counter" data-count="9.6">0.0</span>Phục vụ</p>
+                        <p><span class="counter" data-count="6.9">0.0</span>Chất lượng</p>
+                        <p><span class="counter" data-count="9.6">0.0</span>Giá cả</p>
+                    </div>
+                    <div>
+                        <p><span class="counter" id="index" data-count="9.6">0.0</span>/3 bình luận</p>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+
+            <p><i class="fa fa-clock-o"></i><span>08:00 - 22:00 <span
+                    style="color: #d32323; font-weight: bold">Đang hoạt động</span> </span>
+            </p>
+            <p><i class="fa fa-tags"></i><span>30.000đ - 60.000đ</span></p>
+            <p><i class="fa fa-phone"></i><span>0433.200.2790</span></p>
+            <button style="width: 100%" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Đặt Chỗ
+            </button>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-dialog2">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header modalheader">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center">Giảng Cafe - Cafe Trứng Sữa</h4>
+            </div>
+            <div class="modal-body row">
+                <div>
+                    <div class="col-md-12">
+                        <h5>Chi Tiết Đặt Bàn :</h5>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <div class="input-group date">
+                        <input name="date" data-date-format='dd-mm-yyyy' type="text" class="form-control pull-right" id="datepicker" placeholder="Date" style="border-radius: 5px;">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                    <div class="col-md-4 bootstrap-timepicker">
+                        <div class="form-group">
+
+                        <div class="input-group">
+                            <input type="text" class="form-control timepicker" name="time" style="border-radius: 5px;" >
+                        </div>
+                        <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control">
+                            <option>Số Lượng Người</option>
+                            {% for i in range(1,31) %}
+                            <option>{{i}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    Thông Tin Liên Hệ :
+                </div>
+                <div class="col-md-12">
+                    <input type="text" name="" placeholder="Họ Và Tên" class="form-control">
+                </div>
+                <div class="col-md-12">
+                    <input type="text" name="" placeholder="Số Điện Thoại" class="form-control">
+                </div>
+                <div class="col-md-12">
+                    <input type="text" name="" placeholder="Email" class="form-control">
+                </div>
+                <div class="col-md-12">
+                    <textarea placeholder="Ghi Chú ..." class="form-control"></textarea>
+                </div>
+                <div class="col-md-12">
+                    <input type="submit" name="" id="btn-datcho" value="Đặt Chỗ" class="btn btn-primary btn-datcho">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="datbanthanhcong" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Bạn đặt bàn thành công</h4>
+            </div>
+            <div class="modal-body">
+                <h3>Thông Tin Đặt Bàn</h3>
+                <span>Họ Tên:</span><br>
+                <span>Số Điện Thoại:</span><br>
+                <span>Nhà Hàng:</span><br>
+                <span>Thời Gian :</span><br>
+                <span>Số Người:</span><br>
+                <h4> chúng tôi sẽ gọi điện cho bạn để xác nhận !!! </h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

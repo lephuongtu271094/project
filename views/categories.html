@@ -1,0 +1,68 @@
+{% extends 'layouts/layoutAdm.html' %}
+{% block cssExtends %}
+<style>
+.table>tbody>tr>td:first-child{
+            width: 50%;
+      }
+</style>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="content-wrapper">
+
+    <section class="content">
+    <div class="col-lg-6">
+    <h3>Ceate New categories</h3>
+        <form class="form" action="">
+            <input type="text" >
+        </form>
+    </div>
+     <div class="col-lg-6">
+        <div class="row">
+        <div class="panel panel-primary filterable">
+            <div class="panel-heading">
+                <h3 class="panel-title">categories</h3>
+                <div class="pull-right">
+                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr class="filters">
+                        <th><input type="number" class="form-control" placeholder="ID" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Name" disabled></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Mark</td>
+                       
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jacob</td>
+                        
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Larry</td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+    </section>
+    <!-- /.content -->
+  </div>
+
+{% endblock %}
+
+{% block jsExtends %}
+
+{% endblock %}

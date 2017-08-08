@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="/images/logo2.ico" type="image/x-icon">
+    <title>{{ title }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/plugin/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/fonts/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/styletrangchu.css">
+    {% block cssExtends %}
+
+    {% endblock %}
+</head>
+
+<body style="padding-right: 0;">
+{% include 'components/frontend/layout/myHeader.html' %}
+<section>
+    <div class="container-fluid">
+        <div class="col-md-2 pd-left pd0 ">
+            <div class="nav-side-menu navbar navbar-default">
+
+                {% include 'components/frontend/layout/menu.html' %}
+            </div>
+
+        </div>
+
+
+        {% block content %}
+
+        {% endblock %}
+
+
+    </div>
+    {% include 'components/frontend/layout/modal_login.html' %}
+
+</section>
+
+<div class="nut">
+    <div class="bttop">
+        <a href="#">
+            <img src="/images/bttop.jpg" title="về đầu trang">
+        </a>
+
+    </div>
+</div>
+
+
+{% include 'components/frontend/layout/myFooter.html' %}
+
+<script src="/plugin/jquery-3.2.1.min.js"></script>
+<script src="/plugin/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/javascripts/javascript.js"></script>
+{% block jsExtends %}
+
+{% endblock %}
+<script type="text/javascript">
+    var carsAndModels = {};
+    carsAndModels['tinh-thanh'] = ['- Quận / Huyện -    '];
+    carsAndModels['ha-noi'] = ['- Quận / Huyện -', 'Quận Hoàn Kiếm', 'Quận Hai Bà trưng', 'Quận Ba Đình', 'Quận Thanh Xuân', 'Quận Hoàng Mai', 'Quận Đống Đa', 'Quận Long Biên', 'Quận Hà Đông', 'Quận Bắc Từ Liêm', 'Quận Nam Từ Liêm', 'Quận Tây Hồ', 'Quận Cầu Giấy', 'Huyện Đông Anh', 'Ba Vì', 'Chương Mỹ',];
+    carsAndModels['ho-chi-minh'] = ['- Quận / Huyện -', 'Quận 1', 'Quận 2', 'Quận 3', 'Quận 4', 'Quận 5', 'Quận 6', 'Quận 7', 'Quận 8', 'Quận 9', 'Quận 10', 'Quận 11', 'Quận 12', 'Quận Bình Thạnh', 'Quận Thủ Đức', 'Bình Chánh', 'Cần Giờ'];
+
+
+    function ChangeCarList() {
+        var carList = document.getElementById("car");
+        var modelList = document.getElementById("carmodel");
+        var selCar = carList.options[carList.selectedIndex].value;
+        while (modelList.options.length) {
+            modelList.remove(0);
+        }
+        var cars = carsAndModels[selCar];
+        if (cars) {
+            var i;
+            for (i = 0; i < cars.length; i++) {
+                var car = new Option(cars[i], i);
+                modelList.options.add(car);
+            }
+        }
+    }
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,382 @@
+/*CSS*/
+
+* {
+    box-sizing: border-box;
+    margin: auto;
+}
+
+p {
+    margin: 0 0 5px;
+}
+
+/********************************/
+/*        Breadcrumbs           */
+/********************************/
+.diachi {
+    padding: 0;
+}
+
+.breadcrumb {
+    background-color: #f8f8f8;
+    padding: 15px 5px 10px 0;
+    margin-bottom: 0;
+}
+
+.breadcrumb > li + li:before,
+.breadcrumb li a {
+
+    color: #bbb;
+    font-size: 13px;
+    content: "";
+    text-decoration: none;
+}
+
+.breadcrumb li a:hover {
+    color: black;
+}
+
+.breadcrumb .fa {
+    margin-left: 5px;
+}
+
+.breadcrumb > .active-breadcrumb {
+    color: #bbb;
+    /*font-weight: 200;*/
+}
+
+/********************************/
+/*           MIEUTA             */
+/*!****************************!*/
+
+.tab {
+    background-color: #f5f5f5;
+    overflow: hidden;
+    padding-top: 20px;
+    /*padding-bottom: 50px;*/
+    /*border-top: 2px solid #d1d1d1;*/
+    /*margin-top: 60px;*/
+}
+
+.mieuta {
+    background-color: white;
+    padding-bottom: 50px;
+}
+
+.tab .nav {
+    padding-left: 12px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    list-style: none;
+    font-size: 18px;
+}
+
+.tab .nav a {
+    color: black;
+    text-decoration: none;
+    /*background-color: red;*/
+}
+
+.info-map {
+    /*width: 98%;*/
+    /*padding-bottom: 1em;*/
+    border-bottom-style: groove;
+}
+
+.info-map > .row {
+    margin-top: 2em;
+    /*width: 89%;*/
+}
+
+.restaurant-more-info {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+.info-label {
+    font-size: 20px;
+}
+
+.special .list {
+    overflow: hidden;
+    width: 100%;
+    float: left;
+    margin-bottom: 9px;
+}
+
+.special .item {
+    width: 100%;
+    border: 1px solid #e8e1c1;
+    overflow: hidden;
+}
+
+.special .item .image {
+    width: 100%;
+    position: relative;
+}
+
+.special .list:hover .item .image img {
+    /*opacity: 0.5;*/
+    transform: scale(1.2);
+}
+
+.special .item img {
+    width: 100%;
+    vertical-align: middle;
+    transition: all 0.5s ease-in-out;
+}
+
+.col-lg-3.special {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.other {
+    overflow: hidden;
+    clear: both;
+    /*margin: 10px 0 0 0;*/
+    /*padding: 0 0 20px 0;*/
+    /*border-color: #a29672;*/
+    /*border-style: solid;*/
+    /*border-width: 1px 0 0 0;*/
+}
+
+.other-detail {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.other .description {
+    margin-bottom: 20px;
+    height: 120px;
+}
+
+.other img {
+    height: 210px;
+}
+
+.other h4 {
+    margin: 15px 0 10px 0;
+    font-size: 16px;
+    line-height: 1.3;
+    /*color: #337ab7 !important;*/
+    font-weight: bold;
+    color: #333;
+}
+
+.other p {
+    color: #1d1d1d;
+    font-size: 13px;
+    text-align: justify;
+}
+
+.width-img-100 {
+    max-width: 100%;
+}
+
+.mieuta a {
+    text-decoration: none;
+}
+
+.mieuta .title {
+    margin-bottom: 50px;
+}
+
+.mieuta h2 {
+    font-family: mariaBold;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.user .avatar img {
+    width: 100%;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+.user .info p {
+    font-size: 12px;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.cmtUser .info p {
+    display: block;
+    font-size: 12px;
+    margin-top: -12px;
+    font-style: italic;
+}
+
+.description-product p {
+    color: black;
+
+}
+
+.description-product span {
+    margin-left: 10px;
+
+}
+
+.comment span {
+    font-size: 28px;
+    color: #d32323;
+}
+
+
+.cmt {
+    /*padding: 50px !important;*/
+    background-color: white;
+}
+
+.cmt > p {
+    color: #b4ad9e;
+    /*font-family: ubuntuLight;*/
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+.imgUser img {
+    vertical-align: middle;
+    display: block;
+}
+
+.cmtUser h3 {
+    margin-top: 0px;
+}
+
+.cmtUser p {
+    display: inline-block;
+    color: black;
+    font-size: 15px;
+    /*font-family: playfairRegular;*/
+    line-height: 24px;
+    text-align: justify;
+    /*margin-right: 20px;*/
+}
+
+.cmtUser span {
+    display: inline-block;
+    color: #7f7f7f;
+    font-size: 13px;
+    /*font-family: playfairRegular;*/
+    line-height: 24px;
+    margin: 5px 13px 50px 0;
+
+}
+
+.cmtUser span:last-child {
+    font-size: 13px;
+    color: #b4ad9e;
+    /*font-family: ubuntuLight;*/
+}
+
+.course-info-numberStd #index {
+    vertical-align: super;
+    color: #fff;
+    background: linear-gradient(#d90007, #c91400);
+    text-align: center;
+    border-radius: 100px;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+    line-height: 32px;
+}
+
+.cmtUser input {
+    width: 100%;
+    height: 70px;
+    border-radius: 5px;
+    border: 1px solid #c8c8c8;
+    padding: 0 20px;
+}
+
+.album-user img {
+    margin-bottom: 1em;
+}
+
+.album-user .col-lg-3 {
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+
+/*.course-detail-tittle {*/
+/*padding-bottom:10px;*/
+/*border-bottom:2px solid #ddd;*/
+/*margin-bottom:10px;*/
+/*}*/
+
+.course-detail-tittle h2 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 38px;
+}
+
+.course-detail-tittle p {
+    text-align: justify;
+    font-size: 16px;
+}
+
+.course-info-numberStd {
+    overflow: hidden;
+    /*text-align: center;*/
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+.course-info-numberStd div {
+    display: inline-block;
+}
+
+.course-info-numberStd p {
+    float: left;
+    overflow: hidden;
+    color: #777;
+    /*margin: 0 15px;*/
+    font-size: 12px;
+
+}
+
+.course-info-numberStd span {
+    font-weight: bold;
+    font-size: 20px;
+    color: #d32323;
+}
+
+.form-control {
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+img{
+                margin: auto;
+            }
+            .carousel-control.right1, .carousel-control.left1{
+                background-image: none; 
+            }
+            .modal-dialog1{
+                width: 100%;
+                margin: auto;
+
+            }
+            .modal-header1{
+                border-bottom: none;
+            }
+            .modal-content1{
+                border-radius: 0;
+                background: #484848;
+                height: 654px;
+            }
+            .carousel1{
+                margin-top: 7%;
+            }
+            .close1{
+                margin-right: 50px;
+                color: white;
+            }
+            .carousel-inner1>.item>img {
+                width: 40%;
+            }
+            .modal-open .modal1 {
+                overflow: hidden;
+            }

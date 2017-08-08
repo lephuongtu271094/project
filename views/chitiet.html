@@ -1,0 +1,189 @@
+{% extends 'layouts/layout.html' %}
+{% block cssExtends %}
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.min.css">
+<link href="/stylesheets/stylechitiet.css" rel="stylesheet">
+<link rel="stylesheet" href="/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="/plugins/timepicker/bootstrap-timepicker.min.css">
+{% endblock %}
+{% block content %}
+<div class="col-md-10">
+    {% include 'components/frontend/chitiet/thongtin.html' %}
+
+    {% include 'components/frontend/chitiet/map_and_thongtin.html' %}
+
+    {% include 'components/frontend/chitiet/album.html' %}
+    <div class="row comment">
+        <h2>BÌNH LUẬN CỦA CỘNG ĐỒNG <span>3</span></h2>
+        <hr/>
+
+        <div class="cmt">
+            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <div class="user">
+                        <div class="avatar">
+                            <img src="/images/mod1.jpg" alt="mod" title="sonlazio">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-9 col-sm-10 col-md-11">
+                    <div class="cmtUser">
+                        <h4>sonlazio</h4>
+                        <div class="info">
+                            <p>Posted on April 10, 2017</p>
+                        </div>
+                        <p>Thực sự mình rất hay đi uống trà sữa nhưng đây là lần đầu tiên mình thấy
+                            thoải
+                            mái thật sự khi uống tại TocoToco. Đồ uống đậm vị, trà thơm đặc biệt trân
+                            châu TocoToco rất ngon và dai không bị nát mềm như mấy quán ts mình uống
+                            trước
+                            đây. NV thì tư vấn nhiệt tình. Sẽ gim lại địa chỉ của các bạn để ủng hộ dài
+                            dài
+                            luôn.</p>
+                        <span><i class="fa fa-heart"></i> Thích</span>
+                        <span><i class="fa fa-exclamation-circle"></i> Báo lỗi</span>
+                        <span><i class="fa fa-reply"></i> Thảo luận</span>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <div class="user">
+                        <div class="avatar">
+                            <img src="image/coffee/coffee1.jpg" alt="mod" title="cuhiep">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-9 col-sm-10 col-md-11">
+                    <div class="cmtUser">
+                        <h4>cuhiep</h4>
+                        <div class="info">
+                            <p>Posted on April 10, 2017 </p>
+                        </div>
+                        <p>Đồ uống thì cũng tạm được. Mình uống bạc hà ở đây 1 lần vì có 1 lần order bạc
+                            hà
+                            bên Ding nhưng k có (k nhớ là k có hay là hết) và mê luôn, nhưng chỉ bạc hà
+                            thôi, còn các vị khác thì theo mình là không nổi bật lắm. Tầng 1 thì khá
+                            chật vì
+                            diện tích nhỏ mà quầy order đã lớn lắm rồi, chỉ có khách chờ mang đi mới
+                            ngồi
+                            thôi chứ ngồi đó thì phá phong cảnh chết. Tầng 2 thì view k đẹp (do công
+                            trường
+                            đường sắt) và khá ồn vì mọi người ngồi đây khá đông. Tầng 3 thì yên tĩnh hơn
+                            và
+                            có sàn gỗ có thể nghỉ ngơi, nằm ra được và mở được cưar sổ nhìn vào khu dân
+                            cư.
+                            Nhân viên đông và cũng nhiệt tình. Giá cả thì theo mình hơi chát :D</p>
+
+                        <div class="album-user" style="margin-left: -6px; margin-right: 6px">
+
+                            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                <img src="/images/toco1.jpg" class="img-responsive">
+                            </div>
+
+                            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                <img src="image/coffee/coffee1.jpg" class="img-responsive">
+                            </div>
+
+                            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                <img src="image/coffee/coffee1.jpg" class="img-responsive">
+                            </div>
+
+                            <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                <img src="image/coffee/coffee1.jpg" class="img-responsive">
+                            </div>
+
+                        </div>
+
+                        <span><i class="fa fa-heart"></i> Thích</span>
+                        <span><i class="fa fa-exclamation-circle"></i> Báo lỗi</span>
+                        <span><i class="fa fa-reply"></i> Thảo luận</span>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <div class="user">
+                        <div class="avatar">
+                            <img src="image/coffee/coffee1.jpg" alt="mod" title="Duy Luân">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-9 col-sm-10 col-md-11">
+                    <div class="cmtUser">
+                        <h4>Duy Luân</h4>
+                        <div class="info">
+                            <p>Posted on April 10, 2017</p>
+                        </div>
+                        <p>Chắc mình ko có duyên với mấy quán quanh quanh khu này.
+                            quán này rất gần đh thương mại. nhưng lần nào mình đến nơi cũng ko còn chỗ
+                            để
+                            xe, cứ phải ngậm ngùi mà đi quán khác :((</p>
+                        <span><i class="fa fa-heart"></i> Thích</span>
+                        <span><i class="fa fa-exclamation-circle"></i> Báo lỗi</span>
+                        <span><i class="fa fa-reply"></i> Thảo luận</span>
+                    </div>
+                </div>
+
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <div class="user">
+                        <div class="avatar">
+                            <img src="image/coffee/coffee1.jpg" alt="mod" title="Non@me">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-9 col-sm-10 col-md-11">
+                    <div class="cmtUser">
+                        <input type="text" name="" id="" placeholder="Ý kiến của bạn">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+    <span>Page 1 of 1 </span>
+    <hr/>
+
+    {% include 'components/frontend/chitiet/cothequantam.html' %}
+
+</div>
+
+
+
+{% endblock %}
+
+{% block jsExtends %}
+<script src="/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="/plugin/fancybox/jquery.fancybox.min.js"></script>
+<script type="text/javascript">
+
+     $('#btn-datcho').click(function(){
+        $('#myModal').modal('hide');
+        $('#datbanthanhcong').modal('show');
+    }) 
+    $('.timepicker').timepicker({
+      showInputs: false
+    })
+    $('#datepicker').datepicker({
+      autoclose: true    
+    })
+    $("#datepicker").datepicker("setDate", new Date());
+    function initMap() {
+        var uluru = {lat: 21.0091710257685, lng: 105.806988626719};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: uluru,
+            scrollwheel: false
+        });
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+        });
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsB1OF-sOPmmMd9bwLpJfJfrdumJ_A6dI&callback=initMap">
+</script>
+{% endblock %}

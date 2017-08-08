@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Giảng Cofe</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="font/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/stylechitiet.css">
+    <link rel="stylesheet" href="css/popup.css">
+    <style type="text/css">
+        .image-source-link {
+    color: #98C3D1;
+}
+
+.mfp-with-zoom .mfp-container,
+.mfp-with-zoom.mfp-bg {
+    opacity: 0;
+    -webkit-backface-visibility: hidden;
+    /* ideally, transition speed should match zoom duration */
+    -webkit-transition: all 0.3s ease-out; 
+    -moz-transition: all 0.3s ease-out; 
+    -o-transition: all 0.3s ease-out; 
+    transition: all 0.3s ease-out;
+}
+
+.mfp-with-zoom.mfp-ready .mfp-container {
+        opacity: 1;
+}
+.mfp-with-zoom.mfp-ready.mfp-bg {
+        opacity: 0.8;
+}
+
+.mfp-with-zoom.mfp-removing .mfp-container, 
+.mfp-with-zoom.mfp-removing.mfp-bg {
+    opacity: 0;
+}
+    </style>
+</head>
+
+<body>
+
+
+
+<header>
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html"><img src="image/logo.png" alt=""></a>
+            </div>
+            <form class="navbar-form navbar-left">
+
+                <select class="form-control" id="car" onchange="ChangeCarList()">
+                    <option value="tinh-thanh">- Thành Phố -</option>
+                    <option value="ha-noi">Hà Nội</option>
+                    <option value="ho-chi-minh">Hồ chí minh</option>
+                </select>
+                <select class="form-control selec-with" id="carmodel">
+                    <option>- Quận / Huyện -</option>
+                </select>
+                <div class="form-group">
+                    <input type="text" class="form-control search seac-with" placeholder="Tìm Kiếm ..." list="datalist1"
+                           autofocus>
+                    <datalist id="datalist1">
+                        <a href="#">
+                            <option value="Quán Ăn">
+                        </a>
+                        <option value="Ăn uống">
+                        <option value="Quán Coffee">
+                    </datalist>
+                    <a href="tim-kiem.html"><label class="btn glyphicon glyphicon-search icon-search"></label></a>
+                </div>
+
+            </form>
+            <ul class="nav navbar-nav navbar-right btn-dangnhap">
+                <button class="btn btn-primary btn-dangnhap2 navbar-btn " data-toggle="modal"
+                        data-target="#modal-dangnhap">Đăng nhập
+                </button>
+
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+    <!-- navbar navbar-default -->
+
+    <div class="container-fluid">
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="image/banner.jpg" alt="..." class="img-responsive">
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="image/banner.jpg" alt="..." class="img-responsive">
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="image/banner.jpg" alt="..." class="img-responsive">
+                    <div class="carousel-caption">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <!-- container-fluid -->
+
+</header>
+<section>
+    <div class="container-fluid">
+        <nav class="col-md-2" id="myScrollspy">
+
+            <div class="navbar navbar-default navbar-mrtop" data-spy="affix" data-offset-top="350">
+                <!-- Brand and toggle get grouped for better mobile display -->
+
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed  " data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a data-toggle="collapse" data-target="#submenu1" aria-expanded="false">
+                                Ăn uống
+                            </a>
+
+                            <ul class="nav collapse" id="submenu1" role="menu" aria-labelledby="btn-1">
+                                <li><a href="danh-sach-quan-coffee.html">Quán coffee</a></li>
+                                <li><a href="#">Nhà hàng</a></li>
+                                <li><a href="#  ">Quán ăn</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a data-toggle="collapse" data-target="#submenu2" aria-expanded="false">
+                                Làm đẹp
+                            </a>
+                            <ul class="nav collapse" id="submenu2" role="menu" aria-labelledby="btn-1">
+                                <li><a href="#">Tiệm cắt tóc/Gội đầu</a></li>
+                                <li><a href="#">Thẩm mĩ viện</a></li>
+                                <li><a href="#">Tiệm nail</a></li>
+                                <li><a href="#">Spa/massage</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a data-toggle="collapse" data-target="#submenu3" aria-expanded="false">
+                                Giải trí
+                            </a>
+                            <ul class="nav collapse" id="submenu3" role="menu" aria-labelledby="btn-1">
+                                <li><a href="#">Khu chơi game</a></li>
+                                <li><a href="#">Rạp chiếu phim</a></li>
+                                <li><a href="#">Karaoke</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a data-toggle="collapse" data-target="#submenu4" aria-expanded="false">
+                                Sức khỏe
+                            </a>
+                            <ul class="nav collapse" id="submenu4" role="menu" aria-labelledby="btn-1">
+                                <li><a href="#">Tập thể hình</a></li>
+                                <li><a href="#">Tập yoga</a></li>
+                                <li><a href="#">Phòng khám</a></li>
+                                <li><a href="#">Nha khoa</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a data-toggle="collapse" data-target="#submenu5" aria-expanded="false">
+                                Mua sắm
+                            </a>
+
+                            <ul class="nav collapse" id="submenu5" role="menu" aria-labelledby="btn-1">
+                                <li><a href="#">Trung tâm tương mại</a></li>
+                                <li><a href="#">Siêu thị</a></li>
+                                <li><a href="#">Cửa hàng</a></li>
+                                <li><a href="#">Chợ</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div>
+        </nav>
+        <div class="col-md-10">
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                    <div class="image-product">
+                        <img src="image/coffee/coffee1.jpg" class="width-img-100">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="diachi">
+                        <ol class="breadcrumb">
+                            <li><a href="#">Hà Nội <i class="fa fa-angle-right"></i></a></li>
+                            <li><a href="#">Quận Cầu Giấy <i class="fa fa-angle-right"></i></a></li>
+                            <li class="active-breadcrumb"><a href="#">Khu vực Đại học Quốc Gia</a></li>
+                        </ol>
+                    </div>
+
+                    <h2 class="mr0">Trà Sữa Tocotoco - Hồ Tùng Mậu</h2>
+                    <div class="description-product">
+                        <p><i class="fa fa-location-arrow"></i><span>60 Hồ Tùng Mậu, Quận Cầu Giấy, Hà Nội</span></p>
+                        <hr/>
+
+                        <div class="course-detail-tittle">
+                            <div class="course-info-numberStd">
+                                <div>
+                                    <p><span class="counter" data-count="9.6">0,0</span>Vị trí</p>
+                                    <p><span class="counter" data-count="6.9">0.0</span>Không gian</p>
+                                    <p><span class="counter" data-count="9.6">0.0</span>Phục vụ</p>
+                                    <p><span class="counter" data-count="6.9">0.0</span>Chất lượng</p>
+                                    <p><span class="counter" data-count="9.6">0.0</span>Giá cả</p>
+                                </div>
+                                <div>
+                                    <p><span class="counter" id="index" data-count="9.6">0.0</span>/3 bình luận</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+
+                        <p><i class="fa fa-clock-o"></i><span>08:00 - 22:00 <span
+                                style="color: #d32323; font-weight: bold">Đang hoạt động</span> </span>
+                        </p>
+                        <p><i class="fa fa-tags"></i><span>30.000đ - 60.000đ</span></p>
+                        <p><i class="fa fa-phone"></i><span>0433.200.2790</span></p>
+                        <button style="width: 100%" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Đặt Chỗ</button>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="info-map">
+                <h2>THÔNG TIN & BẢN ĐỒ</h2>
+                <hr/>
+
+                <div class="restaurant-map">
+                    <div id="map" style="height: 500px;"></div>
+                    <!-- <map>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.9879440359296!2d105.85232466450475!3d21.033168385995907!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xfca3408ac50e7363!2zR2nhuqNuZyBDYWZl!5e0!3m2!1svi!2s!4v1485533856979"
+                                width="100%" height="500" frameborder="0" style="border:0"
+                             disableDefaultUI    ></iframe>
+                    </map> -->
+                </div>
+
+
+   
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                        <div class="restaurant-more-info">
+                            <div class="info-label">
+                                Thời gian hoạt động
+                            </div>
+                            <span>08:00 AM - 10:00 PM</span>
+                        </div>
+
+                        <div class="restaurant-more-info">
+                            <div class="info-label">
+                                Thời gian chuẩn bị
+                            </div>
+                            <span>Khoảng 5 - 10 phút</span>
+                        </div>
+
+                        <div class="restaurant-more-info">
+                            <div class="info-label">
+                                Sức chứa
+                            </div>
+                            <span>50 người lớn</span>
+                        </div>
+
+                        <div class="restaurant-more-info">
+                            <div class="info-label">
+                                Phục vụ món
+                            </div>
+                            <span>Thức uống ,  Trà sữa</span>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                        <div class="restaurant-more-info">
+                            <div class="info-label">
+                                Thích hợp
+                            </div>
+                            <span>Buổi sáng , Buổi trưa , Buổi xế , Buổi tối</span>
+                        </div>
+
+                        <div class="restaurant-more-info">
+                            <div class="info-label">
+                                Nghỉ lễ
+                            </div>
+                            <span>Các ngày lễ trong năm</span>
+                        </div>
+
+                        <div class="restaurant-more-info">
+                            <div class="info-label">
+                                Phong cách ẩm thực
+                            </div>
+                            <span>Châu Á, Đài Loan </span>
+                        </div>
+
+                        <div class="restaurant-more-info">
+                            <div class="info-label">
+                                Website
+                            </div>
+                            <a><span>www.facebook.com/tocotoco60hotungmau</span></a>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                        <div class="restaurant-more-info">
+                            <div class="info-label">
+                                Giờ nhận khách cuối
+                            </div>
+                            <span>09:30 PM</span>
+                        </div>
+
+                        <div class="restaurant-more-info">
+                            <div class="info-label">
+                                Thể loại
+                            </div>
+                            <span>Café/Dessert</span>
+                        </div>
+
+                        <div class="restaurant-more-info">
+                            <div class="info-label">
+                                Phù hợp với
+                            </div>
+                            <span>Hẹn hò, Họp nhóm, Giao tận nơi, Ăn vặt, Mang về</span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row images">
+                    <h2>ALBUM ẢNH</h2>
+                    <hr/>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 special">
+                        <div class="wow fadeInDown animated" data-wow-duration="1s" data-wow-delay="0.6s"
+                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+                            <div class="list">
+                                <div class="item">
+                                    <div class="image">
+                                        <img src="image/coffee/coffee1.jpg" data-toggle="modal" data-target="#modalgalery">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 special">
+                        <div class="wow fadeInDown animated" data-wow-duration="1s" data-wow-delay="0.6s"
+                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+                            <div class="list">
+                                <div class="item">
+                                    <div class="image">
+                                        <img src="image/coffee/coffee1.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 special">
+                        <div class="wow fadeInDown animated" data-wow-duration="1s" data-wow-delay="0.6s"
+                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+                            <div class="list">
+                                <div class="item">
+                                    <div class="image">
+                                        <img src="image/coffee/coffee1.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 special">
+                        <div class="wow fadeInDown animated" data-wow-duration="1s" data-wow-delay="0.6s"
+                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+                            <div class="list">
+                                <div class="item">
+                                    <div class="image">
+                                        <img src="image/coffee/coffee1.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 special">
+                        <div class="wow fadeInDown animated" data-wow-duration="1s" data-wow-delay="0.6s"
+                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+                            <div class="list">
+                                <div class="item">
+                                    <div class="image">
+                                        <img src="image/coffee/coffee1.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 special">
+                        <div class="wow fadeInDown animated" data-wow-duration="1s" data-wow-delay="0.6s"
+                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+                            <div class="list">
+                                <div class="item">
+                                    <div class="image">
+                                        <img src="image/coffee/coffee1.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 special">
+                        <div class="wow fadeInDown animated" data-wow-duration="1s" data-wow-delay="0.6s"
+                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+                            <div class="list">
+                                <div class="item">
+                                    <div class="image">
+                                        <img src="image/coffee/coffee1.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 special">
+                        <div class="wow fadeInDown animated" data-wow-duration="1s" data-wow-delay="0.6s"
+                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+                            <div class="list">
+                                <div class="item">
+                                    <div class="image">
+                                        <img src="image/coffee/coffee1.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 special">
+                        <div class="wow fadeInDown animated" data-wow-duration="1s" data-wow-delay="0.6s"
+                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+                            <div class="list">
+                                <div class="item">
+                                    <div class="image">
+                                        <img src="image/coffee/coffee1.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 special">
+                        <div class="wow fadeInDown animated" data-wow-duration="1s" data-wow-delay="0.6s"
+                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+                            <div class="list">
+                                <div class="item">
+                                    <div class="image">
+                                        <img src="image/coffee/coffee1.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 special">
+                        <div class="wow fadeInDown animated" data-wow-duration="1s" data-wow-delay="0.6s"
+                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+                            <div class="list">
+                                <div class="item">
+                                    <div class="image">
+                                        <img src="image/coffee/coffee1.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 special">
+                        <div class="wow fadeInDown animated" data-wow-duration="1s" data-wow-delay="0.6s"
+                             style="visibility: visible; animation-duration: 1000ms; animation-delay: 600ms; animation-name: fadeInDown;">
+                            <div class="list">
+                                <div class="item">
+                                    <div class="image">
+                                        <img src="image/coffee/coffee1.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row comment">
+                <h2>BÌNH LUẬN CỦA CỘNG ĐỒNG <span>3</span></h2>
+                <hr/>
+
+                <div class="cmt">
+                    <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+
+                        <div class="col-xs-3 col-sm-2 col-md-1">
+                            <div class="user">
+                                <div class="avatar">
+                                    <img src="image/coffee/coffee1.jpg" alt="mod" title="sonlazio">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-9 col-sm-10 col-md-11">
+                            <div class="cmtUser">
+                                <h4>sonlazio</h4>
+                                <div class="info">
+                                    <p>Posted on April 10, 2017</p>
+                                </div>
+                                <p>Thực sự mình rất hay đi uống trà sữa nhưng đây là lần đầu tiên mình thấy
+                                    thoải
+                                    mái thật sự khi uống tại TocoToco. Đồ uống đậm vị, trà thơm đặc biệt trân
+                                    châu TocoToco rất ngon và dai không bị nát mềm như mấy quán ts mình uống
+                                    trước
+                                    đây. NV thì tư vấn nhiệt tình. Sẽ gim lại địa chỉ của các bạn để ủng hộ dài
+                                    dài
+                                    luôn.</p>
+                                <span><i class="fa fa-heart"></i> Thích</span>
+                                <span><i class="fa fa-exclamation-circle"></i> Báo lỗi</span>
+                                <span><i class="fa fa-reply"></i> Thảo luận</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-3 col-sm-2 col-md-1">
+                            <div class="user">
+                                <div class="avatar">
+                                    <img src="image/coffee/coffee1.jpg" alt="mod" title="cuhiep">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-9 col-sm-10 col-md-11">
+                            <div class="cmtUser">
+                                <h4>cuhiep</h4>
+                                <div class="info">
+                                    <p>Posted on April 10, 2017 </p>
+                                </div>
+                                <p>Đồ uống thì cũng tạm được. Mình uống bạc hà ở đây 1 lần vì có 1 lần order bạc
+                                    hà
+                                    bên Ding nhưng k có (k nhớ là k có hay là hết) và mê luôn, nhưng chỉ bạc hà
+                                    thôi, còn các vị khác thì theo mình là không nổi bật lắm. Tầng 1 thì khá
+                                    chật vì
+                                    diện tích nhỏ mà quầy order đã lớn lắm rồi, chỉ có khách chờ mang đi mới
+                                    ngồi
+                                    thôi chứ ngồi đó thì phá phong cảnh chết. Tầng 2 thì view k đẹp (do công
+                                    trường
+                                    đường sắt) và khá ồn vì mọi người ngồi đây khá đông. Tầng 3 thì yên tĩnh hơn
+                                    và
+                                    có sàn gỗ có thể nghỉ ngơi, nằm ra được và mở được cưar sổ nhìn vào khu dân
+                                    cư.
+                                    Nhân viên đông và cũng nhiệt tình. Giá cả thì theo mình hơi chát :D</p>
+
+                                <div class="album-user" style="margin-left: -6px; margin-right: 6px">
+
+                                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                        <img src="image/coffee/coffee1.jpg" class="img-responsive">
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                        <img src="image/coffee/coffee1.jpg" class="img-responsive">
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                        <img src="image/coffee/coffee1.jpg" class="img-responsive">
+                                    </div>
+
+                                    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                                        <img src="image/coffee/coffee1.jpg" class="img-responsive">
+                                    </div>
+
+                                </div>
+
+                                <span><i class="fa fa-heart"></i> Thích</span>
+                                <span><i class="fa fa-exclamation-circle"></i> Báo lỗi</span>
+                                <span><i class="fa fa-reply"></i> Thảo luận</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-3 col-sm-2 col-md-1">
+                            <div class="user">
+                                <div class="avatar">
+                                    <img src="image/coffee/coffee1.jpg" alt="mod" title="Duy Luân">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-9 col-sm-10 col-md-11">
+                            <div class="cmtUser">
+                                <h4>Duy Luân</h4>
+                                <div class="info">
+                                    <p>Posted on April 10, 2017</p>
+                                </div>
+                                <p>Chắc mình ko có duyên với mấy quán quanh quanh khu này.
+                                    quán này rất gần đh thương mại. nhưng lần nào mình đến nơi cũng ko còn chỗ
+                                    để
+                                    xe, cứ phải ngậm ngùi mà đi quán khác :((</p>
+                                <span><i class="fa fa-heart"></i> Thích</span>
+                                <span><i class="fa fa-exclamation-circle"></i> Báo lỗi</span>
+                                <span><i class="fa fa-reply"></i> Thảo luận</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-3 col-sm-2 col-md-1">
+                            <div class="user">
+                                <div class="avatar">
+                                    <img src="image/coffee/coffee1.jpg" alt="mod" title="Non@me">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-9 col-sm-10 col-md-11">
+                            <div class="cmtUser">
+                                <input type="text" name="" id="" placeholder="Ý kiến của bạn">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
+            <span>Page 1 of 1 </span>
+            <hr/>
+
+            <div class="row other">
+                <h2>CÓ THỂ BẠN QUAN TÂM</h2>
+
+                <div class="other-detail col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <a href="#"><img class="width-img-100" src="image/coffee/coffee1.jpg"></a>
+                    <div class="description">
+                        <a href="#"><h4>Trà Sữa Bobapop - Hồ Tùng Mậu</h4></a>
+                        <p>6 Hồ Tùng Mậu, P.Mai Dịch, Quận Cầu Giấy, Hà Nội</p>
+                    </div>
+                </div>
+
+                <div class="other-detail col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <a href=""><img class="width-img-100" src="image/coffee/coffee1.jpg"></a>
+                    <div class="description">
+                        <a href=""><h4>Ding Tea - Hồ Tùng Mậu</h4></a>
+                        <p>114 Hồ Tùng Mậu, Quận Cầu Giấy, Hà Nội</p>
+                    </div>
+                </div>
+
+                <div class="other-detail col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <a href=""><img class="width-img-100" src="image/coffee/coffee1.jpg"></a>
+                    <div class="description">
+                        <a href=""><h4>Trà Sữa Feeling Tea - Hồ Tùng Mậu</h4></a>
+                        <p>112 Hồ Tùng Mậu, Quận Cầu Giấy, Hà Nội</p>
+                    </div>
+                </div>
+
+                <div class="other-detail col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <a href=""><img class="width-img-100" src="image/coffee/coffee1.jpg"></a>
+                    <div class="description">
+                        <a href=""><h4>Gongcha Hongkong</h4></a>
+                        <p>19 Trần Quốc Hoàn, Quận Cầu Giấy, Hà Nội</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h3 class="text-center">Danh Mục :</h3>
+                <div class="row row-foter">
+                    <div class="col-md-12">
+                        <a href="#" class="dmft">trang chủ</a>
+                    </div>
+                    <div class="col-md-12 ">
+                        <a href="#" class="dmft">ăn uống</a>
+                    </div>
+                    <div class="col-md-12 ">
+                        <a href="#" class="dmft">Sức khỏe</a>
+                    </div>
+                    <div class="col-md-12">
+                        <a href="#" class="dmft">Làm đẹp</a>
+                    </div>
+                    <div class="col-md-12">
+                        <a href="#" class="dmft">Giải trí</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3 class="text-center">Liên Kết :</h3>
+                <div class="row row-lk">
+                    <div class="col-md-12">
+                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i>Facebook</a>
+                    </div>
+                    <div class="col-md-12">
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i>instagram</a>
+                    </div>
+                    <div class="col-md-12">
+                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i>twitter</a>
+                    </div>
+                    <div class="col-md-12">
+                        <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i>google</a>
+                    </div>
+                    <div class="col-md-12">
+                        <a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i>youtube</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>Liên Hệ :</h3>
+                <div class="row mr0">
+                    <div class="col-md-12 pd0">
+                        hotline : 19000000
+                    </div>
+                </div>
+                <h3>Địa chỉ :</h3>
+                <div class="row mr0">
+                    <div class="col-md-12 pd0">
+                        số 14 ngõ 4 nguyễn đình chiểu
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nut">
+        <div class="btn-tlai">
+            <a href="danh-sach-quan-coffee.html">
+                <img src="image/trolai.jpg" title="trở lại trang trước">
+            </a>
+        </div>
+        <div class="bttop">
+            <a href="#">
+                <img src="image/bttop.jpg" title="về đầu trang">
+            </a>
+
+        </div>
+
+    </div>
+    <form>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-4 box">
+            <label>Date</label>
+            <input type="date" class="form-control" placeholder="Date">
+          </div>
+        </div>
+      </div>
+    </form>
+</footer>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog ">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header modalheader">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center">Giảng Cafe - Cafe Trứng Sữa</h4>
+            </div>
+            <div class="modal-body row">
+                <div>
+                    <div class="col-md-12">
+                        <h5>Chi Tiết Đặt Bàn :</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="date" name="" class="form-control">
+                    </div>
+                    <div class="col-md-4 ">
+                     <input class="form-control" type="time" value="13:45:00" id="example-time-input">
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-control">
+                            <option>Số Lượng Người</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    Thông Tin Liên Hệ :
+                </div>
+                <div class="col-md-12">
+                    <input type="text" name="" placeholder="Họ Và Tên" class="form-control">
+                </div>
+                <div class="col-md-12">
+                    <input type="text" name="" placeholder="Số Điện Thoại" class="form-control">
+                </div>
+                <div class="col-md-12">
+                    <input type="text" name="" placeholder="Email" class="form-control">
+                </div>
+                <div class="col-md-12">
+                    <textarea placeholder="Ghi Chú ..." class="form-control"></textarea>
+                </div>
+                <div class="col-md-12">
+                    <input type="submit" name="" value="Đặt Chỗ" class="btn btn-primary btn-datcho">
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<iv class="modal modal1" id="modalgalery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-dialog1" role="document">
+    <div class="modal-content modal-content1">
+      <div class="modal-header modal-header1">
+        <button type="button" class="close close1" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+       
+      </div>
+      <div class="modal-body">
+       <div id="carousel-image" class="carousel carousel1">
+          <!-- Indicators -->
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner carousel-inner1" role="listbox">
+            <div class="item active">
+              <img src="image/nhahang1.jpg" alt="...">
+              <div class="carousel-caption">
+              </div>
+            </div>
+            <div class="item">
+              <img src="image/quanan1.jpg" alt="...">
+              <div class="carousel-caption">
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <a class="left left1 carousel-control" href="#carousel-image" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right right1 carousel-control" href="#carousel-image" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="java.js"></script>
+<script type="text/javascript" src="js/popup2.js"></script>
+<script type="text/javascript">
+
+    var carsAndModels = {};
+    carsAndModels['tinh-thanh'] = ['- Quận / Huyện -    '];
+    carsAndModels['ha-noi'] = ['- Quận / Huyện -', 'Quận Hoàn Kiếm', 'Quận Hai Bà trưng', 'Quận Ba Đình', 'Quận Thanh Xuân', 'Quận Hoàng Mai', 'Quận Đống Đa', 'Quận Long Biên', 'Quận Hà Đông', 'Quận Bắc Từ Liêm', 'Quận Nam Từ Liêm', 'Quận Tây Hồ', 'Quận Cầu Giấy', 'Huyện Đông Anh', 'Ba Vì', 'Chương Mỹ',];
+    carsAndModels['ho-chi-minh'] = ['- Quận / Huyện -', 'Quận 1', 'Quận 2', 'Quận 3', 'Quận 4', 'Quận 5', 'Quận 6', 'Quận 7', 'Quận 8', 'Quận 9', 'Quận 10', 'Quận 11', 'Quận 12', 'Quận Bình Thạnh', 'Quận Thủ Đức', 'Bình Chánh', 'Cần Giờ'];
+
+
+    function ChangeCarList() {
+        var carList = document.getElementById("car");
+        var modelList = document.getElementById("carmodel");
+        var selCar = carList.options[carList.selectedIndex].value;
+        while (modelList.options.length) {
+            modelList.remove(0);
+        }
+        var cars = carsAndModels[selCar];
+        if (cars) {
+            var i;
+            for (i = 0; i < cars.length; i++) {
+                var car = new Option(cars[i], i);
+                modelList.options.add(car);
+            }
+        }
+    }
+</script>
+ <script>
+        function initMap() {
+            var uluru = {lat: 21.0091710257685, lng: 105.806988626719};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: uluru,
+                scrollwheel: false
+            });
+            var marker = new google.maps.Marker({
+                position: uluru,
+                map: map
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsB1OF-sOPmmMd9bwLpJfJfrdumJ_A6dI&callback=initMap">
+    </script>
+
+</body>
+
+</html>
+
+http://dimsemenov.com/plugins/magnific-popup/
