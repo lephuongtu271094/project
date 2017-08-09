@@ -149,7 +149,6 @@
 </div>
 
 
-
 {% endblock %}
 
 {% block jsExtends %}
@@ -159,15 +158,15 @@
 <script src="/plugin/fancybox/jquery.fancybox.min.js"></script>
 <script type="text/javascript">
 
-     $('#btn-datcho').click(function(){
+    $('#btn-datcho').click(function () {
         $('#myModal').modal('hide');
         $('#datbanthanhcong').modal('show');
-    }) 
+    })
     $('.timepicker').timepicker({
-      showInputs: false
+        showInputs: false
     })
     $('#datepicker').datepicker({
-      autoclose: true    
+        autoclose: true
     })
     $("#datepicker").datepicker("setDate", new Date());
     function initMap() {
