@@ -156,19 +156,8 @@
 <script src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <script src="/plugin/fancybox/jquery.fancybox.min.js"></script>
+<script src="/javascripts/jschitiet.js"></script>
 <script type="text/javascript">
-
-    $('#btn-datcho').click(function () {
-        $('#myModal').modal('hide');
-        $('#datbanthanhcong').modal('show');
-    })
-    $('.timepicker').timepicker({
-        showInputs: false
-    })
-    $('#datepicker').datepicker({
-        autoclose: true
-    })
-    $("#datepicker").datepicker("setDate", new Date());
     function initMap() {
         var uluru = {lat: 21.0091710257685, lng: 105.806988626719};
         var map = new google.maps.Map(document.getElementById('map'), {

@@ -1,6 +1,6 @@
 <div class="row">
 
-    <div class="col-xs-12 col-sm-12 col-md-6">
+    <div class="col-xs-12 col-sm-12 col-md-6" style="text-align:center;">
         <div class="image-product">
             <img src="/images/toco1.jpg" class="width-img-100">
         </div>
@@ -59,55 +59,59 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title text-center">Giảng Cafe - Cafe Trứng Sữa</h4>
             </div>
-            <div class="modal-body row">
-                <div>
-                    <div class="col-md-12">
-                        <h5>Chi Tiết Đặt Bàn :</h5>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        <div class="input-group date">
-                        <input name="date" data-date-format='dd-mm-yyyy' type="text" class="form-control pull-right" id="datepicker" placeholder="Date" style="border-radius: 5px;">
-                        </div>
-                        <!-- /.input group -->
-                    </div>
-                    <div class="col-md-4 bootstrap-timepicker">
-                        <div class="form-group">
+            <form id="datban">
 
-                        <div class="input-group">
-                            <input type="text" class="form-control timepicker" name="time" style="border-radius: 5px;" >
+                <div class="modal-body row">
+                    <div>
+                        <div class="col-md-12">
+                            <h5>Chi Tiết Đặt Bàn :</h5>
                         </div>
-                        <!-- /.input group -->
+                        <div class="col-md-4 form-group">
+                            <div class="input-group date">
+                                <input name="date" data-date-format='dd-mm-yyyy' type="text" class="form-control pull-right" id="datepicker" style="border-radius: 5px;">
+                            </div>
+                            <!-- /.input group -->
                         </div>
-                        <!-- /.form group -->
+                        <div class="col-md-4 bootstrap-timepicker">
+                            <div class="form-group">
+
+                                <div class="input-group">
+                                    <input name="time" type="text" class="form-control timepicker" style="border-radius: 5px;" >
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <!-- /.form group -->
+                        </div>
+                        <div class="col-md-4">
+                            <select name="SoLuong" class="form-control">
+                                <option>Số Lượng Người</option>
+                                {% for i in range(1,31) %}
+                                <option value={{i}}>{{i}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <select class="form-control">
-                            <option>Số Lượng Người</option>
-                            {% for i in range(1,31) %}
-                            <option>{{i}}</option>
-                            {% endfor %}
-                        </select>
+                    <div class="col-md-12">
+                        Thông Tin Liên Hệ :
+                    </div>
+                    <div class="col-md-12">
+                        <input type="text" name="Name_DatBan" placeholder="Họ Và Tên" class="form-control">
+                    </div>
+                    <div class="col-md-12">
+                        <input type="text" name="Number_DatBan" placeholder="Số Điện Thoại" class="form-control">
+                    </div>
+                    <div class="col-md-12">
+                        <input type="text" name="Email_DatBan" placeholder="Email" class="form-control">
+                    </div>
+                    <div class="col-md-12">
+                        <textarea name="Ghi_Chu" placeholder="Ghi Chú ..." class="form-control"></textarea>
+                    </div>
+                    <div class="col-md-12">
+                        <input type="button" name="btn-datcho" id="btn-datcho" value="Đặt Chỗ" class="btn btn-primary btn-datcho" onclick="datban()">
                     </div>
                 </div>
-                <div class="col-md-12">
-                    Thông Tin Liên Hệ :
-                </div>
-                <div class="col-md-12">
-                    <input type="text" name="" placeholder="Họ Và Tên" class="form-control">
-                </div>
-                <div class="col-md-12">
-                    <input type="text" name="" placeholder="Số Điện Thoại" class="form-control">
-                </div>
-                <div class="col-md-12">
-                    <input type="text" name="" placeholder="Email" class="form-control">
-                </div>
-                <div class="col-md-12">
-                    <textarea placeholder="Ghi Chú ..." class="form-control"></textarea>
-                </div>
-                <div class="col-md-12">
-                    <input type="submit" name="" id="btn-datcho" value="Đặt Chỗ" class="btn btn-primary btn-datcho">
-                </div>
-            </div>
+            </form>
+
 
         </div>
     </div>
@@ -134,7 +138,8 @@
                 <span>Nhà Hàng:</span><br>
                 <span>Thời Gian :</span><br>
                 <span>Số Người:</span><br>
-                <h4> chúng tôi sẽ gọi điện cho bạn để xác nhận !!! </h4>
+                <span>Ghi Chú:</span><br>
+                <h4 style="color:red;"> Chúng tôi sẽ gọi điện cho bạn để xác nhận !!! </h4>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
