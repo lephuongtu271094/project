@@ -5,6 +5,8 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks')
+const expressValidator = require('express-validator')
+const { db, config} = require('./pgp')
 
 const index = require('./routes/index');
 const users = require('./routes/users');
@@ -31,8 +33,30 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
+app.use(expressValidator({
+    errorFormatter: (param, msg, value) => {
+        let namespace = param.split('.'),
+            root = namespace.shift(),
+            formParam = root;
+        while (namespace.length) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param: formParam,
+            msg: msg,
+            value:value
+        }
+    }
+}))
+
+
+
 app.use('/', index);
 app.use('/users', users);
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
