@@ -40,7 +40,6 @@
                     style="color: #d32323; font-weight: bold">Đang hoạt động</span> </span>
             </p>
             <p><i class="fa fa-tags"></i><span>30.000đ - 60.000đ</span></p>
-            <p><i class="fa fa-phone"></i><span>0433.200.2790</span></p>
             <button style="width: 100%" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Đặt Chỗ
             </button>
         </div>
@@ -59,16 +58,20 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title text-center">Giảng Cafe - Cafe Trứng Sữa</h4>
             </div>
+
             <form id="datban">
 
                 <div class="modal-body row">
+                    <!-- alert error -->
+                    <div id="errors"></div>
                     <div>
                         <div class="col-md-12">
                             <h5>Chi Tiết Đặt Bàn :</h5>
                         </div>
                         <div class="col-md-4 form-group">
                             <div class="input-group date">
-                                <input name="date" data-date-format='dd-mm-yyyy' type="text" class="form-control pull-right" id="datepicker" style="border-radius: 5px;">
+                                <input name="date" data-date-format='dd-mm-yyyy' type="text"
+                                       class="form-control pull-right" id="datepicker" style="border-radius: 5px;">
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -76,14 +79,15 @@
                             <div class="form-group">
 
                                 <div class="input-group">
-                                    <input name="time" type="text" class="form-control timepicker" style="border-radius: 5px;" >
+                                    <input name="time" type="text" class="form-control timepicker"
+                                           style="border-radius: 5px;">
                                 </div>
                                 <!-- /.input group -->
                             </div>
                             <!-- /.form group -->
                         </div>
                         <div class="col-md-4">
-                            <select name="SoLuong" class="form-control">
+                            <select name="SoLuong" class="form-control" id="selectbox">
                                 <option>Số Lượng Người</option>
                                 {% for i in range(1,31) %}
                                 <option value={{i}}>{{i}}</option>
@@ -95,19 +99,20 @@
                         Thông Tin Liên Hệ :
                     </div>
                     <div class="col-md-12">
-                        <input type="text" name="Name_DatBan" placeholder="Họ Và Tên" class="form-control">
+                        <input type="text" name="Name_DatBan" placeholder="Họ Và Tên" class="form-control reset">
                     </div>
                     <div class="col-md-12">
-                        <input type="text" name="Number_DatBan" placeholder="Số Điện Thoại" class="form-control">
+                        <input type="text" name="Number_DatBan" placeholder="Số Điện Thoại" class="form-control reset">
                     </div>
                     <div class="col-md-12">
-                        <input type="text" name="Email_DatBan" placeholder="Email" class="form-control">
+                        <input type="email" name="Email_DatBan" placeholder="Email" class="form-control reset">
                     </div>
                     <div class="col-md-12">
-                        <textarea name="Ghi_Chu" placeholder="Ghi Chú ..." class="form-control"></textarea>
+                        <textarea name="Ghi_Chu" placeholder="Ghi Chú ..." class="form-control reset"></textarea>
                     </div>
                     <div class="col-md-12">
-                        <input type="button" name="btn-datcho" id="btn-datcho" value="Đặt Chỗ" class="btn btn-primary btn-datcho" onclick="datban()">
+                        <input type="button" name="btn-datcho" id="btn-datcho" value="Đặt Chỗ"
+                               class="btn btn-primary btn-datcho" onclick="datban()">
                     </div>
                 </div>
             </form>
@@ -118,9 +123,6 @@
 </div>
 
 
-
-
-
 <!-- Modal -->
 <div class="modal fade" id="datbanthanhcong" role="dialog">
     <div class="modal-dialog">
@@ -128,18 +130,14 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Bạn đặt bàn thành công</h4>
+                <h3 class="modal-title">Bạn đặt bàn thành công</h3>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" >
                 <h3>Thông Tin Đặt Bàn</h3>
-                <span>Họ Tên:</span><br>
-                <span>Số Điện Thoại:</span><br>
-                <span>Nhà Hàng:</span><br>
-                <span>Thời Gian :</span><br>
-                <span>Số Người:</span><br>
-                <span>Ghi Chú:</span><br>
-                <h4 style="color:red;"> Chúng tôi sẽ gọi điện cho bạn để xác nhận !!! </h4>
+                <div id="thanhcong" style="font-size: 17px;">
+
+                </div>
+                <h3 style="color:red;"> Chúng tôi sẽ gọi điện cho bạn để xác nhận !!! </h3>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
