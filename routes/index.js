@@ -5,7 +5,8 @@ const DatBan = require('../models/datban')
 
 /* GET home page. */
 //-------------- RENDER TRANG CHỦ-------------------
-router.get('/', function (req, res, next) {
+
+router.get('/', function (req, res) {
     res.render('trangchu.html', {title: 'Home'});
 });
 
@@ -35,7 +36,6 @@ router.post('/datban', function (req, res, next) {
     }
 
 });
-
 
 //----------------RENDER DANH SÁCH SẢN PHẨM----------------
 

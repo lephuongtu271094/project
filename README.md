@@ -1,6 +1,6 @@
 # project
 
-## Create table :
+## Tạo Database :
 
 ### Thành phố : 
 ```sql
@@ -18,6 +18,15 @@
   	FOREIGN KEY (id_city) REFERENCES city (id_city)
 );
 ```
+### castegories :
+```sql
+    create table categories(
+    id_castegory serial primary key,
+    name_castegory varchar(200),
+    parents int
+    );
+```
+
 ### Location :
 ```sql
 ﻿create table location(
@@ -107,3 +116,33 @@
     ('Quận Thủ Đức','2');
 ```
 
+### Table categories:
+```sql
+    ﻿insert into castegories(name_castegory,parents) values 
+    ('Ăn Uống','0'),
+    ('Làm Đẹp','0'),
+    ('Giải Trí','0'),
+    ('Sức Khỏe','0'),
+    ('Mua Sắm','0'),
+    ('Quán Coffee','1'),
+    ('Nhà Hàng','1'),
+    ('Quán Ăn','1'),
+    ('Tiệm cắt tóc/gội đầu','2'),
+    ('Thẩm mĩ viện','2'),
+    ('Tiệm nail','2'),
+    ('Spa/massage','2'),
+    ('Khu chơi game','3'),
+    ('Rạp chiếu phim','3'),
+    ('Karaoke','3'),
+    ('Tập thể hình','4'),
+    ('Tập yoga','4'),
+    ('Phòng khám','4'),
+    ('Nha khoa','4'),
+    ('Trung tâm thương mại','5'),
+    ('Siêu thị','5'),
+    ('Cửa hàng','5'),
+    ('Chợ','5');
+
+```
+### insert hai bảng location và images ở trang
+https://github.com/lephuongtu271094/nightmare.git

@@ -6,9 +6,13 @@ $(document).ready(function () {
         autoclose: true
     })
     $("#datepicker").datepicker("setDate", new Date());
+
 })
 
 function datban() {
+    $('#errors').html('');
+    $('.reset').val('');
+    $('#selectbox').prop('selectedIndex', 0);
     let formData = $('form#datban').serialize();
     axios.post('/datban', formData)
         .then(res => {
