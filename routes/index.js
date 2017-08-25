@@ -1,21 +1,52 @@
 const express = require('express');
 const router = express.Router();
 const DatBan = require('../models/datban')
-
+const trangchu = require('../models/trangchu')
+const Chitiet = require('../models/chitiet')
+const { db,} = require('../pgp')
 
 /* GET home page. */
 //-------------- RENDER TRANG CHỦ-------------------
 
 router.get('/', function (req, res) {
-    res.render('trangchu.html', {title: 'Home'});
+        db.task(t => {
+            return t.batch([
+                trangchu.home_categories(),
+                trangchu.home_location()
+            ])
+        }).then(data => {
+
+            console.log(data[2])
+            res.render('trangchu.html', {
+                title: 'Home',
+                categories: data[0],
+                location : data[1]
+            })
+        })
+        .catch(error => {
+            console.log(error.message)
+        });
 });
 
 // ------------- RENDER CHI TIẾT SẢN PHẨM----------------
 
-router.get('/chitiet', function (req, res, next) {
-    res.render('chitiet.html', {title: 'Chi Tiết'});
+router.get('/chitiet/:id', function (req, res) {
+    let id = req.params.id
+    Chitiet.detail(id)
+        .then(data => {
+            console.log(data)
+            res.render('chitiet.html', {
+                title: 'Chi Tiết',
+                datas : data
+            });
+        })
+
+
 });
-router.post('/datban', function (req, res, next) {
+
+
+
+router.post('/datban', function (req, res) {
 
     req.checkBody('SoLuong', 'Lựa chọn số lượng người').isInt();
     req.checkBody('Name_DatBan', 'Họ và Tên không được để trống').notEmpty();

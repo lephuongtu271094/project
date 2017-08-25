@@ -3,25 +3,45 @@
 {% block content %}
 
 <div class="col-md-10">
-    {% include 'components/frontend/trangchu/QuanAn.html' %}
+
+    {% for cats in categories %}
+    <div class="row animation-element slide-left">
+
+
+        <h2 class="text-center"><a href="danh-sach-quan-an.html">{{ cats.name_categories }}</a></h2>
+        <hr class="gachchan">
+
+                {% for loca in location %}
+                    {% if loca.id_categories === cats.id_categories %}
+
+                        <div class="col-md-4  in-view ">
+                            <div class="hovereffect thumbnail">
+                                <!--<img src="/images/coffee/coffee1.jpg" class="img-responsive">-->
+                                <img src="/image_location/{{ loca.name_img}}" class="img-responsive">
+                                <div class="overlay">
+                                    <h3>{{ loca.name_location }}</h3>
+                                    <a class="info" href="/chitiet/{{ loca.id_location }}">Chi Tiết</a>
+                                </div>
+
+                            </div>
+                            <p><a href="/chitiet"><strong>{{ loca.name_location }}</strong> </a></p>
+
+                            <p>Địa chỉ :<em> {{ loca.address }}</em></p>
+                        </div>
+
+                    {% endif %}
+                {% endfor %}
+
+
+
+
+    </div>
 
     <hr>
+    {% endfor %}
 
-    {% include 'components/frontend/trangchu/LamDep.html' %}
 
-    <hr>
-
-    {% include 'components/frontend/trangchu/GiaiTri.html' %}
-
-    <hr>
-
-    {% include 'components/frontend/trangchu/SucKhoe.html' %}
-
-    <hr>
-
-    {% include 'components/frontend/trangchu/MuaSam.html' %}
-
-    <hr>
 
 </div>
+
 {% endblock %}

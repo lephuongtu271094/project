@@ -8,6 +8,7 @@
 {% endblock %}
 {% block content %}
 <div class="col-md-10">
+    {% for data in datas %}
     {% include 'components/frontend/chitiet/thongtin.html' %}
 
     {% include 'components/frontend/chitiet/map_and_thongtin.html' %}
@@ -145,6 +146,22 @@
     <hr/>
 
     {% include 'components/frontend/chitiet/cothequantam.html' %}
+    <script>
+        function initMap() {
+            var uluru = {lat: {{data.lat}}, lng: {{data.long}}};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 17,
+                center: uluru,
+                scrollwheel: false
+            });
+            var marker = new google.maps.Marker({
+                position: uluru,
+                map: map
+            });
+        }
+    </script>
+
+    {% endfor %}
 
 </div>
 
@@ -157,7 +174,7 @@
 <script src="/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <script src="/plugin/fancybox/jquery.fancybox.min.js"></script>
 <script src="/javascripts/jschitiet.js"></script>
-<script src="/plugin/map.js"></script>
+
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsB1OF-sOPmmMd9bwLpJfJfrdumJ_A6dI&callback=initMap"></script>
 
 {% endblock %}

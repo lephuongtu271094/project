@@ -2,59 +2,67 @@
 
 ## Tạo Database :
 
-### Thành phố : 
+### Thành phố,Quận/Huyện : 
 ```sql
-    ﻿create table city(
+    ﻿CREATE TABLE city(
     	id_city serial primary key,
         name varchar(100)
     )
+    
+    CREATE TABLE districts(
+    	id_districts serial primary key,
+        name_districts varchar(100),
+        id_city int,
+      	FOREIGN KEY (id_city) REFERENCES city (id_city)
 ```
-### Quận :
-```sql
-﻿create table districts(
-	id_districts serial primary key,
-    name_districts varchar(100),
-    id_city int,
-  	FOREIGN KEY (id_city) REFERENCES city (id_city)
-);
-```
+
 ### castegories :
 ```sql
-    create table categories(
-    id_castegory serial primary key,
-    name_castegory varchar(200),
-    parents int
-    );
+   ﻿create table categories(
+       id_categories serial primary key,
+       name_categories varchar(100)
+       );
+       
+       
+   ﻿create table sub_category(
+       id_sub_category serial primary key,
+       name_castegory varchar(100),
+       id_categories int,
+       FOREIGN KEY (id_categories) REFERENCES categories (id_categories)
+       );
 ```
 
 ### Location :
 ```sql
-﻿create table location(
-	id_location text primary key,
-    name text,
-   	address text,
-   	time_open text,
-    rate double precision,
-    lat double precision,
-   	long double precision,
-    id_castegory int,
-    id_districts int,
-    FOREIGN KEY (id_castegory) REFERENCES castegories (id_castegory),
+﻿﻿﻿CREATE TABLE location(
+    id SERIAL,
+   	id_location TEXT primary key,
+    name_location TEXT,
+    address TEXT,
+    time_open TEXT,
+    rate DOUBLE PRECISION,
+    lat DOUBLE PRECISION,
+    long DOUBLE PRECISION,
+    id_category INT,
+    show_location BOOLEAN,
+    id_districts INT,
+    FOREIGN KEY (id_category) REFERENCES sub_category (id_sub_category),
     FOREIGN KEY (id_districts) REFERENCES districts (id_districts)
-);
+   );
 ```
 ### Images :
 ```sql
-﻿create table images(
-	id_image serial primary key,
-    name_img text,
-    id_location text,
-    foreign key (id_location) references location (id_location)
+﻿﻿CREATE TABLE images(
+    id_image SERIAL PRIMARY KEY,
+ 	show_img BOOLEAN,
+    name_img TEXT,
+    id_location TEXT,
+    FOREIGN KEY (id_location) REFERENCES location (id_location)
 );
 ```
 ### Book :
 ```sql
-﻿create table book(
+﻿CREATE TABLE book(
 	id_book serial primary key,
     id_location text,
     time varchar(50),
@@ -118,31 +126,53 @@
 
 ### Table categories:
 ```sql
-    ﻿insert into castegories(name_castegory,parents) values 
-    ('Ăn Uống','0'),
-    ('Làm Đẹp','0'),
-    ('Giải Trí','0'),
-    ('Sức Khỏe','0'),
-    ('Mua Sắm','0'),
-    ('Quán Coffee','1'),
-    ('Nhà Hàng','1'),
-    ('Quán Ăn','1'),
-    ('Tiệm cắt tóc/gội đầu','2'),
-    ('Thẩm mĩ viện','2'),
-    ('Tiệm nail','2'),
-    ('Spa/massage','2'),
-    ('Khu chơi game','3'),
-    ('Rạp chiếu phim','3'),
-    ('Karaoke','3'),
-    ('Tập thể hình','4'),
-    ('Tập yoga','4'),
-    ('Phòng khám','4'),
-    ('Nha khoa','4'),
-    ('Trung tâm thương mại','5'),
-    ('Siêu thị','5'),
-    ('Cửa hàng','5'),
-    ('Chợ','5');
+    ﻿insert into categories(name_categories) values 
+        ('Ăn Uống'),
+        ('Làm Đẹp'),
+        ('Giải Trí'),
+        ('Sức Khỏe'),
+        ('Mua Sắm');
+    
+    
+    ﻿insert into sub_category(name_castegory,id_categories) values 
+        ('Quán Coffee','1'),
+        ('Nhà Hàng','1'),
+        ('Quán Ăn','1'),
+        ('Tiệm cắt tóc/gội đầu','2'),
+        ('Thẩm mĩ viện','2'),
+        ('Tiệm nail','2'),
+        ('Spa/massage','2'),
+        ('Khu chơi game','3'),
+        ('Rạp chiếu phim','3'),
+        ('Karaoke','3'),
+        ('Tập thể hình','4'),
+        ('Tập yoga','4'),
+        ('Phòng khám','4'),
+        ('Nha khoa','4'),
+        ('Trung tâm thương mại','5'),
+        ('Siêu thị','5'),
+        ('Cửa hàng','5'),
+        ('Chợ','5');
 
 ```
 ### insert hai bảng location và images ở trang
 https://github.com/lephuongtu271094/nightmare.git
+
+
+```slq
+    ﻿SELECT castegories.id_castegory,(array(
+    	SELECT row_to_json(location) FROM location
+        JOIN castegories AS c1 ON c1.id_castegory = location.id_castegory  
+        WHERE location.id_castegory = castegories.id_castegory limit 1
+    ))FROM castegoriesa
+    
+    
+    
+    SELECT location.id_location ,(array(
+    	SELECT row_to_json(images) FROM images
+        JOIN location AS c2 ON c2.id_location = images.id_location 
+         WHERE images.id_location = location.id_location
+    ))FROM location where id_location = 'r1LjKV-O-'
+    
+
+```

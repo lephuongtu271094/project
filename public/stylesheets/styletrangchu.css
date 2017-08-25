@@ -8,6 +8,10 @@ h2 {
         width: 150px;
     }
 }
+.hovereffect img{
+    width: 100%;
+    height: 300px;
+}
 
 .gachchan {
     margin: 20px auto;
