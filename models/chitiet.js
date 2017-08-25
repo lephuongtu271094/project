@@ -6,11 +6,13 @@ class Chitiet {
     }
 
     detail (id) {
-        return this.db.any("SELECT *,(array( " +
-            "SELECT row_to_json(images) " +
-            "FROM images WHERE location.id_location = images.id_location limit 12))" +
-            "FROM location INNER JOIN districts ON districts.id_districts = location.id_districts " +
-            "INNER JOIN city ON city.id_city = districts.id_city WHERE id_location = $1",[id])
+        return this.db.any("SELECT * FROM location INNER JOIN districts ON districts.id_districts = location.id_districts INNER JOIN city ON city.id_city = districts.id_city INNER JOIN images ON images.id_location = location.id_location WHERE images.show_img = 'true' AND location.id_location = $1",[id])
+    }
+    detail_img (id) {
+        return this.db.any("SELECT images.name_img FROM images WHERE id_location = $1 ORDER BY id_image DESC LIMIT 12",[id])
+    }
+    detail_correlate(cat){
+        return this.db.any("select * from location inner join images on images.id_location = location.id_location where show_location='false' and show_img = 'true' and id_category = $1 ORDER BY location.id DESC LIMIT 4",[cat])
     }
 }
 

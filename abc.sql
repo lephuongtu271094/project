@@ -4,6 +4,8 @@ SELECT * FROM sub_category,categories,location WHERE categories.id_categories = 
 
 UPDATE location SET show_location='true' WHERE id_location='rJxbK83GdZ'
 
+select * from location where show_location = 'true'
+
 UPDATE images SET show_img='true' WHERE id_image =292
 
 select * from images where show_img = 'true'

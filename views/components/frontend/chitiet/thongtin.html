@@ -2,12 +2,9 @@
 
     <div class="col-xs-12 col-sm-12 col-md-6" style="text-align:center;">
         <div class="image-product">
-
-            {% for img in data.array%}
-                {% if img.show_img === true %}
-                    <img src="/image_location/{{img.name_img}}" class="width-img-100" style="width: 600px;height: 400px;">
+                {% if data.show_img === true %}
+                    <img src="/image_location/{{data.name_img}}" class="width-img-100">
                 {% endif %}
-            {% endfor %}
         </div>
     </div>
 

@@ -9,12 +9,40 @@ p {
     margin: 0 0 5px;
 }
 
+@media(min-width: 1200px){
+    .image-product img{
+        width: 600px;
+        height: 400px;
+    }
+    .imgLoop .special{
+        width: 20%;
+    }
+}
+@media(min-width: 768px){
+    .image-product img{
+        width: 100%;
+        height: 320px;
+    }
+    .imgLoop .special{
+        width: 30%;
+    }
+    .fancybox img{
+        height: 190px;
+    }
+    .list .item{
+        height: 193px;
+    }
+}
+
+
 /********************************/
 /*        Breadcrumbs           */
 /********************************/
 .diachi {
     padding: 0;
 }
+
+
 
 .breadcrumb {
     background-color: #f8f8f8;

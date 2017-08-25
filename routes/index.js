@@ -12,11 +12,10 @@ router.get('/', function (req, res) {
         db.task(t => {
             return t.batch([
                 trangchu.home_categories(),
-                trangchu.home_location()
+                trangchu.home_location(),
             ])
         }).then(data => {
-
-            console.log(data[2])
+            console.log(data)
             res.render('trangchu.html', {
                 title: 'Home',
                 categories: data[0],
@@ -30,16 +29,26 @@ router.get('/', function (req, res) {
 
 // ------------- RENDER CHI TIẾT SẢN PHẨM----------------
 
-router.get('/chitiet/:id', function (req, res) {
+router.get('/chitiet/:cat/:id', function (req, res) {
+    let cat = req.params.cat
     let id = req.params.id
-    Chitiet.detail(id)
-        .then(data => {
-            console.log(data)
+    db.task(t => {
+        return t.batch([
+            Chitiet.detail(id),
+            Chitiet.detail_img(id),
+            Chitiet.detail_correlate(cat)
+        ])
+    }).then(data => {
             res.render('chitiet.html', {
                 title: 'Chi Tiết',
-                datas : data
+                datas : data[0],
+                album : data[1],
+                correlate : data[2]
             });
         })
+        .catch(error => {
+            console.log(error.message)
+        });
 
 
 });
