@@ -20,7 +20,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         {% for city in citys  %}
-                            <a href="/{{city.id_city}}"><span>{{ city.name }}</span><br></a>
+                            <a href="/city/{{city.id_city}}"><span>{{ city.name }}</span><br></a>
                         {% endfor %}
                     </ul>
                 </div>
@@ -34,7 +34,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         {% for dis in districts  %}
-                            <a href="/{{dis.id_city}}/{{dis.id_districts}}"><span>{{ dis.name_districts }}</span><br></a>
+                            <a href="/city/{{dis.id_city}}/districts/{{dis.id_districts}}"><span>{{ dis.name_districts }}</span><br></a>
                         {% endfor %}
                     </ul>
                 </div>

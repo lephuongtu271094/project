@@ -6,8 +6,17 @@
 {% block content %}
         <div class="col-md-10">
             <div class="row">
+            <div class="diachi">
+                <ol class="breadcrumb">
+                    <li><a href="#">{{ name_ci.name }} <i class="fa fa-angle-right"></i></a></li>
+                    <li><a href="#">quận hoàn kiếm<i class="fa fa-angle-right"></i></a></li>
+                </ol>
+            </div>
+            {% if cat %}
                 <h2><a href="#">Quán Coffee</a></h2>
                 <hr class="gachchan">
+            {% endif %}
+                
                 <div class="col-md-4">
                     <div class="hovereffect thumbnail">
                         <img src="/images/coffee/coffee1.jpg" class="img-responsive">

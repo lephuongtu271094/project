@@ -132,3 +132,15 @@ h2 {
     -webkit-transition-delay: 0.3s;
     transition-delay: 0.3s;
 }
+
+.breadcrumb>li+li:before {
+    padding: 0 5px;
+    color: #ccc;
+    content: "";
+}
+.breadcrumb>li>a {
+   color: #a2a2a2;
+}
+.breadcrumb>li>a>i{
+    padding-left: 5px;
+}

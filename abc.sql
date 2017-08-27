@@ -22,13 +22,13 @@ CHI TIET
 
 test select thanh pho
 
-select * 
-from
+SELECT * 
+FROM
 location,districts,city
-where location.id_districts = districts.id_districts 
-and districts.id_city = city.id_city 
-and city.id_city = 1 and location.show_location = 'true'
-order by location.id asc
+WHERE location.id_districts = districts.id_districts 
+AND districts.id_city = city.id_city 
+AND city.id_city = 1 AND
+ORDER BY location.id DESC   
 
 select name from city where id_city = 1
 

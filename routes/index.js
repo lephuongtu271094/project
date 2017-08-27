@@ -29,25 +29,20 @@ router.get('/', function (req, res) {
         });
 });
 
-router.get('/:city', function (req, res) {
+router.get('/city/:city', function (req, res) {
     let city = req.params.city
     db.task(t => {
         return t.batch([
-            trangchu.home_categories(),
-            trangchu.home_location(),
             Layout.City(),
             Layout.Name_city(city),
             Layout.Districts(city)
         ])
     }).then(data => {
-        console.log(data[3])
-        res.render('trangchu.html', {
-            title: 'Home',
-            categories: data[0],
-            location : data[1],
-            citys: data[2],
-            name_ci: data[3],
-            districts: data[4]
+        res.render('danhsach.html', {
+            title: data[1].name,
+            citys: data[0],
+            name_ci: data[1],
+            districts: data[2]
         })
     })
     .catch(error => {
@@ -79,10 +74,6 @@ router.get('/chitiet/:cat/:id', function (req, res) {
         });
 });
 
-router.get('/thanhpho/:city',function(){
-    console.log(req.params.city)
-})
-
 router.post('/datban', function (req, res) {
 
     req.checkBody('SoLuong', 'Lựa chọn số lượng người').isInt();
@@ -103,12 +94,6 @@ router.post('/datban', function (req, res) {
             })
     }
 
-});
-
-//----------------RENDER DANH SÁCH SẢN PHẨM----------------
-
-router.get('/danhsach', function (req, res, next) {
-    res.render('danhsach.html', {title: 'Danh sách'});
 });
 
 
