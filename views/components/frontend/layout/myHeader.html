@@ -7,15 +7,39 @@
                 <a class="navbar-brand" href="/"><img src="/images/logo.png" alt=""></a>
             </div>
             <form class="navbar-form navbar-left">
+                <form class="navbar-form navbar-left">
 
-                <select class="form-control" id="car" onchange="ChangeCarList()">
-                    <option value="tinh-thanh">- Thành Phố -</option>
-                    <option value="ha-noi">Hà Nội</option>
-                    <option value="ho-chi-minh">Hồ chí minh</option>
-                </select>
-                <select class="form-control selec-with" id="carmodel">
-                    <option>- Quận / Huyện -</option>
-                </select>
+
+                <div class="btn-group">
+                    <button class="btn btn-default btn-sm dropdown-toggle form-control alo" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% if name_ci %}
+                            {{ name_ci.name }}
+                        {% else %}
+                        - Thành Phố -
+                        {% endif %}
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for city in citys  %}
+                            <a href="/{{city.id_city}}"><span>{{ city.name }}</span><br></a>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                </form>
+                 <form class="navbar-form navbar-left">
+
+                 <div class="btn-group">
+                    <button id="carmodel" class="btn btn-default btn-sm dropdown-toggle form-control form-control selec-with" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       - Quận / Huyện -
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for dis in districts  %}
+                            <a href="/{{dis.id_city}}/{{dis.id_districts}}"><span>{{ dis.name_districts }}</span><br></a>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                </form>
                 <form class="navbar-form navbar-left">
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder=" Địa điểm, Nhà hàng...">

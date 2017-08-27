@@ -519,3 +519,17 @@ padding: 0; }
 .nut{
   display: none;
 }
+
+.dropdown-menu span{
+    padding: 5%;
+}
+.dropdown-menu a{
+    color: #000000;
+}
+.navbar-form {
+    margin-right: -3%;
+    margin-left: 2%;
+}
+.btn-group .alo{
+    width: 110px;
+}

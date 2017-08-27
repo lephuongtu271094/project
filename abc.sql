@@ -18,3 +18,26 @@ SELECT sub_category.id_sub_category,* FROM sub_category,location WHERE id_sub_ca
 
 CHI TIET
 ﻿SELECT * FROM location,districts,city where location.id_districts = districts.id_districts and districts.id_city = city.id_city and id_location = 'rypwYE-O-'
+
+
+test select thanh pho
+
+select * 
+from
+location,districts,city
+where location.id_districts = districts.id_districts 
+and districts.id_city = city.id_city 
+and city.id_city = 1 and location.show_location = 'true'
+order by location.id asc
+
+select name from city where id_city = 1
+
+select name_districts,name from districts,city where id_districts = 1 and city.id_city = 1
+
+select * 
+from
+location,districts,city
+where location.id_districts = districts.id_districts 
+and districts.id_city = city.id_city 
+and city.id_city = 1 and districts and location.id_category = 4 
+order by location.id asc

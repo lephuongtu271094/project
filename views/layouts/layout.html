@@ -52,28 +52,6 @@
 <script src="/plugin/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/javascripts/javascript.js"></script>
 <script src="/plugin/axios.js"></script>{% block jsExtends %}{% endblock %}
-<script type="text/javascript">
-    var carsAndModels = {};
-    carsAndModels['tinh-thanh'] = ['- Quận / Huyện -    '];
-    carsAndModels['ha-noi'] = ['- Quận / Huyện -', 'Quận Hoàn Kiếm', 'Quận Hai Bà trưng', 'Quận Ba Đình', 'Quận Thanh Xuân', 'Quận Hoàng Mai', 'Quận Đống Đa', 'Quận Long Biên', 'Quận Hà Đông', 'Quận Bắc Từ Liêm', 'Quận Nam Từ Liêm', 'Quận Tây Hồ', 'Quận Cầu Giấy', 'Huyện Đông Anh', 'Ba Vì', 'Chương Mỹ',];
-    carsAndModels['ho-chi-minh'] = ['- Quận / Huyện -', 'Quận 1', 'Quận 2', 'Quận 3', 'Quận 4', 'Quận 5', 'Quận 6', 'Quận 7', 'Quận 8', 'Quận 9', 'Quận 10', 'Quận 11', 'Quận 12', 'Quận Bình Thạnh', 'Quận Thủ Đức', 'Bình Chánh', 'Cần Giờ'];
-    function ChangeCarList() {
-        var carList = document.getElementById("car");
-        var modelList = document.getElementById("carmodel");
-        var selCar = carList.options[carList.selectedIndex].value;
-        while (modelList.options.length) {
-            modelList.remove(0);
-        }
-        var cars = carsAndModels[selCar];
-        if (cars) {
-            var i;
-            for (i = 0; i < cars.length; i++) {
-                var car = new Option(cars[i], i);
-                modelList.options.add(car);
-            }
-        }
-    }
-</script>
 
 </body>
 

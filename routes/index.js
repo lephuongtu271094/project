@@ -3,6 +3,7 @@ const router = express.Router();
 const DatBan = require('../models/datban')
 const trangchu = require('../models/trangchu')
 const Chitiet = require('../models/chitiet')
+const Layout = require('../models/layout')
 const { db,} = require('../pgp')
 
 /* GET home page. */
@@ -13,18 +14,45 @@ router.get('/', function (req, res) {
             return t.batch([
                 trangchu.home_categories(),
                 trangchu.home_location(),
+                Layout.City()
             ])
         }).then(data => {
-            console.log(data)
             res.render('trangchu.html', {
                 title: 'Home',
                 categories: data[0],
-                location : data[1]
+                location : data[1],
+                citys: data[2]
             })
         })
         .catch(error => {
             console.log(error.message)
         });
+});
+
+router.get('/:city', function (req, res) {
+    let city = req.params.city
+    db.task(t => {
+        return t.batch([
+            trangchu.home_categories(),
+            trangchu.home_location(),
+            Layout.City(),
+            Layout.Name_city(city),
+            Layout.Districts(city)
+        ])
+    }).then(data => {
+        console.log(data[3])
+        res.render('trangchu.html', {
+            title: 'Home',
+            categories: data[0],
+            location : data[1],
+            citys: data[2],
+            name_ci: data[3],
+            districts: data[4]
+        })
+    })
+    .catch(error => {
+        console.log(error.message)
+    });
 });
 
 // ------------- RENDER CHI TIẾT SẢN PHẨM----------------
@@ -49,11 +77,11 @@ router.get('/chitiet/:cat/:id', function (req, res) {
         .catch(error => {
             console.log(error.message)
         });
-
-
 });
 
-
+router.get('/thanhpho/:city',function(){
+    console.log(req.params.city)
+})
 
 router.post('/datban', function (req, res) {
 
