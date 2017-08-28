@@ -4,215 +4,39 @@
 {% endblock %}
 
 {% block content %}
-        <div class="col-md-10">
-            <div class="row">
-            <div class="diachi">
-                <ol class="breadcrumb">
-                    <li><a href="#">{{ name_ci.name }} <i class="fa fa-angle-right"></i></a></li>
-                    <li><a href="#">quận hoàn kiếm<i class="fa fa-angle-right"></i></a></li>
-                </ol>
-            </div>
-            {% if cat %}
-                <h2><a href="#">Quán Coffee</a></h2>
-                <hr class="gachchan">
-            {% endif %}
-                
-                <div class="col-md-4">
-                    <div class="hovereffect thumbnail">
-                        <img src="/images/coffee/coffee1.jpg" class="img-responsive">
-                        <div class="overlay">
-                            <h3>Giảng Cafe - Cafe Trứng Sữa</h3>
-                            <a class="info" href="chi-tiet-giang-coffee.html">Chi Tiết</a>
-                        </div>
+<div class="col-md-10">
+    <div class="row">
+        <div class="diachi">
+            <ol class="breadcrumb">
+                {% if name_ci %}
+                <li><a href="/city/{{name_ci.id_city}}">{{ name_ci.name }} <i class="fa fa-angle-right"></i></a></li>
+                {% endif %}
+                {% if name_dis %}
+                <li><a href="/city/{{name_ci.id_city}}/districts/{{name.id_districts}}">{{ name_dis.name_districts }}<i class="fa fa-angle-right"></i></a></li>
+                {% endif %}
 
-                    </div>
-                    <p><a href="chi-tiet-giang-coffee.html"><strong>Giảng Cafe - Cafe Trứng Sữa</strong> </a></p>
-                    <p>Địa chỉ :<em> Ngõ 39 Nguyễn Hữu Huân, Quận Hoàn ...</em></p>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="hovereffect thumbnail">
-                        <img src="image/coffee/coffee2.jpg" class="img-responsive">
-                        <div class="overlay">
-                            <h3>Cora Cafe - Hòa Mã</h3>
-                            <a class="info" href="#">Chi Tiết</a>
-                        </div>
-
-                    </div>
-                    <p><a href="#"><strong>Cora Cafe - Hòa Mã</strong> </a></p>
-
-                    <p>Đánh giá :
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star-half-o sao" aria-hidden="true"></i>
-                        <i class="fa fa-star-o sao" aria-hidden="true"></i>
-                    </p>
-
-                    <p>Địa chỉ :<em> 24 Hòa Mã , Quận Hai Bà Trưng, Hà Nội </em></p>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="hovereffect thumbnail">
-                        <img src="/images/coffee/coffee3.jpg" class="img-responsive">
-                        <div class="overlay">
-                            <h3>The Coffee House - Hai Bà Trưng</h3>
-                            <a class="info" href="#">Chi Tiết</a>
-                        </div>
-
-                    </div>
-                    <p><a href="#"><strong>The Coffee House - Hai Bà Trưng</strong> </a></p>
-                    <p>Địa chỉ :<em> 23M Hai Bà Trưng, Quận Hoàn Kiếm, Hà Nội</em></p>
-                </div>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col-md-4 ">
-                    <div class="hovereffect thumbnail">
-                        <img src="image/coffee/coffee4.jpg" class="img-responsive">
-                        <div class="overlay">
-                            <h3>Navy Coffee - Giảng Võ</h3>
-                            <a class="info" href="#">Chi Tiết</a>
-                        </div>
-
-                    </div>
-                    <p><a href="#"><strong>Navy Coffee - Giảng Võ</strong> </a></p>
-
-                    <p>Đánh giá :
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star-half-o sao" aria-hidden="true"></i>
-                        <i class="fa fa-star-o sao" aria-hidden="true"></i>
-                    </p>
-
-                    <p>Địa chỉ :<em> 107 Giảng Võ, Quận Đống Đa, Hà Nội</em></p>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="hovereffect thumbnail">
-                        <img src="/images/coffee/coffee5.jpg" class="img-responsive">
-                        <div class="overlay">
-                            <h3>Angel In US Coffee - Lotte Center</h3>
-                            <a class="info" href="#">Chi Tiết</a>
-                        </div>
-
-                    </div>
-                    <p><a href="#"><strong>Angel In US Coffee - Lotte Center</strong> </a></p>
-
-                    <p>Địa chỉ :<em> Tầng 1 - Tầng 65, Lotte Center, 54 Liễu ...</em></p>
-                </div>
-                <div class="col-md-4">
-                    <div class="hovereffect thumbnail">
-                        <img src="image/coffee/coffee6.jpg" class="img-responsive">
-                        <div class="overlay">
-                            <h3>Hangout Cafe - Quán Thánh</h3>
-                            <a class="info" href="#">Chi Tiết</a>
-                        </div>
-
-                    </div>
-                    <p><a href="#"><strong>Hangout Cafe - Quán Thánh</strong> </a></p>
-
-                    <p>Đánh giá :
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star-half-o sao" aria-hidden="true"></i>
-                        <i class="fa fa-star-o sao" aria-hidden="true"></i>
-                    </p>
-
-                    <p>Địa chỉ :<em> 86 Quán Thánh, Quận Ba Đình, Hà Nội</em></p>
-                </div>
-
-            </div>
-            <hr>
-            <div class="row ">
-                <div class="col-md-4 ">
-                    <div class="hovereffect thumbnail">
-                        <img src="image/coffee/coffee7.jpg" class="img-responsive">
-                        <div class="overlay">
-                            <h3>Canopee - Cafe & Bar</h3>
-                            <a class="info" href="#">Chi Tiết</a>
-                        </div>
-
-                    </div>
-                    <p><a href="#"><strong>Canopee - Cafe & Bar</strong> </a></p>
-
-                    <p>Đánh giá :
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star-half-o sao" aria-hidden="true"></i>
-                        <i class="fa fa-star-o sao" aria-hidden="true"></i>
-                    </p>
-
-                    <p>Địa chỉ :<em> 60 Hàng Trống, Quận Hoàn Kiếm, Hà Nội</em></p>
-                </div>
-
-                <div class="col-md-4 ">
-                    <div class="hovereffect thumbnail">
-                        <img src="image/coffee/coffee8.jpg" class="img-responsive">
-                        <div class="overlay">
-                            <h3>Le Festin Coffee - Cầu Giấy</h3>
-                            <a class="info" href="#">Chi Tiết</a>
-                        </div>
-
-                    </div>
-                    <p><a href="#"><strong>Le Festin Coffee - Cầu Giấy</strong> </a></p>
-
-                    <p>Đánh giá :
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star-half-o sao" aria-hidden="true"></i>
-                        <i class="fa fa-star-o sao" aria-hidden="true"></i>
-                    </p>
-
-                    <p>Địa chỉ :<em> 20 Ngõ 165 Cầu Giấy, Quận Cầu Giấy...</em></p>
-                </div>
-
-                <div class="col-md-4 ">
-                    <div class="hovereffect thumbnail">
-                        <img src="image/coffee/coffee9.jpg" class="img-responsive">
-                        <div class="overlay">
-                            <h3>Lều Coffee - Tạ Hiện</h3>
-                            <a class="info" href="#">Chi Tiết</a>
-                        </div>
-
-                    </div>
-                    <p><a href="#"><strong>Lều Coffee - Tạ Hiện</strong> </a></p>
-
-                    <p>Đánh giá :
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star sao" aria-hidden="true"></i>
-                        <i class="fa fa-star-half-o sao" aria-hidden="true"></i>
-                        <i class="fa fa-star-o sao" aria-hidden="true"></i>
-                    </p>
-
-                    <p>Địa chỉ :<em> 1 Tạ Hiện, Quận Hoàn Kiếm, Hà Nội</em></p>
-                </div>
-            </div>
-            <nav aria-label="Page navigation" class="text-center">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            </ol>
         </div>
+        {% if cat %}
+        <h2><a href="#">Quán Coffee</a></h2>
+        <hr class="gachchan">
+        {% endif %}
+        {% for loca in location %}
+        <div class="col-md-4" style="margin-bottom: 2%;">
+            <div class="hovereffect thumbnail">
+                <img src="/image_location/{{ loca.name_img }}" class="img-responsive">
+                <div class="overlay">
+                    <h3>{{ loca.name_location }}</h3>
+                    <a class="info" href="/chitiet/{{ loca.id_category }}/{{ loca.id_location }}">Chi Tiết</a>
+                </div>
+
+            </div>
+            <p><a href="/chitiet/{{ loca.id_category }}/{{ loca.id_location }}"><strong>{{ loca.name_location }}</strong> </a></p>
+            <p>Địa chỉ :<em>{{ loca.address }} ,{{ loca.name_districts }} ,{{ name_ci.name }}</em></p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
 
 {% block jsExtends %}

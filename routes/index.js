@@ -4,6 +4,7 @@ const DatBan = require('../models/datban')
 const trangchu = require('../models/trangchu')
 const Chitiet = require('../models/chitiet')
 const Layout = require('../models/layout')
+const List = require('../models/list')
 const { db,} = require('../pgp')
 
 /* GET home page. */
@@ -29,20 +30,26 @@ router.get('/', function (req, res) {
         });
 });
 
+
+//-------------- RENDER LIST-------------------
+
 router.get('/city/:city', function (req, res) {
     let city = req.params.city
     db.task(t => {
         return t.batch([
             Layout.City(),
             Layout.Name_city(city),
-            Layout.Districts(city)
+            Layout.Districts(city),
+            List.Location_city(city)
         ])
     }).then(data => {
         res.render('danhsach.html', {
             title: data[1].name,
+
             citys: data[0],
             name_ci: data[1],
-            districts: data[2]
+            districts: data[2],
+            location : data[3]
         })
     })
     .catch(error => {
@@ -50,7 +57,35 @@ router.get('/city/:city', function (req, res) {
     });
 });
 
-// ------------- RENDER CHI TIẾT SẢN PHẨM----------------
+router.get('/city/:city/districts/:dis', function (req, res) {
+    let city = req.params.city
+    let dis = req.params.dis
+    db.task(t => {
+        return t.batch([
+            Layout.City(),
+            Layout.Name_city(city),
+            Layout.Districts(city),
+            Layout.Name_districts(dis),
+            List.Location_districts(city,dis)
+        ])
+    }).then(data => {
+        console.log(data[3])
+        res.render('danhsach.html', {
+            title: data[1].name,
+
+            citys: data[0],
+            name_ci: data[1],
+            districts: data[2],
+            name_dis : data[3][0],
+            location : data[4]
+        })
+    })
+        .catch(error => {
+            console.log(error.message)
+        });
+});
+
+// ------------- RENDER CHI TIẾT ĐỊA ĐIỂM----------------
 
 router.get('/chitiet/:cat/:id', function (req, res) {
     let cat = req.params.cat
@@ -62,6 +97,7 @@ router.get('/chitiet/:cat/:id', function (req, res) {
             Chitiet.detail_correlate(cat)
         ])
     }).then(data => {
+        console.log(data[2])
             res.render('chitiet.html', {
                 title: 'Chi Tiết',
                 datas : data[0],

@@ -30,7 +30,11 @@
 
                  <div class="btn-group">
                     <button id="carmodel" class="btn btn-default btn-sm dropdown-toggle form-control form-control selec-with" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                       - Quận / Huyện -
+                        {% if name_dis %}
+                        {{ name_dis.name_districts }}
+                        {% else %}
+                        - Quận / Huyện -
+                        {% endif %}
                     </button>
                     <ul class="dropdown-menu">
                         {% for dis in districts  %}
