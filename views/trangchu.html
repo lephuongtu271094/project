@@ -8,9 +8,8 @@
     <div class="row animation-element slide-left">
 
 
-        <h2 class="text-center"><a href="danh-sach-quan-an.html">{{ cats.name_categories }}</a></h2>
+        <h2 class="text-center"><a href="/cats/{{ cats.id_categories }}">{{ cats.name_categories }}</a></h2>
         <hr class="gachchan">
-
                 {% for loca in location %}
                     {% if loca.id_categories === cats.id_categories %}
 
@@ -28,13 +27,8 @@
 
                             <p>Địa chỉ :<em> {{ loca.address }}</em></p>
                         </div>
-
-
                     {% endif %}
                 {% endfor %}
-
-
-
 
     </div>
 

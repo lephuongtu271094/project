@@ -14,6 +14,8 @@
                     <button class="btn btn-default btn-sm dropdown-toggle form-control alo" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {% if name_ci %}
                             {{ name_ci.name }}
+                        {% elseif name_dis %}
+                            {{ name_dis.name }}
                         {% else %}
                         - Thành Phố -
                         {% endif %}

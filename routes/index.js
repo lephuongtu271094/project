@@ -13,16 +13,18 @@ const { db,} = require('../pgp')
 router.get('/', function (req, res) {
         db.task(t => {
             return t.batch([
-                trangchu.home_categories(),
+                Layout.Categories(),
                 trangchu.home_location(),
-                Layout.City()
+                Layout.City(),
+                Layout.Sub_category()
             ])
         }).then(data => {
             res.render('trangchu.html', {
                 title: 'Home',
                 categories: data[0],
                 location : data[1],
-                citys: data[2]
+                citys: data[2],
+                sub_category : data[3]
             })
         })
         .catch(error => {
@@ -32,7 +34,7 @@ router.get('/', function (req, res) {
 
 
 //-------------- RENDER LIST-------------------
-
+//-------------- CITY AND DISTRICTS------------------
 router.get('/city/:city', function (req, res) {
     let city = req.params.city
     db.task(t => {
@@ -40,16 +42,19 @@ router.get('/city/:city', function (req, res) {
             Layout.City(),
             Layout.Name_city(city),
             Layout.Districts(city),
-            List.Location_city(city)
+            List.Location_city(city),
+            Layout.Categories(),
+            Layout.Sub_category()
         ])
     }).then(data => {
         res.render('danhsach.html', {
             title: data[1].name,
-
             citys: data[0],
             name_ci: data[1],
             districts: data[2],
-            location : data[3]
+            location : data[3],
+            categories : data[4],
+            sub_category: data[5]
         })
     })
     .catch(error => {
@@ -63,21 +68,131 @@ router.get('/city/:city/districts/:dis', function (req, res) {
     db.task(t => {
         return t.batch([
             Layout.City(),
-            Layout.Name_city(city),
             Layout.Districts(city),
             Layout.Name_districts(dis),
-            List.Location_districts(city,dis)
+            List.Location_districts(city,dis),
+            Layout.Categories(),
+            Layout.Sub_category()
         ])
     }).then(data => {
-        console.log(data[3])
+        console.log(data[2])
         res.render('danhsach.html', {
-            title: data[1].name,
+            title: data[2][0].name + ' - ' + data[2][0].name_districts,
+            citys: data[0],
+            districts: data[1],
+            name_dis : data[2][0],
+            location : data[3],
+            categories : data[4],
+            sub_category: data[5]
+        })
+    })
+        .catch(error => {
+            console.log(error.message)
+        });
+});
 
+//-------------- CATEGORIES AND SUB_CATEGORY ------------------
+router.get('/cats/:id', function (req, res) {
+    let cats = req.params.id
+    db.task(t => {
+        return t.batch([
+            Layout.City(),
+            Layout.Categories(),
+            Layout.Sub_category(),
+            List.Location_categories(cats),
+            List.Name_categories(cats)
+        ])
+    }).then(data => {
+        res.render('danhsach.html', {
+            citys: data[0],
+            categories: data[1],
+            sub_category : data[2],
+            location : data[3],
+            name_cats : data[4][0]
+        })
+    })
+        .catch(error => {
+            console.log(error.message)
+        });
+});
+
+router.get('/sub_cat/:id', function (req, res) {
+    let sub_cat = req.params.id
+    db.task(t => {
+        return t.batch([
+            Layout.City(),
+            Layout.Categories(),
+            Layout.Sub_category(),
+            List.Location_sub_category(sub_cat),
+            List.Name_sub_category(sub_cat)
+        ])
+    }).then(data => {
+        res.render('danhsach.html', {
+            citys: data[0],
+            categories: data[1],
+            sub_category : data[2],
+            location : data[3],
+            name_sub : data[4][0]
+        })
+    })
+        .catch(error => {
+            console.log(error.message)
+        });
+});
+router.get('/city/:city/sub_cat/:sub', function (req, res) {
+    let city = req.params.city
+    let sub_cat = req.params.sub
+    db.task(t => {
+        return t.batch([
+            Layout.City(),
+            Layout.Name_city(city),
+            Layout.Categories(),
+            Layout.Sub_category(),
+            Layout.Districts(city),
+            List.Location_city_sub_category(city,sub_cat),
+            List.Name_sub_category(sub_cat)
+        ])
+    }).then(data => {
+        res.render('danhsach.html', {
+            title :data[1].name,
             citys: data[0],
             name_ci: data[1],
-            districts: data[2],
-            name_dis : data[3][0],
-            location : data[4]
+            categories: data[2],
+            sub_category : data[3],
+            districts: data[4],
+            location : data[5],
+            name_sub : data[6][0]
+        })
+    })
+        .catch(error => {
+            console.log(error.message)
+        });
+});
+
+router.get('/city/:city/districts/:dis/sub_cat/:sub', function (req, res) {
+    let city = req.params.city
+    let dis = req.params.dis
+    let sub_cat = req.params.sub
+    db.task(t => {
+        return t.batch([
+            Layout.City(),
+            Layout.Categories(),
+            Layout.Sub_category(),
+            Layout.Districts(city),
+            Layout.Name_districts(dis),
+            List.Location_city_districts_category(city,dis,sub_cat),
+            List.Name_sub_category(sub_cat)
+        ])
+    }).then(data => {
+        res.render('danhsach.html', {
+
+            citys: data[0],
+            categories: data[1],
+            sub_category : data[2],
+            districts: data[3],
+            name_dis : data[4][0],
+            location : data[5],
+            name_sub : data[6][0]
         })
     })
         .catch(error => {
@@ -94,15 +209,18 @@ router.get('/chitiet/:cat/:id', function (req, res) {
         return t.batch([
             Chitiet.detail(id),
             Chitiet.detail_img(id),
-            Chitiet.detail_correlate(cat)
+            Chitiet.detail_correlate(cat),
+            Layout.Categories(),
+            Layout.Sub_category()
         ])
     }).then(data => {
-        console.log(data[2])
             res.render('chitiet.html', {
                 title: 'Chi Tiết',
                 datas : data[0],
                 album : data[1],
-                correlate : data[2]
+                correlate : data[2],
+                categories: data[3],
+                sub_category : data[4]
             });
         })
         .catch(error => {
