@@ -31,20 +31,27 @@
                 <img src="/image_location/{{ loca.name_img }}" class="img-responsive">
                 <div class="overlay">
                     <h3>{{ loca.name_location }}</h3>
-                    <a class="info" href="/chitiet/{{ loca.id_category }}/{{ loca.id_location }}">Chi Tiết</a>
+                    {% if name_ci %}
+                    <a class="info" href="/city/{{ name_ci.id_city }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}">Chi Tiết</a>
+                    {% endif %}
+                    {% if name_dis %}
+                    <a class="info" href="/city/{{ name_dis.id_city }}/districts/{{ name_dis.id_districts }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}">Chi Tiết</a>
+                    {% endif %}
                 </div>
 
             </div>
-            <p><a href="/chitiet/{{ loca.id_category }}/{{ loca.id_location }}"><strong>{{ loca.name_location }}</strong> </a></p>
             {% if name_ci %}
-            <p>Địa chỉ :<em>{{ loca.address }} ,{{ loca.name_districts }} ,{{ name_ci.name }}</em></p>
+            <p><a href="/city/{{ name_ci.id_city }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}"><strong>{{ loca.name_location }}</strong> </a></p>
+            <p>Địa chỉ :<em class="custom">{{ loca.address }} ,{{ loca.name_districts }} </em></p>
             {% endif %}
             {% if name_dis %}
-            <p>Địa chỉ :<em>{{ loca.address }} ,{{ name_dis.name_districts }} ,{{ name_dis.name }}</em></p>
+            <p><a href="/city/{{ name_dis.id_city }}/districts/{{ name_dis.id_districts }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}"><strong>{{ loca.name_location }}</strong> </a></p>
+            <p>Địa chỉ :<em class="custom">{{ loca.address }} ,{{ name_dis.name_districts }}</em></p>
             {% endif %}
         </div>
         {% endfor %}
     </div>
+    {{ totalPage | pagination(currentPage) | safe }}
 </div>
 {% endblock %}
 

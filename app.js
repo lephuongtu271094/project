@@ -4,9 +4,10 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const nunjucks = require('nunjucks')
-const expressValidator = require('express-validator')
-const { db, config} = require('./pgp')
+const nunjucks = require('nunjucks');
+const expressValidator = require('express-validator');
+const pagination = require('./models/custom_filter/pagination');
+const { db, config} = require('./pgp');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
@@ -14,11 +15,12 @@ const users = require('./routes/users');
 const app = express();
 
 
-nunjucks.configure('views', {
+let env = nunjucks.configure('views', {
     autoescape: true,
     express: app,
     watch: true
 });
+env.addFilter('pagination', pagination);
 
 
 // view engine setup

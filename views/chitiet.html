@@ -71,13 +71,13 @@
     {% include 'components/frontend/chitiet/cothequantam.html' %}
     <script>
         function initMap() {
-            var uluru = {lat: {{data.lat}}, lng: {{data.long}}};
-            var map = new google.maps.Map(document.getElementById('map'), {
+            let uluru = {lat: {{data.lat}}, lng: {{data.long}}};
+            let map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 17,
                 center: uluru,
                 scrollwheel: false
             });
-            var marker = new google.maps.Marker({
+            let marker = new google.maps.Marker({
                 position: uluru,
                 map: map
             });

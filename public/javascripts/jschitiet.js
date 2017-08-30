@@ -6,13 +6,14 @@ $(document).ready(function () {
         autoclose: true
     })
     $("#datepicker").datepicker("setDate", new Date());
-
+    $("#btn_book").on('click', function(){
+        $('#errors').html('');
+        $('.reset').val('');
+        $('#selectbox').prop('selectedIndex', 0);
+    })
 })
 
 function datban() {
-    $('#errors').html('');
-    $('.reset').val('');
-    $('#selectbox').prop('selectedIndex', 0);
     let formData = $('form#datban').serialize();
     axios.post('/datban', formData)
         .then(res => {
@@ -21,13 +22,13 @@ function datban() {
                 $('#errors').html('');
                 $('#myModal').modal('hide');
                 $('#thanhcong').html(
-                    '<span>Họ Tên : ' + success.name_dat + '</span><br>' +
-                    '<span>Số Điện Thoại :' + success.so_dat + ' </span><br>' +
-                    '<span>Nhà Hàng : </span><br>' +
-                    '<span>Ngày Đặt :' + success.date_dat + ' </span><br>' +
-                    '<span>Thời Gian :' + success.time_dat + ' </span><br>' +
+                    '<span>Họ Tên : ' + success.nguoidat + '</span><br>' +
+                    '<span>Số Điện Thoại :' + success.phone + ' </span><br>' +
+                    '<span>Nhà Hàng : '+ success.name_location +'</span><br>' +
+                    '<span>Ngày Đặt :' + success.date + ' </span><br>' +
+                    '<span>Thời Gian :' + success.time + ' </span><br>' +
                     '<span>Số Người : ' + success.soluong + '</span><br>' +
-                    '<span>Ghi Chú : ' + success.ghichu + '</span>'
+                    '<span>Ghi Chú : ' + success.note + '</span>'
                 );
                 $('#datbanthanhcong').modal('show');
                 $('.reset').val('');

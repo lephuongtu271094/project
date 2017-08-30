@@ -6,8 +6,8 @@ class DatCho{
     }
 
     insertDatban(datban){
-        return this.db.one('INSERT INTO datban(time_dat,date_dat,soluong,name_dat,so_dat,email_dat,ghichu)' +
-            ' VALUES(${time}, ${date}, ${SoLuong},${Name_DatBan},${Number_DatBan},${Email_DatBan},${Ghi_Chu}) RETURNING *', datban)
+        return this.db.one('INSERT INTO book(id_location,time,date,soluong,nguoidat,phone,note,email,name_location)' +
+            ' VALUES(${id_location},${time}, ${date}, ${SoLuong},${Name_DatBan},${Number_DatBan},${Ghi_Chu},${Email_DatBan},${name_location}) RETURNING *', datban)
     }
 }
 

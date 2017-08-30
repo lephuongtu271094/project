@@ -5,7 +5,7 @@ const trangchu = require('../models/trangchu')
 const Chitiet = require('../models/chitiet')
 const Layout = require('../models/layout')
 const List = require('../models/list')
-const { db,} = require('../pgp')
+const { db,pagination } = require('../pgp')
 
 /* GET home page. */
 //-------------- RENDER TRANG CHỦ-------------------
@@ -33,20 +33,25 @@ router.get('/', function (req, res) {
 });
 
 
-//-------------- RENDER LIST-------------------
-//-------------- CITY AND DISTRICTS------------------
+//--------------LIST CITY AND DISTRICTS------------------
+// RENDER CITY
 router.get('/city/:city', function (req, res) {
-    let city = req.params.city
+    let city = req.params.city;
+    let page = req.query.page || 1;
+    let limit = pagination.pagination;
+    let offset = (page - 1) * limit;
     db.task(t => {
         return t.batch([
             Layout.City(),
             Layout.Name_city(city),
             Layout.Districts(city),
-            List.Location_city(city),
+            List.Location_city(city,limit,offset),
             Layout.Categories(),
-            Layout.Sub_category()
+            Layout.Sub_category(),
+            List.Count_location_city(city)
         ])
     }).then(data => {
+        let totalPage = Math.ceil(data[6][0].count / limit);
         res.render('danhsach.html', {
             title: data[1].name,
             citys: data[0],
@@ -54,28 +59,34 @@ router.get('/city/:city', function (req, res) {
             districts: data[2],
             location : data[3],
             categories : data[4],
-            sub_category: data[5]
+            sub_category: data[5],
+            totalPage : totalPage,
+            currentPage: page
         })
     })
     .catch(error => {
         console.log(error.message)
     });
 });
-
+// RENDER DISTRICTS
 router.get('/city/:city/districts/:dis', function (req, res) {
-    let city = req.params.city
-    let dis = req.params.dis
+    let city = req.params.city;
+    let dis = req.params.dis;
+    let page = req.query.page || 1;
+    let limit = pagination.pagination;
+    let offset = (page - 1) * limit;
     db.task(t => {
         return t.batch([
             Layout.City(),
             Layout.Districts(city),
             Layout.Name_districts(dis),
-            List.Location_districts(city,dis),
+            List.Location_districts(city,dis,limit,offset),
             Layout.Categories(),
-            Layout.Sub_category()
+            Layout.Sub_category(),
+            List.Count_location_districts(city,dis)
         ])
     }).then(data => {
-        console.log(data[2])
+        let totalPage = Math.ceil(data[6][0].count / limit);
         res.render('danhsach.html', {
             title: data[2][0].name + ' - ' + data[2][0].name_districts,
             citys: data[0],
@@ -83,7 +94,9 @@ router.get('/city/:city/districts/:dis', function (req, res) {
             name_dis : data[2][0],
             location : data[3],
             categories : data[4],
-            sub_category: data[5]
+            sub_category: data[5],
+            totalPage : totalPage,
+            currentPage: page
         })
     })
         .catch(error => {
@@ -91,24 +104,34 @@ router.get('/city/:city/districts/:dis', function (req, res) {
         });
 });
 
-//-------------- CATEGORIES AND SUB_CATEGORY ------------------
+//--------------LIST CATEGORIES AND SUB_CATEGORY ------------------
+
+// RENDER CATEGORIES
 router.get('/cats/:id', function (req, res) {
+
     let cats = req.params.id
+    let page = req.query.page || 1;
+    let limit = pagination.pagination;
+    let offset = (page - 1) * limit;
     db.task(t => {
         return t.batch([
             Layout.City(),
             Layout.Categories(),
             Layout.Sub_category(),
-            List.Location_categories(cats),
-            List.Name_categories(cats)
+            List.Location_categories(cats,limit,offset),
+            List.Name_categories(cats),
+            List.Count_location_categories(cats)
         ])
     }).then(data => {
+        let totalPage = Math.ceil(data[5][0].count / limit);
         res.render('danhsach.html', {
             citys: data[0],
             categories: data[1],
             sub_category : data[2],
             location : data[3],
-            name_cats : data[4][0]
+            name_cats : data[4][0],
+            totalPage : totalPage,
+            currentPage: page
         })
     })
         .catch(error => {
@@ -116,32 +139,44 @@ router.get('/cats/:id', function (req, res) {
         });
 });
 
+// RENDER CATEGORY
 router.get('/sub_cat/:id', function (req, res) {
-    let sub_cat = req.params.id
+    let sub_cat = req.params.id;
+    let page = req.query.page || 1;
+    let limit = pagination.pagination;
+    let offset = (page - 1) * limit;
     db.task(t => {
         return t.batch([
             Layout.City(),
             Layout.Categories(),
             Layout.Sub_category(),
-            List.Location_sub_category(sub_cat),
-            List.Name_sub_category(sub_cat)
+            List.Location_sub_category(sub_cat,limit,offset),
+            List.Name_sub_category(sub_cat),
+            List.Count_location_sub_category(sub_cat)
         ])
     }).then(data => {
+        let totalPage = Math.ceil(data[5][0].count / limit);
         res.render('danhsach.html', {
             citys: data[0],
             categories: data[1],
             sub_category : data[2],
             location : data[3],
-            name_sub : data[4][0]
+            name_sub : data[4][0],
+            totalPage : totalPage,
+            currentPage: page
         })
     })
         .catch(error => {
             console.log(error.message)
         });
 });
+// RENDER SUB_CATEGORY THUỘC CITY
 router.get('/city/:city/sub_cat/:sub', function (req, res) {
-    let city = req.params.city
-    let sub_cat = req.params.sub
+    let city = req.params.city;
+    let sub_cat = req.params.sub;
+    let page = req.query.page || 1;
+    let limit = pagination.pagination;
+    let offset = (page - 1) * limit;
     db.task(t => {
         return t.batch([
             Layout.City(),
@@ -149,10 +184,12 @@ router.get('/city/:city/sub_cat/:sub', function (req, res) {
             Layout.Categories(),
             Layout.Sub_category(),
             Layout.Districts(city),
-            List.Location_city_sub_category(city,sub_cat),
-            List.Name_sub_category(sub_cat)
+            List.Location_city_sub_category(city,sub_cat,limit,offset),
+            List.Name_sub_category(sub_cat),
+            List.Count_location_city_sub_category(city,sub_cat)
         ])
     }).then(data => {
+        let totalPage = Math.ceil(data[7][0].count / limit);
         res.render('danhsach.html', {
             title :data[1].name,
             citys: data[0],
@@ -161,18 +198,23 @@ router.get('/city/:city/sub_cat/:sub', function (req, res) {
             sub_category : data[3],
             districts: data[4],
             location : data[5],
-            name_sub : data[6][0]
+            name_sub : data[6][0],
+            totalPage : totalPage,
+            currentPage: page
         })
     })
         .catch(error => {
             console.log(error.message)
         });
 });
-
+// RENDER SUB_CATEGORY THUỘC DISTRICTS
 router.get('/city/:city/districts/:dis/sub_cat/:sub', function (req, res) {
     let city = req.params.city
     let dis = req.params.dis
     let sub_cat = req.params.sub
+    let page = req.query.page || 1;
+    let limit = pagination.pagination;
+    let offset = (page - 1) * limit;
     db.task(t => {
         return t.batch([
             Layout.City(),
@@ -180,10 +222,12 @@ router.get('/city/:city/districts/:dis/sub_cat/:sub', function (req, res) {
             Layout.Sub_category(),
             Layout.Districts(city),
             Layout.Name_districts(dis),
-            List.Location_city_districts_category(city,dis,sub_cat),
-            List.Name_sub_category(sub_cat)
+            List.Location_city_districts_category(city,dis,sub_cat,limit,offset),
+            List.Name_sub_category(sub_cat),
+            List.Count_location_city_districts_category(city,dis,sub_cat)
         ])
     }).then(data => {
+        let totalPage = Math.ceil(data[7][0].count / limit);
         res.render('danhsach.html', {
 
             citys: data[0],
@@ -192,7 +236,9 @@ router.get('/city/:city/districts/:dis/sub_cat/:sub', function (req, res) {
             districts: data[3],
             name_dis : data[4][0],
             location : data[5],
-            name_sub : data[6][0]
+            name_sub : data[6][0],
+            totalPage : totalPage,
+            currentPage: page
         })
     })
         .catch(error => {
@@ -202,16 +248,17 @@ router.get('/city/:city/districts/:dis/sub_cat/:sub', function (req, res) {
 
 // ------------- RENDER CHI TIẾT ĐỊA ĐIỂM----------------
 
-router.get('/chitiet/:cat/:id', function (req, res) {
-    let cat = req.params.cat
-    let id = req.params.id
+router.get('/sub_cat/:cat/detail/:id', function (req, res) {
+    let cat = req.params.cat;
+    let id = req.params.id;
     db.task(t => {
         return t.batch([
             Chitiet.detail(id),
             Chitiet.detail_img(id),
             Chitiet.detail_correlate(cat),
             Layout.Categories(),
-            Layout.Sub_category()
+            Layout.Sub_category(),
+            Layout.City()
         ])
     }).then(data => {
             res.render('chitiet.html', {
@@ -220,7 +267,8 @@ router.get('/chitiet/:cat/:id', function (req, res) {
                 album : data[1],
                 correlate : data[2],
                 categories: data[3],
-                sub_category : data[4]
+                sub_category : data[4],
+                citys : data[5]
             });
         })
         .catch(error => {
@@ -228,8 +276,75 @@ router.get('/chitiet/:cat/:id', function (req, res) {
         });
 });
 
-router.post('/datban', function (req, res) {
+router.get('/city/:city/sub_cat/:cat/detail/:id', function (req, res) {
+    let city = req.params.city
+    let cat = req.params.cat;
+    let id = req.params.id;
+    db.task(t => {
+        return t.batch([
+            Chitiet.detail(id),
+            Chitiet.detail_img(id),
+            Chitiet.detail_correlate(cat),
+            Layout.Categories(),
+            Layout.Sub_category(),
+            Layout.City(),
+            Layout.Name_city(city),
+            Layout.Districts(city)
+        ])
+    }).then(data => {
+        res.render('chitiet.html', {
+            title: 'Chi Tiết',
+            datas : data[0],
+            album : data[1],
+            correlate : data[2],
+            categories: data[3],
+            sub_category : data[4],
+            citys : data[5],
+            name_ci: data[6],
+            districts: data[7]
+        });
+    })
+        .catch(error => {
+            console.log(error.message)
+        });
+});
 
+
+router.get('/city/:city/districts/:dis/sub_cat/:cat/detail/:id', function (req, res) {
+    let city = req.params.city;
+    let dis = req.params.dis
+    let cat = req.params.cat;
+    let id = req.params.id;
+    db.task(t => {
+        return t.batch([
+            Chitiet.detail(id),
+            Chitiet.detail_img(id),
+            Chitiet.detail_correlate(cat),
+            Layout.Categories(),
+            Layout.Sub_category(),
+            Layout.City(),
+            Layout.Name_districts(dis),
+            Layout.Districts(city)
+        ])
+    }).then(data => {
+        res.render('chitiet.html', {
+            title: 'Chi Tiết',
+            datas : data[0],
+            album : data[1],
+            correlate : data[2],
+            categories: data[3],
+            sub_category : data[4],
+            citys : data[5],
+            name_dis : data[6][0],
+            districts: data[7]
+        });
+    })
+        .catch(error => {
+            console.log(error.message)
+        });
+});;
+
+router.post('/datban', function (req, res) {
     req.checkBody('SoLuong', 'Lựa chọn số lượng người').isInt();
     req.checkBody('Name_DatBan', 'Họ và Tên không được để trống').notEmpty();
     req.checkBody('Number_DatBan', 'Số điện thoại không phải là số').isInt();

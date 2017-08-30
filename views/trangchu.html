@@ -19,12 +19,13 @@
                                 <img src="/image_location/{{ loca.name_img}}" class="img-responsive">
                                 <div class="overlay">
                                     <h3>{{ loca.name_location }}</h3>
-                                    <a class="info" href="/chitiet/{{ loca.id_sub_category }}/{{ loca.id_location }}">Chi Tiết</a>
+
+                                    <a class="info" href="/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}">Chi Tiết</a>
+
                                 </div>
 
                             </div>
-                            <p><a href="/chitiet"><strong>{{ loca.name_location }}</strong> </a></p>
-
+                            <p><a href="/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}"><strong>{{ loca.name_location }}</strong> </a></p>
                             <p>Địa chỉ :<em> {{ loca.address }}</em></p>
                         </div>
                     {% endif %}
@@ -34,6 +35,8 @@
 
     <hr>
     {% endfor %}
+
+
 
 
 

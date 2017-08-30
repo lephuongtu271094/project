@@ -11,6 +11,9 @@ const cn = {
     user: config.username,
     password: config.password
 };
+const pagination = {
+    pagination: 9
+};
 
 const options = {
     promiseLib: Promise // overriding the default (ES6 Promise);
@@ -24,3 +27,4 @@ monitor.setTheme('bright');
 
 module.exports.db = pgp(cn);
 module.exports.config = config;
+module.exports.pagination = pagination;
