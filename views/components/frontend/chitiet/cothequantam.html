@@ -2,12 +2,30 @@
     <h2>CÓ THỂ BẠN QUAN TÂM</h2>
     {% for cor in correlate %}
     <div class="other-detail col-xs-12 col-sm-6 col-md-3 col-lg-3">
-        <a href="/chitiet/{{cor.id_category}}/{{cor.id_location}}"><img class="width-img-100" src="/image_location/{{ cor.name_img }}" style="width: 100%"></a>
+        {% if name_ci %}
+        <a href="/city/{{ name_ci.id_city }}/sub_cat/{{cor.id_category}}/detail/{{cor.id_location}}"><img
+                class="width-img-100" src="/image_location/{{ cor.name_img }}" style="width: 100%"></a>
+        {% elif name_dis %}
+        <a href="/city/{{ name_dis.id_city }}/districts/{{ name_dis.id_districts }}/sub_cat/{{cor.id_category}}/detail/{{cor.id_location}}"><img
+                class="width-img-100" src="/image_location/{{ cor.name_img }}" style="width: 100%"></a>
+        {% else %}
+        <a href="/sub_cat/{{cor.id_category}}/detail/{{cor.id_location}}"><img class="width-img-100"
+                                                                               src="/image_location/{{ cor.name_img }}"
+                                                                               style="width: 100%"></a>
+        {% endif %}
         <div class="description">
-            <a href="#"><h4>{{ cor.name_location }}</h4></a>
+            {% if name_ci %}
+            <a href="/city/{{ name_ci.id_city }}/sub_cat/{{cor.id_category}}/detail/{{cor.id_location}}"><h4>{{
+                cor.name_location }}</h4></a>
+            {% elif name_dis %}
+            <a href="/city/{{ name_dis.id_city }}/districts/{{ name_dis.id_districts }}/sub_cat/{{cor.id_category}}/detail/{{cor.id_location}}">
+                <h4>{{ cor.name_location }}</h4></a>
+            {% else %}
+            <a href="/sub_cat/{{cor.id_category}}/detail/{{cor.id_location}}"><h4>{{ cor.name_location }}</h4></a>
+            {% endif %}
             <p>{{ cor.address }} , {{ data.name_districts }}, {{ data.name }}</p>
         </div>
     </div>
     {% endfor %}
-   
+
 </div>

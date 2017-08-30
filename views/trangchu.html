@@ -10,34 +10,32 @@
 
         <h2 class="text-center"><a href="/cats/{{ cats.id_categories }}">{{ cats.name_categories }}</a></h2>
         <hr class="gachchan">
-                {% for loca in location %}
-                    {% if loca.id_categories === cats.id_categories %}
+        {% for loca in location %}
+        {% if loca.id_categories === cats.id_categories %}
 
-                        <div class="col-md-4  in-view ">
-                            <div class="hovereffect thumbnail">
-                                <!--<img src="/images/coffee/coffee1.jpg" class="img-responsive">-->
-                                <img src="/image_location/{{ loca.name_img}}" class="img-responsive">
-                                <div class="overlay">
-                                    <h3>{{ loca.name_location }}</h3>
+        <div class="col-md-4  in-view ">
+            <div class="hovereffect thumbnail">
+                <!--<img src="/images/coffee/coffee1.jpg" class="img-responsive">-->
+                <img src="/image_location/{{ loca.name_img}}" class="img-responsive">
+                <div class="overlay">
+                    <h3>{{ loca.name_location }}</h3>
 
-                                    <a class="info" href="/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}">Chi Tiết</a>
+                    <a class="info" href="/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}">Chi Tiết</a>
 
-                                </div>
+                </div>
 
-                            </div>
-                            <p><a href="/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}"><strong>{{ loca.name_location }}</strong> </a></p>
-                            <p>Địa chỉ :<em> {{ loca.address }}</em></p>
-                        </div>
-                    {% endif %}
-                {% endfor %}
+            </div>
+            <p><a href="/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}"><strong>{{ loca.name_location
+                }}</strong> </a></p>
+            <p>Địa chỉ :<em> {{ loca.address }}</em></p>
+        </div>
+        {% endif %}
+        {% endfor %}
 
     </div>
 
     <hr>
     {% endfor %}
-
-
-
 
 
 </div>

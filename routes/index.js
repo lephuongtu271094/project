@@ -125,6 +125,7 @@ router.get('/cats/:id', function (req, res) {
     }).then(data => {
         let totalPage = Math.ceil(data[5][0].count / limit);
         res.render('danhsach.html', {
+            title: data[4][0].name_categories,
             citys: data[0],
             categories: data[1],
             sub_category : data[2],
@@ -157,6 +158,7 @@ router.get('/sub_cat/:id', function (req, res) {
     }).then(data => {
         let totalPage = Math.ceil(data[5][0].count / limit);
         res.render('danhsach.html', {
+            title: data[4][0].name_castegory,
             citys: data[0],
             categories: data[1],
             sub_category : data[2],
@@ -191,7 +193,7 @@ router.get('/city/:city/sub_cat/:sub', function (req, res) {
     }).then(data => {
         let totalPage = Math.ceil(data[7][0].count / limit);
         res.render('danhsach.html', {
-            title :data[1].name,
+            title :data[1].name + ' - ' + data[6][0].name_castegory,
             citys: data[0],
             name_ci: data[1],
             categories: data[2],
@@ -229,7 +231,7 @@ router.get('/city/:city/districts/:dis/sub_cat/:sub', function (req, res) {
     }).then(data => {
         let totalPage = Math.ceil(data[7][0].count / limit);
         res.render('danhsach.html', {
-
+            title :data[4][0].name_districts + ' - ' + data[6][0].name_castegory,
             citys: data[0],
             categories: data[1],
             sub_category : data[2],
@@ -261,8 +263,9 @@ router.get('/sub_cat/:cat/detail/:id', function (req, res) {
             Layout.City()
         ])
     }).then(data => {
+        console.log(data[0])
             res.render('chitiet.html', {
-                title: 'Chi Tiết',
+                title: data[0][0].name_location,
                 datas : data[0],
                 album : data[1],
                 correlate : data[2],
@@ -293,7 +296,7 @@ router.get('/city/:city/sub_cat/:cat/detail/:id', function (req, res) {
         ])
     }).then(data => {
         res.render('chitiet.html', {
-            title: 'Chi Tiết',
+            title: data[0][0].name_location,
             datas : data[0],
             album : data[1],
             correlate : data[2],
@@ -328,7 +331,7 @@ router.get('/city/:city/districts/:dis/sub_cat/:cat/detail/:id', function (req, 
         ])
     }).then(data => {
         res.render('chitiet.html', {
-            title: 'Chi Tiết',
+            title: data[0][0].name_location,
             datas : data[0],
             album : data[1],
             correlate : data[2],

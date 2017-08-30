@@ -1,11 +1,11 @@
-const {db, } = require('../pgp');
+const {db,} = require('../pgp');
 
-class DatCho{
-    constructor(db){
+class DatCho {
+    constructor(db) {
         this.db = db
     }
 
-    insertDatban(datban){
+    insertDatban(datban) {
         return this.db.one('INSERT INTO book(id_location,time,date,soluong,nguoidat,phone,note,email,name_location)' +
             ' VALUES(${id_location},${time}, ${date}, ${SoLuong},${Name_DatBan},${Number_DatBan},${Ghi_Chu},${Email_DatBan},${name_location}) RETURNING *', datban)
     }

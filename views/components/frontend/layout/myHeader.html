@@ -10,40 +10,43 @@
                 <form class="navbar-form navbar-left">
 
 
-                <div class="btn-group">
-                    <button class="btn btn-default btn-sm dropdown-toggle form-control alo" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {% if name_ci %}
-                            {{ name_ci.name }}
-                        {% elseif name_dis %}
-                            {{ name_dis.name }}
-                        {% else %}
-                        - Thành Phố -
-                        {% endif %}
-                    </button>
-                    <ul class="dropdown-menu">
-                        {% for city in citys  %}
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-sm dropdown-toggle form-control alo" type="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% if name_ci %}
+                                {{ name_ci.name }}
+                            {% elseif name_dis %}
+                                {{ name_dis.name }}
+                            {% else %}
+                            - Thành Phố -
+                            {% endif %}
+                        </button>
+                        <ul class="dropdown-menu">
+                            {% for city in citys %}
                             <a href="/city/{{city.id_city}}"><span>{{ city.name }}</span><br></a>
-                        {% endfor %}
-                    </ul>
-                </div>
+                            {% endfor %}
+                        </ul>
+                    </div>
 
                 </form>
-                 <form class="navbar-form navbar-left">
+                <form class="navbar-form navbar-left">
 
-                 <div class="btn-group">
-                    <button id="carmodel" class="btn btn-default btn-sm dropdown-toggle form-control form-control selec-with" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {% if name_dis %}
-                        {{ name_dis.name_districts }}
-                        {% else %}
-                        - Quận / Huyện -
-                        {% endif %}
-                    </button>
-                    <ul class="dropdown-menu">
-                        {% for dis in districts  %}
+                    <div class="btn-group">
+                        <button id="carmodel"
+                                class="btn btn-default btn-sm dropdown-toggle form-control form-control selec-with"
+                                type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% if name_dis %}
+                                {{ name_dis.name_districts }}
+                            {% else %}
+                                - Quận / Huyện -
+                            {% endif %}
+                        </button>
+                        <ul class="dropdown-menu">
+                            {% for dis in districts %}
                             <a href="/city/{{dis.id_city}}/districts/{{dis.id_districts}}"><span>{{ dis.name_districts }}</span><br></a>
-                        {% endfor %}
-                    </ul>
-                </div>
+                            {% endfor %}
+                        </ul>
+                    </div>
 
                 </form>
                 <form class="navbar-form navbar-left">

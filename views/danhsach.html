@@ -9,21 +9,26 @@
         <div class="diachi">
             <ol class="breadcrumb">
                 {% if name_ci %}
-                <li><a href="/city/{{name_ci.id_city}}">{{ name_ci.name }} <i class="fa fa-angle-right"></i></a></li>
+                    <li><a href="/city/{{name_ci.id_city}}">{{ name_ci.name }} <i class="fa fa-angle-right"></i></a></li>
                 {% endif %}
                 {% if name_dis %}
-                <li><a href="/city/{{name_dis.id_city}}">{{ name_dis.name }} <i class="fa fa-angle-right"></i></a></li>
-                <li><a href="/city/{{name_dis.id_city}}/districts/{{name_dis.id_districts}}">{{ name_dis.name_districts }}<i class="fa fa-angle-right"></i></a></li>
+                    <li><a href="/city/{{name_dis.id_city}}">{{ name_dis.name }} <i class="fa fa-angle-right"></i></a></li>
+                    <li>
+                        <a href="/city/{{name_dis.id_city}}/districts/{{name_dis.id_districts}}">
+                            {{ name_dis.name_districts }}
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
                 {% endif %}
 
             </ol>
         </div>
         {% if name_cats %}
-        <h2><a href="/cats/{{ name_cats.id_categories }}">{{ name_cats.name_categories }}</a></h2>
-        <hr class="gachchan">
+            <h2><a href="/cats/{{ name_cats.id_categories }}">{{ name_cats.name_categories }}</a></h2>
+            <hr class="gachchan">
         {% elif name_sub %}
-        <h2><a href="/cats/{{ name_cats.id_categories }}">{{ name_sub.name_castegory }}</a></h2>
-        <hr class="gachchan">
+            <h2><a href="/cats/{{ name_cats.id_categories }}">{{ name_sub.name_castegory }}</a></h2>
+            <hr class="gachchan">
         {% endif %}
         {% for loca in location %}
         <div class="col-md-4" style="margin-bottom: 2%;">
@@ -32,20 +37,27 @@
                 <div class="overlay">
                     <h3>{{ loca.name_location }}</h3>
                     {% if name_ci %}
-                    <a class="info" href="/city/{{ name_ci.id_city }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}">Chi Tiết</a>
+                    <a class="info"
+                       href="/city/{{ name_ci.id_city }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}">Chi
+                        Tiết</a>
                     {% endif %}
                     {% if name_dis %}
-                    <a class="info" href="/city/{{ name_dis.id_city }}/districts/{{ name_dis.id_districts }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}">Chi Tiết</a>
+                    <a class="info"
+                       href="/city/{{ name_dis.id_city }}/districts/{{ name_dis.id_districts }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}">Chi
+                        Tiết</a>
                     {% endif %}
                 </div>
 
             </div>
             {% if name_ci %}
-            <p><a href="/city/{{ name_ci.id_city }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}"><strong>{{ loca.name_location }}</strong> </a></p>
+            <p><a href="/city/{{ name_ci.id_city }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}"><strong>{{
+                loca.name_location }}</strong> </a></p>
             <p>Địa chỉ :<em class="custom">{{ loca.address }} ,{{ loca.name_districts }} </em></p>
             {% endif %}
             {% if name_dis %}
-            <p><a href="/city/{{ name_dis.id_city }}/districts/{{ name_dis.id_districts }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}"><strong>{{ loca.name_location }}</strong> </a></p>
+            <p>
+                <a href="/city/{{ name_dis.id_city }}/districts/{{ name_dis.id_districts }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}"><strong>{{
+                    loca.name_location }}</strong> </a></p>
             <p>Địa chỉ :<em class="custom">{{ loca.address }} ,{{ name_dis.name_districts }}</em></p>
             {% endif %}
         </div>

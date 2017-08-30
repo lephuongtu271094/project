@@ -136,7 +136,7 @@ h2 {
 .breadcrumb>li+li:before {
     padding: 0 5px;
     color: #ccc;
-    content: "";
+    content: " ";
 }
 .breadcrumb>li>a {
    color: #a2a2a2;

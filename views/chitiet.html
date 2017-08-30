@@ -51,7 +51,7 @@
                 <div class="col-xs-3 col-sm-2 col-md-1">
                     <div class="user">
                         <div class="avatar">
-                            <img src="image/coffee/coffee1.jpg" alt="mod" title="Non@me">
+                            <img src="/images/mod1.jpg" alt="mod" title="Non@me">
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
     {% include 'components/frontend/chitiet/cothequantam.html' %}
     <script>
         function initMap() {
-            let uluru = {lat: {{data.lat}}, lng: {{data.long}}};
+            let uluru = {lat: {{data.lat}},lng: {{data.long}}};
             let map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 17,
                 center: uluru,
@@ -98,6 +98,7 @@
 <script src="/plugin/fancybox/jquery.fancybox.min.js"></script>
 <script src="/javascripts/jschitiet.js"></script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsB1OF-sOPmmMd9bwLpJfJfrdumJ_A6dI&callback=initMap"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsB1OF-sOPmmMd9bwLpJfJfrdumJ_A6dI&callback=initMap"></script>
 
 {% endblock %}

@@ -11,11 +11,14 @@
             {% for sub_cat in sub_category %}
                 {% if sub_cat.id_categories == cats.id_categories %}
                     {% if name_ci %}
-                        <li><a href="/city/{{ name_ci.id_city }}/sub_cat/{{ sub_cat.id_sub_category }}">{{ sub_cat.name_castegory }}</a></li>
+                    <li><a href="/city/{{ name_ci.id_city }}/sub_cat/{{ sub_cat.id_sub_category }}">{{ sub_cat.name_castegory
+                        }}</a></li>
                     {% elseif name_dis %}
-                        <li><a href="/city/{{ name_dis.id_city }}/districts/{{ name_dis.id_districts }}/sub_cat/{{ sub_cat.id_sub_category }}">{{ sub_cat.name_castegory }}</a></li>
+                    <li>
+                        <a href="/city/{{ name_dis.id_city }}/districts/{{ name_dis.id_districts }}/sub_cat/{{ sub_cat.id_sub_category }}">{{
+                            sub_cat.name_castegory }}</a></li>
                     {% else %}
-                        <li><a href="/sub_cat/{{ sub_cat.id_sub_category }}">{{ sub_cat.name_castegory }}</a></li>
+                    <li><a href="/sub_cat/{{ sub_cat.id_sub_category }}">{{ sub_cat.name_castegory }}</a></li>
                     {% endif %}
                 {% endif %}
             {% endfor %}
