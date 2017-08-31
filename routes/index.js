@@ -5,6 +5,7 @@ const trangchu = require('../models/trangchu')
 const Chitiet = require('../models/chitiet')
 const Layout = require('../models/layout')
 const List = require('../models/list')
+const Search = require('../models/search')
 const { db,pagination } = require('../pgp')
 
 /* GET home page. */
@@ -32,6 +33,46 @@ router.get('/', function (req, res) {
         });
 });
 
+router.get('/search', function (req, res) {
+    let index = req.query.search;
+    db.task(t => {
+        return t.batch([
+
+            Search.Search_location(index),
+            Search.Search_districts(index),
+            Search.Search_city(index),
+            Search.Search_sub_category(index),
+            Search.Search_categories(index)
+
+
+        ])
+    }).then(data => {
+        console.log(data[0])
+        console.log(data[1])
+        console.log(data[2])
+        console.log(data[3])
+        console.log(data[4])
+        arr = []
+        for(let i = 0 ; i < data.length; i++){
+            data[i].map(index => {
+                arr.push(index)
+            })
+        }
+        console.log(arr)
+        res.render('trangchu.html', {
+
+            location : data[0],
+            location : data[1],
+            location : data[2],
+            location : data[3],
+            location : data[4]
+
+        })
+    })
+        .catch(error => {
+            console.log(error.message)
+        });
+});
 
 //--------------LIST CITY AND DISTRICTS------------------
 // RENDER CITY
@@ -124,6 +165,7 @@ router.get('/cats/:id', function (req, res) {
         ])
     }).then(data => {
         let totalPage = Math.ceil(data[5][0].count / limit);
+        console.log(data[3])
         res.render('danhsach.html', {
             title: data[4][0].name_categories,
             citys: data[0],
@@ -345,7 +387,7 @@ router.get('/city/:city/districts/:dis/sub_cat/:cat/detail/:id', function (req, 
         .catch(error => {
             console.log(error.message)
         });
-});;
+});
 
 router.post('/datban', function (req, res) {
     req.checkBody('SoLuong', 'Lựa chọn số lượng người').isInt();

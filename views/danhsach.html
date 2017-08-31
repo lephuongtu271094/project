@@ -40,10 +40,13 @@
                     <a class="info"
                        href="/city/{{ name_ci.id_city }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}">Chi
                         Tiết</a>
-                    {% endif %}
-                    {% if name_dis %}
+                    {% elif name_dis %}
                     <a class="info"
                        href="/city/{{ name_dis.id_city }}/districts/{{ name_dis.id_districts }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}">Chi
+                        Tiết</a>
+                    {% else %}
+                    <a class="info"
+                       href="/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}">Chi
                         Tiết</a>
                     {% endif %}
                 </div>
@@ -53,12 +56,15 @@
             <p><a href="/city/{{ name_ci.id_city }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}"><strong>{{
                 loca.name_location }}</strong> </a></p>
             <p>Địa chỉ :<em class="custom">{{ loca.address }} ,{{ loca.name_districts }} </em></p>
-            {% endif %}
-            {% if name_dis %}
+            {% elif name_dis %}
             <p>
                 <a href="/city/{{ name_dis.id_city }}/districts/{{ name_dis.id_districts }}/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}"><strong>{{
                     loca.name_location }}</strong> </a></p>
             <p>Địa chỉ :<em class="custom">{{ loca.address }} ,{{ name_dis.name_districts }}</em></p>
+            {% else %}
+            <p><a href="/sub_cat/{{loca.id_category}}/detail/{{loca.id_location}}"><strong>{{
+                loca.name_location }}</strong> </a></p>
+            <p>Địa chỉ :<em class="custom">{{ loca.address }} ,{{ loca.name_districts }} </em></p>
             {% endif %}
         </div>
         {% endfor %}

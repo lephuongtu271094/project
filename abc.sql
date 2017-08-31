@@ -22,6 +22,8 @@ CHI TIET
 
 test select thanh pho
 
+aassdas
+
 SELECT * 
 FROM
 location,districts,city
@@ -41,3 +43,37 @@ where location.id_districts = districts.id_districts
 and districts.id_city = city.id_city 
 and city.id_city = 1 and districts and location.id_category = 4 
 order by location.id asc
+
+
+bucac
+﻿select * from location,images
+where location.id_location = images.id_location
+and images.show_img = 'true'
+and location.name_location ilike '%f mart%'
+
+select * from location,images,districts
+where location.id_location = images.id_location
+and images.show_img = 'true'
+and location.id_districts = districts.id_districts
+and districts.name_districts ilike '%quận hoàn kiếm%'
+
+select * from location,images,districts,city
+where location.id_location = images.id_location
+and images.show_img = 'true'
+and location.id_districts = districts.id_districts
+and districts.id_city = city.id_city
+and city.name ilike '%hà nội%'
+
+select * from location,images,sub_category
+where location.id_location = images.id_location
+and images.show_img = 'true'
+and location.id_category = sub_category.id_sub_category
+and sub_category.name_castegory ilike '%cửa hàng%'
+
+select * from location,images,sub_category,categories
+where location.id_location = images.id_location
+and images.show_img = 'true'
+and location.id_category = sub_category.id_sub_category
+and sub_category.id_categories = categories.id_categories
+and categories.name_categories ilike '%ă%'
+
