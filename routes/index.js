@@ -35,38 +35,45 @@ router.get('/', function (req, res) {
 
 router.get('/search', function (req, res) {
     let index = req.query.search;
+    let page = req.query.page || 1;
+    let limit = pagination.pagination;
+    let offset = (page - 1) * limit;
     db.task(t => {
         return t.batch([
-
-            Search.Search_location(index),
-            Search.Search_districts(index),
-            Search.Search_city(index),
-            Search.Search_sub_category(index),
-            Search.Search_categories(index)
-
-
+            Search.Search_location(index,limit,offset),
+            Search.Search_districts(index,limit,offset),
+            Search.Search_city(index,limit,offset),
+            Search.Search_sub_category(index,limit,offset),
+            Search.Search_categories(index,limit,offset),
+            
+            Search.Count_search_location(index),
+            Search.Count_search_districts(index),
+            Search.Count_search_city(index),
+            Search.Count_search_sub_category(index),
+            Search.Count_search_categories(index)
         ])
     }).then(data => {
-        console.log(data[0])
-        console.log(data[1])
-        console.log(data[2])
-        console.log(data[3])
-        console.log(data[4])
-        arr = []
-        for(let i = 0 ; i < data.length; i++){
+        let arr = []
+        let count = 0
+        for(let i = 0 ; i < 4; i++){
             data[i].map(index => {
                 arr.push(index)
             })
         }
-        console.log(arr)
-        res.render('trangchu.html', {
-
-            location : data[0],
-            location : data[1],
-            location : data[2],
-            location : data[3],
-            location : data[4]
-
+        for(let i = 0 ; i < data.length; i++){
+            data[i].map(index => {
+                if(index.count > 0){
+                    count = index.count
+                }
+            })
+        }
+        
+        let totalPage = Math.ceil(count / limit);
+        console.log(count)
+        res.render('danhsach.html', {       
+            location : arr,
+            totalPage : totalPage,
+            currentPage: page
         })
     })
         .catch(error => {
@@ -165,7 +172,6 @@ router.get('/cats/:id', function (req, res) {
         ])
     }).then(data => {
         let totalPage = Math.ceil(data[5][0].count / limit);
-        console.log(data[3])
         res.render('danhsach.html', {
             title: data[4][0].name_categories,
             citys: data[0],
@@ -305,7 +311,6 @@ router.get('/sub_cat/:cat/detail/:id', function (req, res) {
             Layout.City()
         ])
     }).then(data => {
-        console.log(data[0])
             res.render('chitiet.html', {
                 title: data[0][0].name_location,
                 datas : data[0],

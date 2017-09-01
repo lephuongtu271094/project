@@ -18,5 +18,8 @@
     "pg-monitor": "^0.8.2",
     "pg-promise": "^6.4.0",
     "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
