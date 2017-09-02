@@ -38,6 +38,7 @@ router.get('/search', function (req, res) {
     let page = req.query.page || 1;
     let limit = pagination.pagination;
     let offset = (page - 1) * limit;
+    console.log(page)
     db.task(t => {
         return t.batch([
             Search.Search_location(index,limit,offset),
@@ -50,12 +51,16 @@ router.get('/search', function (req, res) {
             Search.Count_search_districts(index),
             Search.Count_search_city(index),
             Search.Count_search_sub_category(index),
-            Search.Count_search_categories(index)
+            Search.Count_search_categories(index),
+
+            Layout.City(),
+            Layout.Categories(),
+            Layout.Sub_category()
         ])
     }).then(data => {
         let arr = []
         let count = 0
-        for(let i = 0 ; i < 4; i++){
+        for(let i = 0 ; i <= 4; i++){
             data[i].map(index => {
                 arr.push(index)
             })
@@ -67,13 +72,16 @@ router.get('/search', function (req, res) {
                 }
             })
         }
-        
         let totalPage = Math.ceil(count / limit);
-        console.log(count)
         res.render('danhsach.html', {       
             location : arr,
             totalPage : totalPage,
-            currentPage: page
+            currentPage: page,
+            count :count,
+            search : index,
+            citys: data[10],
+            categories: data[11],
+            sub_category : data[12]
         })
     })
         .catch(error => {

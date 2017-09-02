@@ -10,8 +10,7 @@
             <ol class="breadcrumb">
                 {% if name_ci %}
                     <li><a href="/city/{{name_ci.id_city}}">{{ name_ci.name }} <i class="fa fa-angle-right"></i></a></li>
-                {% endif %}
-                {% if name_dis %}
+                {% elif name_dis %}
                     <li><a href="/city/{{name_dis.id_city}}">{{ name_dis.name }} <i class="fa fa-angle-right"></i></a></li>
                     <li>
                         <a href="/city/{{name_dis.id_city}}/districts/{{name_dis.id_districts}}">
@@ -19,6 +18,9 @@
                             <i class="fa fa-angle-right"></i>
                         </a>
                     </li>
+                {% elif count %}
+                   <li>Có {{ count }} Địa Điểm Bạn Muốn Tìm</li>
+
                 {% endif %}
 
             </ol>
@@ -69,7 +71,7 @@
         </div>
         {% endfor %}
     </div>
-    {{ totalPage | pagination(currentPage) | safe }}
+    {{ totalPage | pagination(currentPage,count,search) | safe }}
 </div>
 {% endblock %}
 

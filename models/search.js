@@ -10,6 +10,7 @@ class Search{
              "WHERE location.id_location = images.id_location " +
              "AND images.show_img = 'true' " +
              "AND location.name_location ILIKE $1 " +
+             "ORDER BY location.id DESC "+
              "LIMIT $2 OFFSET $3"
              ,["%" + index + "%", limit,offset])
     }
@@ -26,6 +27,7 @@ class Search{
             "AND images.show_img = 'true' " +
             "AND location.id_districts = districts.id_districts " +
             "AND districts.name_districts ILIKE $1 "+
+            "ORDER BY location.id DESC "+
             "LIMIT $2 OFFSET $3"
             ,["%" + index + "%",limit,offset])
     }
@@ -44,6 +46,7 @@ class Search{
             "AND location.id_districts = districts.id_districts " +
             "AND districts.id_city = city.id_city " +
             "AND city.name ILIKE $1 "+
+            "ORDER BY location.id DESC "+
             "LIMIT $2 OFFSET $3"
             ,["%" + index + "%",limit,offset])
     }
@@ -62,6 +65,7 @@ class Search{
             "AND images.show_img = 'true' " +
             "AND location.id_category = sub_category.id_sub_category " +
             "AND sub_category.name_castegory ILIKE $1 "+
+            "ORDER BY location.id DESC "+
             "LIMIT $2 OFFSET $3"
             ,["%" + index + "%",limit,offset])
     }
@@ -80,6 +84,7 @@ class Search{
             "AND location.id_category = sub_category.id_sub_category " +
             "AND sub_category.id_categories = categories.id_categories " +
             "AND categories.name_categories ILIKE $1 "+
+            "ORDER BY location.id DESC "+
             "LIMIT $2 OFFSET $3"
             ,["%" + index + "%",limit,offset])
     }
