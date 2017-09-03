@@ -10,6 +10,7 @@ const pagination = require('./models/custom_filter/pagination');
 const { db, config} = require('./pgp');
 
 const index = require('./routes/index');
+const admin = require('./routes/admin');
 const users = require('./routes/users');
 
 const app = express();
@@ -53,6 +54,7 @@ app.use(expressValidator({
 }))
 
 app.use('/', index);
+app.use('/admin', admin);
 app.use('/users', users);
 
 

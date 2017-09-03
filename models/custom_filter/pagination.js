@@ -1,4 +1,4 @@
-module.exports = function (totalPage, currentPage, count, search) {
+module.exports = function (totalPage, currentPage, count, index) {
     var currentPage = parseInt(currentPage);
     if (totalPage <= 1) {
         return ''
@@ -7,7 +7,7 @@ module.exports = function (totalPage, currentPage, count, search) {
         html += '<nav aria-label="Page navigation" class="text-center"><ul class="pagination">'
         for (let i = 1; i <= totalPage; i++) {
             if(count){
-                html += '<li ' + (i === currentPage ? ' class="active" ' : '') + '"><a href="?search='+ search +'&page=' + i + '">' + i + '</a></li>'                
+                html += '<li ' + (i === currentPage ? ' class="active" ' : '') + '"><a href="?search='+ index +'&page=' + i + '">' + i + '</a></li>'                
             }else{
                 html += '<li ' + (i === currentPage ? ' class="active" ' : '') + '"><a href="?page=' + i + '">' + i + '</a></li>'                
             }

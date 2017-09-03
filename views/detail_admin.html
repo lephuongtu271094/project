@@ -1,0 +1,49 @@
+{% extends 'layouts/layoutAdm.html' %}
+
+{% block content %}
+<div class="content-wrapper">
+
+    <section class="content">
+     {% for book in detailBook %}
+        <div class="col-lg-6">
+            <div class="row">
+                <h2>Thông Tin Người Đặt :</h2> 
+                    <div class="col-lg-6" style="width : 26%;">
+                        <h4>Tên :</h4>
+                        <h4>Sô Điện Thoại :</h4>
+                        <h4>Email :</h4>
+                        <h4>Số Người :</h4>
+                        <h4>Ngày :</h4>
+                        <h4>Giờ :</h4>
+                        <h4>Ghi Chú :</h4>
+                    </div>
+                    <div class="col-lg-6">
+                        <h4>{{ book.nguoidat }}</h4>
+                        <h4> {{ book.phone }}</h4>
+                        <h4>{{ book.email }}</h4>
+                        <h4>{{ book.soluong }}</h4>
+                        <h4>{{ book.date }}</h4>
+                        <h4>{{ book.time }}</h4>
+                        <h4>{{ book.note }}</h4>
+                    </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <h2>Điạ Điểm Đặt</h2> 
+                <div class="col-lg-6" style="width : 26%;">
+                    <h4>Tên</h4>
+                    <h4>Địa Chỉ :</h4>
+                    <h4>Giờ Mở Cửa:</h4>
+                </div>
+                <div class="col-lg-6">
+                    <h4>{{ book.name_location }}</h4>
+                    <h4> {{ book.address }}</h4>
+                    <h4></h4>
+                    <h4>{{ book.time_open }}</h4>
+                </div>
+        </div>
+         {% endfor %} 
+    </section>
+    <!-- /.content -->
+</div>
+{% endblock %}

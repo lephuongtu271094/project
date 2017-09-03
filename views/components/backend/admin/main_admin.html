@@ -1,4 +1,4 @@
-<div class="col-lg-12">
+    <div class="col-lg-12">
     <div class="row">
         <div class="panel panel-primary filterable">
             <div class="panel-heading">
@@ -15,35 +15,41 @@
                     <th><input type="number" class="form-control" placeholder="ID" disabled></th>
                     <th><input type="number" class="form-control" placeholder="Phone" disabled></th>
                     <th><input type="text" class="form-control" placeholder="Name" disabled></th>
-                    <th><input type="text" class="form-control" placeholder="Time &amp date" disabled></th>
+                    <th><input type="text" class="form-control" placeholder="Date" disabled></th>
+                    <th><input type="text" class="form-control" placeholder="Time" disabled></th>
                     <th><input type="text" class="form-control" placeholder="location" disabled></th>
+                    <th><input type="text" class="form-control" placeholder="Trạng Thái" disabled></th>
                 </tr>
                 </thead>
+                 
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    <td>@mdo</td>
-                </tr>
+                {% for book in listBook %}
+               
+                    <tr>
+                        <td> <a href="/admin/book/{{ book.id_book}}">{{ book.id_book }}</a></td>
+                        <td> <a href="/admin/book/{{ book.id_book}}">{{ book.phone}}</a></td>
+                        <td> <a href="/admin/book/{{ book.id_book}}">{{ book.nguoidat }}</a></td>
+                        <td> <a href="/admin/book/{{ book.id_book}}">{{ book.date }}</a></td>
+                        <td> <a href="/admin/book/{{ book.id_book}}">{{ book.time }}</a></td>
+                        <td> <a href="/admin/book/{{ book.id_book}}">{{ book.name_location }}</a></td>
+                    </tr>
+                
+               {% endfor %}
                 </tbody>
+                
             </table>
+             <nav aria-label="Page navigation" class="text-center"><ul class="pagination">
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+            
+                    </ul></nav>
         </div>
     </div>
+    
 </div>
+
+
       

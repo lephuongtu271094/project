@@ -72,6 +72,7 @@
     phone int,
     note text,
     email text,
+    name_location varchar(200),
     foreign key (id_location) references location (id_location)
 );
 ```
