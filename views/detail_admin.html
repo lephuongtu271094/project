@@ -5,6 +5,7 @@
 
     <section class="content">
      {% for book in detailBook %}
+
         <div class="col-lg-6">
             <div class="row">
                 <h2>Thông Tin Người Đặt :</h2> 
@@ -16,6 +17,8 @@
                         <h4>Ngày :</h4>
                         <h4>Giờ :</h4>
                         <h4>Ghi Chú :</h4>
+                        <h4>Trạng Thái :</h4>
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Cập Nhật Trạng Thái</button>
                     </div>
                     <div class="col-lg-6">
                         <h4>{{ book.nguoidat }}</h4>
@@ -25,6 +28,11 @@
                         <h4>{{ book.date }}</h4>
                         <h4>{{ book.time }}</h4>
                         <h4>{{ book.note }}</h4>
+                        {% if book.status == false %}
+                            <h4>Chưa Liên Lạc</h4>
+                        {% elif book.status == true %}
+                             <h4>Đã Liên Lạc</h4>
+                        {% endif %}
                     </div>
             </div>
         </div>
@@ -42,8 +50,64 @@
                     <h4>{{ book.time_open }}</h4>
                 </div>
         </div>
+        <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        {% if book.status == false %}
+            <h4>Trạng Thái Hiện tại : Chưa Liên Lạc</h4>
+            {% elif book.status == true %}
+            <h4>Trạng Thái Hiện tại : Đã Liên Lạc</h4>
+            {% else %}
+            <h4>Chưa Có Trạng Thái</h4>
+        {% endif %}
+      </div>
+    <form method="post" onsubmit="return validateForm()">
+        <div class="modal-body">
+             <input id="id_locaton" type="text" name="id_book" value="{{ book.id_book }}" style="display:none;">
+            <li>
+                <input type="radio" id="f-option" name="lienlac" value="true">
+                <label for="f-option">Đã Liên Lạc</label>           
+                <div class="check"></div>
+            </li>        
+            <li>
+                <input type="radio" id="s-option" name="lienlac" value="false">
+                <label for="s-option">Chưa Liên Lạc</label>          
+                <div class="check"><div class="inside"></div></div>
+            </li>
+            <div class="modal-footer">
+                <input type="submit" class="btn btn-success" value="Cập Nhật"/>
+            </div>
+        </div>
+    </form>
+      
+    </div>
+
+  </div>
+</div>
          {% endfor %} 
     </section>
     <!-- /.content -->
 </div>
+{% endblock %}
+{% block jsExtends %}
+    <script>
+        function validateForm() {
+      var radios = document.getElementsByName("lienlac");
+      var formValid = false;
+      var i = 0;
+      while (!formValid && i < radios.length) {
+          if (radios[i].checked) formValid = true;
+          i++;        
+      }
+      if (!formValid) alert("Bạn Phải Chọn Một Trường");
+      return formValid;
+    };
+
+    </script>
+
 {% endblock %}

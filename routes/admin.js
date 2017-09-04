@@ -20,20 +20,31 @@ router.get('/', function (req, res, next) {
    
 });
 
-router.get('/book/:id_book', function (req, res, next) {
-    let book = req.params.id_book
-   
-    ListBook.BookList_detail(book)
-    .then(data => {
-        res.render('detail_admin.html', {
-            title: 'New book',
-            detailBook : data
-        });
-    }).catch(err => {
-        console.log(err.message)
+router.route('/book/:id_book')
+    .get(function (req, res) {
+        let book = req.params.id_book
+    
+        ListBook.BookList_detail(book)
+        .then(data => {
+            res.render('detail_admin.html', {
+                title: 'New book',
+                detailBook : data
+            });
+        }).catch(err => {
+            console.log(err.message)
+        })
+    
     })
-   
-});
+    .post((req,res) => {
+        let id = req.body.id_book
+        let stt = req.body.lienlac
+        ListBook.Update_status(id,stt)
+        .then(() => {
+            res.redirect('/admin')
+        }).catch(err => {
+            console.log(err.message)
+        })
+    });
 
 
 
