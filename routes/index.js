@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const DatBan = require('../models/datban')
-const trangchu = require('../models/trangchu')
-const Chitiet = require('../models/chitiet')
-const Layout = require('../models/layout')
-const List = require('../models/list')
-const Search = require('../models/search')
-const { db,pagination } = require('../pgp')
+const DatBan = require('../models/datban');
+const trangchu = require('../models/trangchu');
+const Chitiet = require('../models/chitiet');
+const Layout = require('../models/layout');
+const List = require('../models/list');
+const Search = require('../models/search');
+const { db,pagination } = require('../pgp');
 
 /* GET home page. */
 //-------------- RENDER TRANG CHỦ-------------------
@@ -371,7 +371,7 @@ router.get('/city/:city/sub_cat/:cat/detail/:id', function (req, res) {
 
 router.get('/city/:city/districts/:dis/sub_cat/:cat/detail/:id', function (req, res) {
     let city = req.params.city;
-    let dis = req.params.dis
+    let dis = req.params.dis;
     let cat = req.params.cat;
     let id = req.params.id;
     db.task(t => {

@@ -1,54 +1,109 @@
 {% extends 'layouts/layoutAdm.html' %}
-
+{% block cssExtends %}
+<style>
+    .table>tbody>tr>td:first-child {
+        width: 19%;
+    }
+    .table>tbody>tr>.haicham{
+        width: 1%;
+        padding: 7px 0;
+    }
+    .table{
+        margin-left: 4%;
+    }
+    .table>tbody>tr>td{
+        font-size: 18px;
+    }
+    h3{
+        width: 50%;
+        background: #3c8dbc;
+        color: white;
+        text-align: center;
+        padding: 2%;
+    }
+</style>
+{% endblock %}
 {% block content %}
 <div class="content-wrapper">
 
     <section class="content">
      {% for book in detailBook %}
 
-        <div class="col-lg-6">
+        <div class="col-lg-6" style="width: 39%; margin-left: 5%;">
+
             <div class="row">
-                <h2>Thông Tin Người Đặt :</h2> 
-                    <div class="col-lg-6" style="width : 26%;">
-                        <h4>Tên :</h4>
-                        <h4>Sô Điện Thoại :</h4>
-                        <h4>Email :</h4>
-                        <h4>Số Người :</h4>
-                        <h4>Ngày :</h4>
-                        <h4>Giờ :</h4>
-                        <h4>Ghi Chú :</h4>
-                        <h4>Trạng Thái :</h4>
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Cập Nhật Trạng Thái</button>
-                    </div>
-                    <div class="col-lg-6">
-                        <h4>{{ book.nguoidat }}</h4>
-                        <h4> {{ book.phone }}</h4>
-                        <h4>{{ book.email }}</h4>
-                        <h4>{{ book.soluong }}</h4>
-                        <h4>{{ book.date }}</h4>
-                        <h4>{{ book.time }}</h4>
-                        <h4>{{ book.note }}</h4>
+                <div>
+                    <h3>Thông Tin Người Đặt :</h3>
+                </div>
+                <table class="table">
+                    <tr>
+                        <td class="name">Tên </td>
+                        <td class="haicham">:</td>
+                        <td class="data">{{book.nguoidat}}</td>
+                    </tr>
+                    <tr>
+                        <td class="name">Sô Điện Thoại </td>
+                        <td class="haicham">:</td>
+                        <td class="data">{{ book.phone }}</td>
+                    </tr>
+                    <tr>
+                        <td class="name">Email </td>
+                        <td class="haicham">:</td>
+                        <td class="data">{{ book.email }}</td>
+                    </tr>
+                    <tr>
+                        <td class="name">Số Người </td>
+                        <td class="haicham">:</td>
+                        <td class="data">{{ book.soluong }}</td>
+                    </tr>
+                    <tr>
+                        <td class="name">Ngày </td>
+                        <td class="haicham">:</td>
+                        <td class="data">{{ book.date }}</td>
+                    </tr>
+                    <tr>
+                        <td class="name">Giờ </td>
+                        <td class="haicham">:</td>
+                        <td class="data">{{ book.time }}</td>
+                    </tr>
+                    <tr>
+                        <td class="name">Ghi Chú  </td>
+                        <td class="haicham">:</td>
+                        <td class="data">{{ book.note }}</td>
+                    </tr>
+                    <tr>
+                        <td class="name">Trạng Thái   </td>
+                        <td class="haicham">:</td>
                         {% if book.status == false %}
-                            <h4>Chưa Liên Lạc</h4>
+                            <td style="width: 12%">Chưa Liên Lạc</td>
                         {% elif book.status == true %}
-                             <h4>Đã Liên Lạc</h4>
+                            <td style="width: 12%">Đã Liên Lạc</td>
                         {% endif %}
-                    </div>
+                        <td><i class="fa fa-pencil" aria-hidden="true" data-toggle="modal" data-target="#myModal" style="color: #ff006a; margin-left: 10px;"></i></td>
+                    </tr>
+                </table>
             </div>
         </div>
         <div class="col-lg-6">
-            <h2>Điạ Điểm Đặt</h2> 
-                <div class="col-lg-6" style="width : 26%;">
-                    <h4>Tên</h4>
-                    <h4>Địa Chỉ :</h4>
-                    <h4>Giờ Mở Cửa:</h4>
-                </div>
-                <div class="col-lg-6">
-                    <h4>{{ book.name_location }}</h4>
-                    <h4> {{ book.address }}</h4>
-                    <h4></h4>
-                    <h4>{{ book.time_open }}</h4>
-                </div>
+            <h3>Địa Điểm Đặt : </h3>
+            <table class="table">
+                <tr>
+                    <td class="name">Tên</td>
+                    <td class="haicham">:</td>
+                    <td class="data">{{ book.name_location }}</td>
+                </tr>
+                <tr>
+                    <td class="name">Địa Chỉ </td>
+                    <td class="haicham">:</td>
+                    <td class="data">{{ book.address }}</td>
+                </tr>
+                <tr>
+                    <td class="name">Giờ Mở Cửa </td>
+                    <td class="haicham">:</td>
+                    <td class="data">{{ book.time_open }}</td>
+                </tr>
+            </table>
+
         </div>
         <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">

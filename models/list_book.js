@@ -4,7 +4,6 @@ class book{
     constructor(db){
         this.db = db
     }
-
     BookList(){
         return this.db.any("SELECT * FROM book ORDER BY id_book DESC")
     }

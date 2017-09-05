@@ -1,5 +1,11 @@
 {% extends 'layouts/layoutAdm.html' %}
-
+{% block cssExtends %}
+<style>
+    .content-wrapper {
+        background: white;
+    }
+</style>
+{% endblock %}
 {% block content %}
 <div class="content-wrapper">
 
@@ -19,39 +25,30 @@
                         <thead>
                         <tr class="filters">
                             <th><input type="number" class="form-control" placeholder="ID" disabled></th>
-                            <th><input type="number" class="form-control" placeholder="Phone" disabled></th>
                             <th><input type="text" class="form-control" placeholder="Name" disabled></th>
-                            <th><input type="text" class="form-control" placeholder="Time &amp date" disabled></th>
-                            <th><input type="text" class="form-control" placeholder="location" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Address" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Time Open" disabled></th>
                         </tr>
                         </thead>
                         <tbody>
-                        
+                        {% for loca in data %}
                             <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
+                                <td><a href="">{{ loca.id }}</a></td>
+                                <td><a href="">{{ loca.name_location }}</a></td>
+                                <td><a href="">{{ loca.address }}</a></td>
+                                <td><a href="">{{ loca.time_open }}</a></td>
                             </tr>
-                        
-
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <td>@mdo</td>
-                        </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
+                    <nav aria-label="Page navigation" class="text-center"><ul class="pagination">
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+
+                    </ul></nav>
                 </div>
             </div>
         </div>
