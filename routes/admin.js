@@ -56,26 +56,51 @@ router.get('/posts_list', function (req, res) {
                 title: 'Posts List',
                 data : data
             });
-        })
+        }).catch(err => console.log(err.message))
 
 });
 
 router.route('/posts_categories')
     .get(function (req, res) {
-        db.task(t => {
-            return t.batch([
-                ListCat.cat(),
-                ListCat.sub_cat()
-            ])
-        }).then(data => {
+        ListCat.Cat()
+        .then(data => {
             res.render('categories.html', {
                 title: 'Categories',
-                cat : data[1],
-                sub_cat : data[2]
+                cat : data
             });
         }).catch(err => console.log(err.message))
+    })
+    .post(function (req, res) {
+        let name = req.body.Name
+        let cat = req.body.cas
+        req.checkBody('Name', 'Tên category không được để trống').notEmpty();
 
-    });
+        let errors = req.validationErrors();
+
+        if (errors) {
+        ListCat.Cat()
+            .then(data => {
+                res.render('categories.html', {
+                    errors : errors[0],
+                    title: 'Categories',
+                    cat : data
+                });
+            }).catch(err => console.log(err.message))
+        } else {
+            if(cat == 0 ){
+                ListCat.insert_cat(name)
+                .then(data => {
+                    res.redirect('/admin/posts_categories')
+                }).catch(err => console.log(err.message))
+            }else{
+                ListCat.insert_sub_cat(name,cat)
+                .then(data => {
+                    res.redirect('/admin/posts_categories')
+                }).catch(err => console.log(err.message))
+            } 
+        }
+        
+    })
 
 router.get('/user', function (req, res, next) {
     res.render('user_list.html', {title: 'List User'});

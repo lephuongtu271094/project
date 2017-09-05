@@ -10,22 +10,39 @@
 
 {% block content %}
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="background: white">
 
     <section class="content">
         <div class="col-lg-6">
             <div class="box box-info" style="margin-top:15px;">
                 <div class="box-header with-border">
                     <h3 class="box-title">New categories</h3>
+                    {% if cate %}
+                        <button type="submit" class="btn btn-danger pull-right">Delete</button>
+                    {% endif %}
+                    
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form class="form-horizontal">
-                    <div class="box-body">
-                        <div class="form-group">
+                <form class="form-horizontal" method="post">
 
-                            <div class="col-sm-12">
-                                <input type="Name_categories" class="form-control" id="inputEmail3" placeholder="Name">
+                    <div class="box-body">
+                    {% if errors %}
+                        <div class="alert alert-warning">
+                            {{errors.msg}}
+                        </div>
+                    {% endif %}
+                        <div class="form-group">
+                        <div class="col-sm-4">
+                            <select class="form-control select2 " style="width: 100%;" name="cas">
+                                <option selected="selected" value="0">Chọn category</option>
+                                {% for cas in cat %}
+                                <option value={{cas.id_categories}}>{{ cas.name_categories }}</option>
+                                {% endfor %}
+                            </select>
+                            </div>
+                            <div class="col-sm-8">
+                                <input type="text" name="Name" class="form-control" id="inputEmail3" placeholder="Name">
                             </div>
                         </div>
                     </div>
@@ -57,28 +74,16 @@
                         </tr>
                         </thead>
                         <tbody>
+                        {% for cas in cat %}
                         <tr>
-                            <td>sá</td>
+                            <td>{{cas.name_categories}}</td> 
                             <td>
-
-                            </td>
-
+                            {% for sub_cat in cas.array %}
+                            {{ sub_cat.name_castegory }}<br>
+                            {% endfor %}
+                            </td> 
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Larry</td>
-
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>Larry</td>
-
-                        </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
