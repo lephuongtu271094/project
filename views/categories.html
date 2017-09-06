@@ -17,7 +17,7 @@
             <div class="box box-info" style="margin-top:15px;">
                 <div class="box-header with-border">
                     <h3 class="box-title">New categories</h3>
-                    {% if cate %}
+                    {% if category %}
                         <button type="submit" class="btn btn-danger pull-right">Delete</button>
                     {% endif %}
                     
@@ -32,23 +32,56 @@
                             {{errors.msg}}
                         </div>
                     {% endif %}
+
                         <div class="form-group">
                         <div class="col-sm-4">
                             <select class="form-control select2 " style="width: 100%;" name="cas">
-                                <option selected="selected" value="0">Chọn category</option>
+                                    {% if category %}
+                                        {% for cate in category %}
+                                                <option selected="selected" value={{cate.id_categories}}>{{ cate.name_categories }}</option>
+                                        {% endfor %}
+                                    {% elif sub_category %}
+                                        {% for sub in sub_category %}
+                                        <option selected="selected" value={{sub.id_categories}}>{{ sub.name_categories }}</option>
+                                        {% endfor %}
+                                    {% else %}
+                                        <option selected="selected" value="0">Chọn category</option>
+                                    {% endif %}
+
+
                                 {% for cas in cat %}
                                 <option value={{cas.id_categories}}>{{ cas.name_categories }}</option>
                                 {% endfor %}
                             </select>
                             </div>
                             <div class="col-sm-8">
-                                <input type="text" name="Name" class="form-control" id="inputEmail3" placeholder="Name">
+                            {% if category %}
+
+                            {% for cate in category %}
+
+                                    <input type="text" name="Name" class="form-control" id="inputEmail3" placeholder="Name" value="{{cate.name_categories}}">
+
+                            {% endfor %}
+                                {% elif sub_category %}
+                             {% for sub in sub_category %}
+                                    <input type="text" name="Name" class="form-control" id="inputEmail3" placeholder="Name" value="{{sub.name_castegory}}">
+                              {% endfor %}
+                            {% else %}
+
+                                    <input type="text" name="Name" class="form-control" id="inputEmail3" placeholder="Name">
+
+                            {% endif %}
                             </div>
                         </div>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-info pull-right">Save</button>
+                        {% if category %}
+                            <button type="submit" class="btn btn-info pull-right">Update</button>
+                        {% else %}
+                            <button type="submit" class="btn btn-info pull-right">Save</button>
+                        {% endif %}
+
                     </div>
                     <!-- /.box-footer -->
                 </form>
@@ -76,10 +109,10 @@
                         <tbody>
                         {% for cas in cat %}
                         <tr>
-                            <td>{{cas.name_categories}}</td> 
+                            <td><a href="/admin/posts_categories/{{cas.id_categories}}">{{cas.name_categories}}</a></td>
                             <td>
                             {% for sub_cat in cas.array %}
-                            {{ sub_cat.name_castegory }}<br>
+                                <a href="/admin/posts_categories/sub_cat/{{sub_cat.id_sub_category}}">{{ sub_cat.name_castegory }}</a><br>
                             {% endfor %}
                             </td> 
                         </tr>
@@ -89,7 +122,6 @@
                 </div>
             </div>
         </div>
-
     </section>
     <!-- /.content -->
 </div>
