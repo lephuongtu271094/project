@@ -17,9 +17,13 @@
             <div class="box box-info" style="margin-top:15px;">
                 <div class="box-header with-border">
                     <h3 class="box-title">New categories</h3>
-                    {% if category %}
-                        <button type="submit" class="btn btn-danger pull-right">Delete</button>
+                    <form method="post" action="?_method=DELETE">
+                    {% if category or sub_category %}
+
+                            <button type="submit" class="btn btn-danger pull-right">Delete</button>
+
                     {% endif %}
+                    </form>
                     
                 </div>
                 <!-- /.box-header -->
@@ -76,7 +80,7 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
-                        {% if category %}
+                        {% if category or sub_category %}
                             <button type="submit" class="btn btn-info pull-right">Update</button>
                         {% else %}
                             <button type="submit" class="btn btn-info pull-right">Save</button>

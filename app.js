@@ -6,7 +6,9 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const nunjucks = require('nunjucks');
 const expressValidator = require('express-validator');
+const methodOverride = require('method-override')
 const pagination = require('./models/custom_filter/pagination');
+
 const { db, config} = require('./pgp');
 
 const index = require('./routes/index');
@@ -35,6 +37,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(methodOverride('_method'))
 
 
 app.use(expressValidator({
