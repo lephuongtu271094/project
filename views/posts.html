@@ -1,9 +1,50 @@
 {% extends 'layouts/layoutAdm.html' %}
 {% block cssExtends %}
-  <link rel="stylesheet" href="/bower_components/select2/dist/css/select2.min.css">
-  <link rel="stylesheet" href="/plugins/iCheck/all.css">
-    <link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">
-    
+<link rel="stylesheet" href="/bower_components/select2/dist/css/select2.min.css">
+<link rel="stylesheet" href="/plugins/iCheck/all.css">
+<link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css">
+<link rel="stylesheet" href="/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="/plugins/timepicker/bootstrap-timepicker.min.css">
+<style>
+    /* Always set the map height explicitly to define the size of the div
+     * element that contains the map. */
+    #map {
+        height: 100%;
+    }
+
+
+    #infowindow-content .title {
+        font-weight: bold;
+    }
+
+    .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+    }
+
+    #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 20px;
+        line-height: 2;
+        border-radius: 5px;
+        font-weight: 300;
+        margin-left: 17%;
+        padding: 0 13px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+    }
+
+    #pac-input:focus {
+        border-color: #4d90fe;
+    }
+    form input{
+        border-radius: 5px;
+        height: 30px;
+    }
+</style>
 
 {% endblock %}
 
@@ -12,54 +53,87 @@
 
     <section class="content">
 
-      <form enctype="multipart/form-data"  method="post">
-              <div class="box box-default">
-        <div class="box-header with-border">
-          <h3 class="box-title">Thêm Mới</h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <div class="row">
-            
-            <!-- /.col -->
+        <div class="row">
             <div class="col-md-6">
-              <div class="form-group">
-                <label>Multiple</label>
-                <select class="form-control select2" multiple="multiple" data-placeholder="Select a State"
-                        style="width: 100%;">
-                  <option>Alabama</option>
-                  <option>Alaska</option>
-                  <option>California</option>
-                  <option>Delaware</option>
-                  <option>Tennessee</option>
-                  <option>Texas</option>
-                  <option>Washington</option>
-                </select>
-              </div>
-              <!-- /.form-group -->
-              <div class="form-group">
-                  <label for="exampleInputFile" >Album sản phẩm</label>
-                  <input type="file" id="exampleInputFile" name="photo" multiple>
-                </div>
-              <!-- /.form-group -->
-            </div>
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Thêm Mới</h3>
+                    </div>
 
-            <div class="form-group">
-                  <label for="exampleInputFile">Hình ảnh của sản phẩm</label>
-                  <input type="file" id="exampleInputFile" name="photo" multiple>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <form enctype="multipart/form-data" method="post">
+                            <div class="form-group">
+                                <label>Tên</label>
+                                <input type="text" name="name">
+                                <label >Địa Điểm</label>
+                                <input type="text" name="address" id="address">
+                                <label>Rate</label>
+                                <input type="number" name="rate">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label>Latitude :</label><input type="text" id="lat" name="lat" disabled>
+                                <label>Longtitude :</label><input type="text" id="long" name="long" disabled>
+                            </div>
+                            <div class="col-md-4 bootstrap-timepicker">
+                                <div class="form-group">
+
+                                    <label >Giờ mở cửa</label>
+                                    <input name="time" type="text" class="form-control timepicker"
+                                           style="border-radius: 5px;" name="open">
+
+                                    <label >Giờ Đóng cửa</label>
+                                    <input name="time" type="text" class="form-control timepicker"
+                                           style="border-radius: 5px;" name="close">
+                                    <!-- /.input group -->
+                                </div>
+                                <!-- /.form group -->
+                            </div>
+                            <select class="form-group" id="districts">
+                                <option>Districts</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+                            <select class="form-group" id="category">
+                                <option>Category</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                            </select>
+
+                            <div class="form-group">
+                                <label for="album">Album sản phẩm</label>
+                                <input type="file" id="album" name="album" multiple>
+                                <label for="image">Hình ảnh hiển thị của sản phẩm</label>
+                                <input type="file" id="image" name="photo">
+                            </div>
+                            <div class="box-footer">
+                                <input type="submit" type="Save">
+                            </div>
+                            <!-- /.col -->
+
+                        </form>
+                    </div>
                 </div>
-              <!-- /.form-group -->
+                <!-- /.row -->
+
             </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
+            <!-- /.box-body -->
+
+
+            <div class="col-md-6">
+                <div class="form-group" style="height: 500px;">
+                    <form method="post">
+                        <input id="pac-input" class="controls" type="text" placeholder="Tìm Địa Điểm" name="address">
+                    </form>
+
+                    <div id="map"></div>
+                </div>
+            </div>
         </div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-          <input type="submit" type="Save">
-        </div>
-      </div>
-      </form>
 
     </section>
     <!-- /.content -->
@@ -69,13 +143,93 @@
 {% block jsExtends %}
 <script src="/bower_components/select2/dist/js/select2.full.min.js"></script>
 <script src="/plugins/iCheck/icheck.min.js"></script>
-
+<script src="/plugin/axios.js"></script>
 <script>
-$(function(){
- $('.select2').select2()
+    $(function () {
+        $('.select2').select2();
+        $('.timepicker').timepicker({
+            showInputs: false
+        })
+    })
 
-})
-     
+
 </script>
+<script>
+    // This example adds a search box to a map, using the Google Place Autocomplete
+    // feature. People can enter geographical searches. The search box will return a
+    // pick list containing a mix of places and predicted search terms.
 
+    // This example requires the Places library. Include the libraries=places
+    // parameter when you first load the API. For example:
+    // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+    function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: 21.033333, lng: 105.849998},
+            zoom: 6,
+            mapTypeId: 'roadmap'
+        });
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function () {
+            searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function () {
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+            // Clear out the old markers.
+            markers.forEach(function (marker) {
+                marker.setMap(null);
+            });
+            markers = [];
+
+            // For each place, get the icon, name and location.
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function (place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+
+                // Create a marker for each place.
+                markers.push(new google.maps.Marker({
+                    map: map,
+//                    icon: '/images/icon-map-marker-200x200.png',
+                    title: place.name,
+                    position: place.geometry.location
+                }));
+
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+    }
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsB1OF-sOPmmMd9bwLpJfJfrdumJ_A6dI&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
+
+<script src="/javascripts/getlonglat.js"></script>
+<script src="/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 {% endblock %}
