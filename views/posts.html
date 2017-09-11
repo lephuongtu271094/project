@@ -43,6 +43,43 @@
     form input{
         border-radius: 5px;
         height: 30px;
+
+    }
+    .ipt{
+        margin: 2% 0;
+    }
+    .ipt input{
+        width: 100%;
+    }
+    .ipt .col-md-2{
+        width: 12%;
+        padding-right: 0;
+    }
+    .latlong label{
+        width:20%;
+    }
+    #rate ,#long , #lat , #timeo , #timec{
+        width:50%;
+    }
+    select{
+        width: 100%;
+    }
+    .img{
+        margin-left: 0;
+    }
+    #city button{
+        background: white;
+        border: 1px solid;
+        width: 80%;
+    }
+    #city ul{
+        margin-left: 20px;
+    }
+    #city li{
+        padding: 5px 15px;
+    }
+    .dropdown{
+        padding-left: 15px;
     }
 </style>
 
@@ -58,60 +95,141 @@
                 <div class="box box-default">
                     <div class="box-header with-border">
                         <h3 class="box-title">Thêm Mới</h3>
+                        <form method="post">
+                            <button class="btn btn-danger pull-right">delete</button>
+                        </form>
                     </div>
 
+                    {% if errors %}
+                    {% for err in errors %}
+                        <div class="alert alert-warning">
+                            {{err.msg}}
+                        </div>
+                    {% endfor %}
+                    {% endif %}
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form enctype="multipart/form-data" method="post">
+                        <form method="post" enctype="multipart/form-data" >
                             <div class="form-group">
-                                <label>Tên</label>
-                                <input type="text" name="name">
-                                <label >Địa Điểm</label>
-                                <input type="text" name="address" id="address">
-                                <label>Rate</label>
-                                <input type="number" name="rate">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="dropdown" id="city">
+                                        {% if districts %}
+                                            {% for dis in districts %}
+                                            <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">{{dis.name}}</button>
+                                            {% endfor %}
+                                            {% else %}
+                                            <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">-- Thành Phố --</button>
+                                        {% endif %}
 
-                            </div>
-
-                            <div class="form-group">
-                                <label>Latitude :</label><input type="text" id="lat" name="lat" disabled>
-                                <label>Longtitude :</label><input type="text" id="long" name="long" disabled>
-                            </div>
-                            <div class="col-md-4 bootstrap-timepicker">
-                                <div class="form-group">
-
-                                    <label >Giờ mở cửa</label>
-                                    <input name="time" type="text" class="form-control timepicker"
-                                           style="border-radius: 5px;" name="open">
-
-                                    <label >Giờ Đóng cửa</label>
-                                    <input name="time" type="text" class="form-control timepicker"
-                                           style="border-radius: 5px;" name="close">
-                                    <!-- /.input group -->
+                                            <ul class="dropdown-menu">
+                                                {% for ci in city %}
+                                                <a href="/admin/posts/{{ci.id_city}}"><li>{{ ci.name }}</li></a>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-group" id="districts" name="districts">
+                                            <option>-- Districts --</option>
+                                            {% for dis in districts %}
+                                                {% for di in dis.array %}
+                                                    <option value={{di.id_districts}}>{{di.name_districts}}</option>
+                                                {% endfor %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-group" id="category" name="category">
+                                            <option> -- Category -- </option>
+                                            {% for subcat in sub_category %}
+                                            <option value={{ subcat.id_sub_category }}>{{ subcat.name_castegory }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
                                 </div>
-                                <!-- /.form group -->
-                            </div>
-                            <select class="form-group" id="districts">
-                                <option>Districts</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                            </select>
-                            <select class="form-group" id="category">
-                                <option>Category</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                            </select>
 
+                            </div>
                             <div class="form-group">
-                                <label for="album">Album sản phẩm</label>
-                                <input type="file" id="album" name="album" multiple>
-                                <label for="image">Hình ảnh hiển thị của sản phẩm</label>
-                                <input type="file" id="image" name="photo">
+                                <div>
+                                    <div class="row ipt">
+                                        <div class="col-md-2">
+                                            <label>Tên :</label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="text" name="nameLocation"><br>
+                                        </div>
+                                    </div>
+                                    <div class="row ipt">
+                                        <div class="col-md-2">
+                                            <label>Địa Điểm :</label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="text" name="addressLocation">
+                                        </div>
+                                    </div>
+                                    <div class="row ipt">
+                                        <div class="col-md-2">
+                                            <label>Rate :</label>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input type="number" name="rate" id="rate">
+                                        </div>
+                                    </div>
+                                    <div class="row ipt">
+                                        <div class="col-md-2">
+                                            <label>Latitude :</label>
+                                        </div>
+                                            <div class="col-md-10">
+                                                <input type="text" id="lat" name="lat" disabled>
+                                            </div>
+                                    </div>
+                                    <div class="row ipt">
+                                    <div class="col-md-2">
+                                        <label>Longtitude :</label>
+                                    </div>
+                                        <div class="col-md-10">
+                                            <input type="text" id="long" name="long" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="row ipt ">
+                                        <div class="col-md-2">
+                                            <label >Giờ mở cửa</label>
+                                        </div>
+                                        <div class="col-md-10 bootstrap-timepicker">
+                                            <input type="text" class="form-control timepicker"
+                                                   style="border-radius: 5px;" name="open" id="timeo">
+                                        </div>
+                                    </div>
+                                    <div class="row ipt ">
+                                        <div class="col-md-2">
+                                            <label >Giờ Đóng cửa</label>
+                                        </div>
+                                        <div class="col-md-10 bootstrap-timepicker">
+                                            <input type="text" class="form-control timepicker"
+                                                   style="border-radius: 5px;" name="close" id="timec">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="form-group ">
+                                <div class="row img">
+                                    <div class="col-md-6">
+                                        <label for="image">Hình ảnh hiển thị của sản phẩm</label>
+                                        <input type="file" id="image" name="photo">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="album">Album sản phẩm</label>
+                                        <input type="file" id="album" name="album" multiple>
+                                    </div>
+
+                                </div>
                             </div>
                             <div class="box-footer">
-                                <input type="submit" type="Save">
+                                <button type="submit" class="btn btn-success" style="width: 100%">Save</button>
                             </div>
                             <!-- /.col -->
 
