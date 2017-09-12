@@ -1,0 +1,72 @@
+#map {
+    height: 100%;
+}
+
+
+#infowindow-content .title {
+    font-weight: bold;
+}
+
+.pac-controls label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+}
+
+#pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 20px;
+    line-height: 2;
+    border-radius: 5px;
+    font-weight: 300;
+    margin-left: 17%;
+    padding: 0 13px 0 13px;
+    text-overflow: ellipsis;
+    width: 400px;
+}
+
+#pac-input:focus {
+    border-color: #4d90fe;
+}
+form input{
+    border-radius: 5px;
+    height: 30px;
+
+}
+.ipt{
+    margin: 2% 0;
+}
+.ipt input{
+    width: 100%;
+}
+.ipt .col-md-2{
+    width: 12%;
+    padding-right: 0;
+}
+.latlong label{
+    width:20%;
+}
+#rate ,#long , #lat , #timeo , #timec{
+    width:50%;
+}
+select{
+    width: 100%;
+}
+.img{
+    margin-left: 0;
+}
+#city button{
+    background: white;
+    border: 1px solid;
+    width: 80%;
+}
+#city ul{
+    margin-left: 20px;
+}
+#city li{
+    padding: 5px 15px;
+}
+.dropdown{
+    padding-left: 15px;
+}

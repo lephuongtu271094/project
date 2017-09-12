@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const app = express()
+const multer = require('multer')
+const shortid = require('shortid')
 const {db, pagination} = require('../pgp')
 const ListBook = require('../models/list_book')
 const ListAdmin = require('../models/list_admin')
@@ -7,7 +10,35 @@ const ListCat = require('../models/list_cat')
 const Posts = require('../models/posts')
 
 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        //nơi chứa file upload
+        cb(null, './public/image_location')
+    },
+    filename: function (req, file, cb) {
+        // cb(null, shortid.generate() + '-' + file.originalname)
+        // Tạo tên file mới cho file vừa upload
+        cb(null, file.originalname.replace(" ", "-"))
+    }
+
+})
+
+function fileFilter(req, file, cb) { // hàm phân loại file upload
+    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') { // nếu là đuôi png,jpg,jpeg
+        // nếu là file image thì upload file.
+        cb(null, true)
+    } else {
+        // nếu không phải thì bỏ qua phần upload
+        cb(new Error(file.mimetype + ' is not accepted'))
+    }
+}
+// các thuộc tính của multer gán cho biến upload
+app.upload = multer({storage: storage , fileFilter:fileFilter});
+
+let cpUpload = app.upload.fields([{ name: 'photo', maxCount: 1 }, { name: 'album', maxCount: 12 }]);
+
 //-------------------------------------------ADMIN-------------------------------------------
+
 
 router.get('/', function (req, res, next) {
     ListBook.BookList()
@@ -157,7 +188,7 @@ router.route('/posts_categories/:id')
 
 router.route('/posts_categories/sub_cat/:id')
     .get((req, res) => {
-        let sub_cat = req.params.id
+        let sub_cat = req.params.id;
         db.task(t => {
             return t.batch([
                 ListCat.Cat(),
@@ -172,8 +203,8 @@ router.route('/posts_categories/sub_cat/:id')
         }).catch(err => console.log(err.message))
     })
     .post(function (req, res) {
-        let sub_cat = req.params.id
-        let name = req.body.Name
+        let sub_cat = req.params.id;
+        let name = req.body.Name;
         req.checkBody('Name', 'Tên category không được để trống').notEmpty();
 
         let errors = req.validationErrors();
@@ -242,39 +273,156 @@ router.route('/posts/:id')
             })
         }).catch(err => console.log(err.message))
     })
-    .post(function (req,res) {
+    .post(cpUpload,function (req,res) {
         let city = req.params.id
-        console.log(req.body)
-        // req.checkBody('districts','Hãy Lựa chọn Quận / Huyện').isEmpty();
-        // req.checkBody('category', 'Hãy Lựa chon danh mục').isEmpty();
-        // req.checkBody('nameLocation', 'Tên không được để trống').isEmpty();
-        // req.checkBody('addressLocation', 'Địa điểm không được để trống').isEmpty();
-        // req.checkBody('lat', 'Hãy Lựa chọn địa điểm trên bản đồ').isEmpty();
-        // req.checkBody('open', 'Thời gian mở cửa không được để trống').isEmpty();
-        // req.checkBody('close', 'Thời gian đóng cửa không được để trống').isEmpty();
+        req.checkBody('districts','Hãy Lựa chọn Quận / Huyện').isInt();
+        req.checkBody('category', 'Hãy Lựa chon danh mục').isInt();
+        req.checkBody('nameLocation', 'Tên không được để trống').notEmpty();
+        req.checkBody('addressLocation', 'Địa điểm không được để trống').notEmpty();
+        req.checkBody('latitude', 'Hãy Lựa chọn địa điểm trên bản đồ').notEmpty();
 
-        // let errors = req.validationErrors()
 
-        // if(errors){
-        //     console.log(errors)
-        //     db.task(t => {
-        //         return t.batch([
-        //             Posts.getCity(),
-        //             Posts.getSubCat(),
-        //             Posts.getDistricts(city)
-        //         ])
-        //     }).then(data => {
-        //         res.render('posts.html', {
-        //             errors:errors,
-        //             title: 'Posts',
-        //             city: data[0],
-        //             sub_category: data[1],
-        //             districts : data[2]
-        //         })
-        //     })
-        // }
+        let errors = req.validationErrors()
+
+        if(errors){
+            db.task(t => {
+                return t.batch([
+                    Posts.getCity(),
+                    Posts.getSubCat(),
+                    Posts.getDistricts(city)
+                ])
+            }).then(data => {
+                res.render('posts.html', {
+                    errors:errors,
+                    title: 'Posts',
+                    city: data[0],
+                    sub_category: data[1],
+                    districts : data[2]
+                })
+            })
+        }else{
+            let id_location = shortid.generate();
+
+            let location = {};
+
+            location['districts'] = req.body.districts;
+            location['category'] = req.body.category;
+            location['address'] = req.body.addressLocation;
+            location['name'] = req.body.nameLocation;
+            location['rate'] = req.body.rate;
+            location['lat'] = req.body.latitude;
+            location['long'] = req.body.longitude;
+            location['time_open'] = req.body.open + ' - ' + req.body.close;
+            location['id_location'] = id_location;
+            location['show_location'] = false;
+
+            let photo = {};
+
+            photo['img'] =  req.files['photo'][0].filename;
+            photo['show_img'] = true;
+            photo['id_location'] = id_location;
+
+            let album =[];
+
+            req.files['album'].forEach(data => {
+                let obj = {};
+                obj['img'] = data.filename;
+                obj['id_location'] = id_location;
+                obj['show_img'] = false;
+                album.push(obj)
+            });
+
+            Posts.insertLocation(location,photo,album)
+                .then(() => {
+                    res.redirect('/admin/posts_list')
+                })
+
+        }
+    });
+router.route('/posts/:id/:location')
+    .get(function (req, res) {
+        let city = req.params.id
+        db.task(t => {
+            return t.batch([
+                Posts.getCity(),
+                Posts.getSubCat(),
+                Posts.getDistricts(city)
+            ])
+        }).then(data => {
+            res.render('posts.html', {
+                title: 'Posts',
+                city: data[0],
+                sub_category: data[1],
+                districts : data[2]
+            })
+        }).catch(err => console.log(err.message))
     })
-
+    // .post(cpUpload,function (req,res) {
+    //     let city = req.params.id
+    //     req.checkBody('districts','Hãy Lựa chọn Quận / Huyện').isInt();
+    //     req.checkBody('category', 'Hãy Lựa chon danh mục').isInt();
+    //     req.checkBody('nameLocation', 'Tên không được để trống').notEmpty();
+    //     req.checkBody('addressLocation', 'Địa điểm không được để trống').notEmpty();
+    //     req.checkBody('latitude', 'Hãy Lựa chọn địa điểm trên bản đồ').notEmpty();
+    //
+    //
+    //     let errors = req.validationErrors()
+    //
+    //     if(errors){
+    //         db.task(t => {
+    //             return t.batch([
+    //                 Posts.getCity(),
+    //                 Posts.getSubCat(),
+    //                 Posts.getDistricts(city)
+    //             ])
+    //         }).then(data => {
+    //             res.render('posts.html', {
+    //                 errors:errors,
+    //                 title: 'Posts',
+    //                 city: data[0],
+    //                 sub_category: data[1],
+    //                 districts : data[2]
+    //             })
+    //         })
+    //     }else{
+    //         let id_location = shortid.generate();
+    //
+    //         let location = {};
+    //
+    //         location['districts'] = req.body.districts;
+    //         location['category'] = req.body.category;
+    //         location['address'] = req.body.addressLocation;
+    //         location['name'] = req.body.nameLocation;
+    //         location['rate'] = req.body.rate;
+    //         location['lat'] = req.body.latitude;
+    //         location['long'] = req.body.longitude;
+    //         location['time_open'] = req.body.open + ' - ' + req.body.close;
+    //         location['id_location'] = id_location;
+    //         location['show_location'] = false;
+    //
+    //         let photo = {};
+    //
+    //         photo['img'] =  req.files['photo'][0].filename;
+    //         photo['show_img'] = true;
+    //         photo['id_location'] = id_location;
+    //
+    //         let album =[];
+    //
+    //         req.files['album'].forEach(data => {
+    //             let obj = {};
+    //             obj['img'] = data.filename;
+    //             obj['id_location'] = id_location;
+    //             obj['show_img'] = false;
+    //             album.push(obj)
+    //         });
+    //
+    //         Posts.insertLocation(location,photo,album)
+    //             .then(() => {
+    //                 res.redirect('/admin/posts_list')
+    //             })
+    //
+    //     }
+    // });
 
 router.get('/user', function (req, res, next) {
     res.render('user_list.html', {title: 'List User'});

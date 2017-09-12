@@ -6,83 +6,7 @@
 <link rel="stylesheet" href="/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 <link rel="stylesheet" href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 <link rel="stylesheet" href="/plugins/timepicker/bootstrap-timepicker.min.css">
-<style>
-    /* Always set the map height explicitly to define the size of the div
-     * element that contains the map. */
-    #map {
-        height: 100%;
-    }
-
-
-    #infowindow-content .title {
-        font-weight: bold;
-    }
-
-    .pac-controls label {
-        font-family: Roboto;
-        font-size: 13px;
-        font-weight: 300;
-    }
-
-    #pac-input {
-        background-color: #fff;
-        font-family: Roboto;
-        font-size: 20px;
-        line-height: 2;
-        border-radius: 5px;
-        font-weight: 300;
-        margin-left: 17%;
-        padding: 0 13px 0 13px;
-        text-overflow: ellipsis;
-        width: 400px;
-    }
-
-    #pac-input:focus {
-        border-color: #4d90fe;
-    }
-    form input{
-        border-radius: 5px;
-        height: 30px;
-
-    }
-    .ipt{
-        margin: 2% 0;
-    }
-    .ipt input{
-        width: 100%;
-    }
-    .ipt .col-md-2{
-        width: 12%;
-        padding-right: 0;
-    }
-    .latlong label{
-        width:20%;
-    }
-    #rate ,#long , #lat , #timeo , #timec{
-        width:50%;
-    }
-    select{
-        width: 100%;
-    }
-    .img{
-        margin-left: 0;
-    }
-    #city button{
-        background: white;
-        border: 1px solid;
-        width: 80%;
-    }
-    #city ul{
-        margin-left: 20px;
-    }
-    #city li{
-        padding: 5px 15px;
-    }
-    .dropdown{
-        padding-left: 15px;
-    }
-</style>
-
+<link rel="stylesheet" href="/stylesheets/posts.css">
 {% endblock %}
 
 {% block content %}
@@ -109,7 +33,7 @@
                     {% endif %}
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form method="post" enctype="multipart/form-data" >
+                        <form method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -165,7 +89,7 @@
                                             <label>Địa Điểm :</label>
                                         </div>
                                         <div class="col-md-10">
-                                            <input type="text" name="addressLocation">
+                                            <input type="text" name="addressLocation" id="address">
                                         </div>
                                     </div>
                                     <div class="row ipt">
@@ -181,7 +105,7 @@
                                             <label>Latitude :</label>
                                         </div>
                                             <div class="col-md-10">
-                                                <input type="text" id="lat" name="lat" disabled>
+                                                <input type="text" id="lat" name="latitude" readonly>
                                             </div>
                                     </div>
                                     <div class="row ipt">
@@ -189,7 +113,7 @@
                                         <label>Longtitude :</label>
                                     </div>
                                         <div class="col-md-10">
-                                            <input type="text" id="long" name="long" disabled>
+                                            <input type="text" id="long" name="longitude" readonly>
                                         </div>
                                     </div>
                                     <div class="row ipt ">
@@ -218,11 +142,11 @@
                             <div class="form-group ">
                                 <div class="row img">
                                     <div class="col-md-6">
-                                        <label for="image">Hình ảnh hiển thị của sản phẩm</label>
+                                        <label for="image">Hình ảnh hiển thị của địa điểm</label>
                                         <input type="file" id="image" name="photo">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="album">Album sản phẩm</label>
+                                        <label for="album">Album ảnh địa điểm</label>
                                         <input type="file" id="album" name="album" multiple>
                                     </div>
 
@@ -262,16 +186,6 @@
 <script src="/bower_components/select2/dist/js/select2.full.min.js"></script>
 <script src="/plugins/iCheck/icheck.min.js"></script>
 <script src="/plugin/axios.js"></script>
-<script>
-    $(function () {
-        $('.select2').select2();
-        $('.timepicker').timepicker({
-            showInputs: false
-        })
-    })
-
-
-</script>
 <script>
     // This example adds a search box to a map, using the Google Place Autocomplete
     // feature. People can enter geographical searches. The search box will return a

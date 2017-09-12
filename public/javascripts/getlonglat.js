@@ -1,3 +1,10 @@
+$(function () {
+    $('.select2').select2();
+    $('.timepicker').timepicker({
+        showInputs: false
+    })
+})
+
 $('#pac-input').keypress(function(event){
 
     var keycode = (event.keyCode ? event.keyCode : event.which);
