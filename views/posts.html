@@ -19,9 +19,11 @@
                 <div class="box box-default">
                     <div class="box-header with-border">
                         <h3 class="box-title">Thêm Mới</h3>
-                        <form method="post">
+                        {% if detail %}
+                        <form method="post" action="?_method=DELETE">
                             <button class="btn btn-danger pull-right">delete</button>
                         </form>
+                        {% endif %}
                     </div>
 
                     {% if errors %}
@@ -34,41 +36,79 @@
                     <!-- /.box-header -->
                     <div class="box-body">
                         <form method="post" enctype="multipart/form-data">
+                            {% if detail %}
+                            <input type="text" name="id_location" value="{{detail.id_location}}" style="display: none">
+                            {% endif %}
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="dropdown" id="city">
                                         {% if districts %}
                                             {% for dis in districts %}
-                                            <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">{{dis.name}}</button>
+                                                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">{{dis.name}}</button>
                                             {% endfor %}
-                                            {% else %}
+                                        {% elif detail %}
+                                            {% for deta in detail.array %}
+                                                <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">{{deta.name_city}}</button>
+                                             {% endfor %}
+                                        {% else %}
                                             <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">-- Thành Phố --</button>
                                         {% endif %}
 
                                             <ul class="dropdown-menu">
                                                 {% for ci in city %}
-                                                <a href="/admin/posts/{{ci.id_city}}"><li>{{ ci.name }}</li></a>
+                                                    <a href="/admin/posts/{{ci.id_city}}"><li>{{ ci.name }}</li></a>
                                                 {% endfor %}
+                                                {% if detail %}
+                                                    {% for city in data.city %}
+                                                        <a href="/admin/posts/{{ci.id_city}}"><li>{{ city.name }}</li></a>
+                                                    {% endfor %}
+                                                {% endif %}
+
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <select class="form-group" id="districts" name="districts">
-                                            <option>-- Districts --</option>
-                                            {% for dis in districts %}
-                                                {% for di in dis.array %}
-                                                    <option value={{di.id_districts}}>{{di.name_districts}}</option>
+                                            {% if detail %}
+                                                {% for deta in detail.array %}
+                                                    <option value={{deta.id_dis}}>{{deta.name_dis}}</option>
                                                 {% endfor %}
-                                            {% endfor %}
+                                                {% for da in data.district %}
+                                                    <option>-- Districts --</option>
+                                                    {% for dis in da.array %}
+                                                        <option value={{dis.id_districts}}>{{dis.name_districts}}</option>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                                {% else %}
+                                            <option>-- Districts --</option>
+                                                {% for dis in districts %}
+                                                    {% for di in dis.array %}
+                                                    <option value={{di.id_districts}}>{{di.name_districts}}</option>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            {% endif %}
+
+
                                         </select>
                                     </div>
                                     <div class="col-md-4">
                                         <select class="form-group" id="category" name="category">
+                                            {% if detail %}
+                                                {% for deta in detail.array %}
+                                                    <option value={{deta.id_cat}}>{{deta.name_cat}}</option>
+                                                {% endfor %}
+                                                    <option> -- Category -- </option>
+                                                {% for cat in data.cate %}
+                                                    <option value={{cat.id_sub_category}}>{{ cat.name_castegory }}</option>
+                                                {% endfor %}
+                                            {% else %}
                                             <option> -- Category -- </option>
-                                            {% for subcat in sub_category %}
-                                            <option value={{ subcat.id_sub_category }}>{{ subcat.name_castegory }}</option>
-                                            {% endfor %}
+                                                {% for subcat in sub_category %}
+                                                    <option value={{ subcat.id_sub_category }}>{{ subcat.name_castegory }}</option>
+                                                {% endfor %}
+                                            {% endif %}
+
                                         </select>
                                     </div>
                                 </div>
@@ -81,7 +121,7 @@
                                             <label>Tên :</label>
                                         </div>
                                         <div class="col-md-10">
-                                            <input type="text" name="nameLocation"><br>
+                                            <input type="text" name="nameLocation" value="{{detail.name_location}}"><br>
                                         </div>
                                     </div>
                                     <div class="row ipt">
@@ -89,7 +129,7 @@
                                             <label>Địa Điểm :</label>
                                         </div>
                                         <div class="col-md-10">
-                                            <input type="text" name="addressLocation" id="address">
+                                            <input type="text" name="addressLocation" id="address" value="{{detail.address}}">
                                         </div>
                                     </div>
                                     <div class="row ipt">
@@ -97,7 +137,7 @@
                                             <label>Rate :</label>
                                         </div>
                                         <div class="col-md-10">
-                                            <input type="number" name="rate" id="rate">
+                                            <input type="number" name="rate" id="rate" value="{{detail.rate}}">
                                         </div>
                                     </div>
                                     <div class="row ipt">
@@ -105,7 +145,7 @@
                                             <label>Latitude :</label>
                                         </div>
                                             <div class="col-md-10">
-                                                <input type="text" id="lat" name="latitude" readonly>
+                                                <input type="text" id="lat" name="latitude" readonly value="{{detail.lat}}">
                                             </div>
                                     </div>
                                     <div class="row ipt">
@@ -113,7 +153,7 @@
                                         <label>Longtitude :</label>
                                     </div>
                                         <div class="col-md-10">
-                                            <input type="text" id="long" name="longitude" readonly>
+                                            <input type="text" id="long" name="longitude" readonly value="{{detail.long}}">
                                         </div>
                                     </div>
                                     <div class="row ipt ">
@@ -122,7 +162,7 @@
                                         </div>
                                         <div class="col-md-10 bootstrap-timepicker">
                                             <input type="text" class="form-control timepicker"
-                                                   style="border-radius: 5px;" name="open" id="timeo">
+                                                   style="border-radius: 5px;" name="open" id="timeo" value="{{ timeOpen }}">
                                         </div>
                                     </div>
                                     <div class="row ipt ">
@@ -131,7 +171,7 @@
                                         </div>
                                         <div class="col-md-10 bootstrap-timepicker">
                                             <input type="text" class="form-control timepicker"
-                                                   style="border-radius: 5px;" name="close" id="timec">
+                                                   style="border-radius: 5px;" name="close" id="timec" value="{{ timeClose }}">
                                         </div>
                                     </div>
 
@@ -152,9 +192,15 @@
 
                                 </div>
                             </div>
+                            {% if detail %}
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-success" style="width: 100%">Update</button>
+                            </div>
+                            {% else %}
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-success" style="width: 100%">Save</button>
                             </div>
+                            {% endif %}
                             <!-- /.col -->
 
                         </form>

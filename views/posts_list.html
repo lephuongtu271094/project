@@ -33,10 +33,10 @@
                         <tbody>
                         {% for loca in data %}
                             <tr>
-                                <td><a href="">{{ loca.id }}</a></td>
-                                <td><a href="">{{ loca.name_location }}</a></td>
-                                <td><a href="">{{ loca.address }}</a></td>
-                                <td><a href="">{{ loca.time_open }}</a></td>
+                                <td><a href="/admin/posts/detail/{{loca.id_location}}">{{ loca.id }}</a></td>
+                                <td><a href="/admin/posts/detail/{{loca.id_location}}">{{ loca.name_location }}</a></td>
+                                <td><a href="/admin/posts/detail/{{loca.id_location}}">{{ loca.address }}</a></td>
+                                <td><a href="/admin/posts/detail/{{loca.id_location}}">{{ loca.time_open }}</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>

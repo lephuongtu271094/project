@@ -339,90 +339,87 @@ router.route('/posts/:id')
 
         }
     });
-router.route('/posts/:id/:location')
+router.route('/posts/detail/:location')
     .get(function (req, res) {
-        let city = req.params.id
+        let loca = req.params.location
+        console.log(loca)
         db.task(t => {
             return t.batch([
-                Posts.getCity(),
-                Posts.getSubCat(),
-                Posts.getDistricts(city)
+                Posts.getCityDistrictsCategiry(loca),
+                Posts.getdetail(loca)
             ])
-        }).then(data => {
+        })
+        .then(data => {
+            let timeOpen = data[1][0].time_open.trim().slice(0,9)
+            let timeClose = data[1][0].time_open.trim().slice(11,19)
+            console.log(data[0])
             res.render('posts.html', {
                 title: 'Posts',
-                city: data[0],
-                sub_category: data[1],
-                districts : data[2]
+                data : data[0],
+                detail : data[1][0],
+                timeOpen : timeOpen,
+                timeClose : timeClose
             })
         }).catch(err => console.log(err.message))
     })
-    // .post(cpUpload,function (req,res) {
-    //     let city = req.params.id
-    //     req.checkBody('districts','Hãy Lựa chọn Quận / Huyện').isInt();
-    //     req.checkBody('category', 'Hãy Lựa chon danh mục').isInt();
-    //     req.checkBody('nameLocation', 'Tên không được để trống').notEmpty();
-    //     req.checkBody('addressLocation', 'Địa điểm không được để trống').notEmpty();
-    //     req.checkBody('latitude', 'Hãy Lựa chọn địa điểm trên bản đồ').notEmpty();
-    //
-    //
-    //     let errors = req.validationErrors()
-    //
-    //     if(errors){
-    //         db.task(t => {
-    //             return t.batch([
-    //                 Posts.getCity(),
-    //                 Posts.getSubCat(),
-    //                 Posts.getDistricts(city)
-    //             ])
-    //         }).then(data => {
-    //             res.render('posts.html', {
-    //                 errors:errors,
-    //                 title: 'Posts',
-    //                 city: data[0],
-    //                 sub_category: data[1],
-    //                 districts : data[2]
-    //             })
-    //         })
-    //     }else{
-    //         let id_location = shortid.generate();
-    //
-    //         let location = {};
-    //
-    //         location['districts'] = req.body.districts;
-    //         location['category'] = req.body.category;
-    //         location['address'] = req.body.addressLocation;
-    //         location['name'] = req.body.nameLocation;
-    //         location['rate'] = req.body.rate;
-    //         location['lat'] = req.body.latitude;
-    //         location['long'] = req.body.longitude;
-    //         location['time_open'] = req.body.open + ' - ' + req.body.close;
-    //         location['id_location'] = id_location;
-    //         location['show_location'] = false;
-    //
-    //         let photo = {};
-    //
-    //         photo['img'] =  req.files['photo'][0].filename;
-    //         photo['show_img'] = true;
-    //         photo['id_location'] = id_location;
-    //
-    //         let album =[];
-    //
-    //         req.files['album'].forEach(data => {
-    //             let obj = {};
-    //             obj['img'] = data.filename;
-    //             obj['id_location'] = id_location;
-    //             obj['show_img'] = false;
-    //             album.push(obj)
-    //         });
-    //
-    //         Posts.insertLocation(location,photo,album)
-    //             .then(() => {
-    //                 res.redirect('/admin/posts_list')
-    //             })
-    //
-    //     }
-    // });
+    .post(cpUpload,function (req,res) {
+        let loca = req.params.location
+
+        req.checkBody('districts','Hãy Lựa chọn Quận / Huyện').isInt();
+        req.checkBody('category', 'Hãy Lựa chon danh mục').isInt();
+        req.checkBody('nameLocation', 'Tên không được để trống').notEmpty();
+        req.checkBody('addressLocation', 'Địa điểm không được để trống').notEmpty();
+        req.checkBody('latitude', 'Hãy Lựa chọn địa điểm trên bản đồ').notEmpty();
+
+        let errors = req.validationErrors()
+
+        if(errors){
+            db.task(t => {
+                return t.batch([
+                    Posts.getCityDistrictsCategiry(loca),
+                    Posts.getdetail(loca)
+                ])
+            }).then(data => {
+                let timeOpen = data[1][0].time_open.trim().slice(0,9)
+                let timeClose = data[1][0].time_open.trim().slice(11,19)
+                res.render('posts.html', {
+                    errors: errors,
+                    title: 'Posts',
+                    data : data[0],
+                    detail : data[1][0],
+                    timeOpen : timeOpen,
+                    timeClose : timeClose
+                })
+            })
+        }
+        else{
+
+            let location = {};
+
+            location['districts'] = req.body.districts;
+            location['category'] = req.body.category;
+            location['address'] = req.body.addressLocation;
+            location['name'] = req.body.nameLocation;
+            location['rate'] = req.body.rate;
+            location['lat'] = req.body.latitude;
+            location['long'] = req.body.longitude;
+            location['time_open'] = req.body.open + ' - ' + req.body.close;
+            location['show_location'] = false;
+            location['id_location'] = req.body.id_location
+
+            Posts.updateLocation(location)
+                .then(() => {
+                    res.redirect('/admin/posts_list')
+                })
+        }
+    })
+    .delete((req,res) => {
+        let loca = req.params.location
+        Posts.deleteLocation(loca)
+            .then(() => {
+                res.redirect('/admin/posts_list')
+            })
+    })
 
 router.get('/user', function (req, res, next) {
     res.render('user_list.html', {title: 'List User'});
