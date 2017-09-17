@@ -4,6 +4,8 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const passport = require('passport')
 const nunjucks = require('nunjucks');
 const expressValidator = require('express-validator');
 const methodOverride = require('method-override')
@@ -59,7 +61,7 @@ app.use(expressValidator({
 
 app.use('/', index);
 app.use('/admin', admin);
-app.use('/users', users);
+app.use('/admin/users', users);
 
 
 

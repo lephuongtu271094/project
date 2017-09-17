@@ -3,17 +3,32 @@ const router = express.Router();
 const app = express()
 const multer = require('multer')
 const shortid = require('shortid')
+const bcrypt = require('bcrypt')
 const {db, pagination} = require('../pgp')
 const ListBook = require('../models/list_book')
 const ListAdmin = require('../models/list_admin')
 const ListCat = require('../models/list_cat')
 const Posts = require('../models/posts')
+const User = require('../models/create_newUserAdmin')
 
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         //nơi chứa file upload
         cb(null, './public/image_location')
+    },
+    filename: function (req, file, cb) {
+        // cb(null, shortid.generate() + '-' + file.originalname)
+        // Tạo tên file mới cho file vừa upload
+        cb(null, file.originalname.replace(" ", "-"))
+    }
+
+})
+
+const avata = multer.diskStorage({
+    destination: function (req, file, cb) {
+        //nơi chứa file upload
+        cb(null, './public/avatar')
     },
     filename: function (req, file, cb) {
         // cb(null, shortid.generate() + '-' + file.originalname)
@@ -34,6 +49,8 @@ function fileFilter(req, file, cb) { // hàm phân loại file upload
 }
 // các thuộc tính của multer gán cho biến upload
 app.upload = multer({storage: storage , fileFilter:fileFilter});
+// các thuộc tính của multer gán cho biến avatar
+app.avatar = multer({ storage : avata, fileFilter:fileFilter })
 
 let cpUpload = app.upload.fields([{ name: 'photo', maxCount: 1 }, { name: 'album', maxCount: 12 }]);
 
@@ -421,21 +438,78 @@ router.route('/posts/detail/:location')
             })
     })
 
-router.get('/user', function (req, res, next) {
-    res.render('user_list.html', {title: 'List User'});
-});
-
-router.get('/user_admin', function (req, res, next) {
-    res.render('user_admin.html', {title: 'List User Admin'});
-});
-
 router.get('/login', function (req, res, next) {
-    res.render('login.html', {title: 'Login'});
-});
-router.get('/new_user', function (req, res, next) {
-    res.render('create_user.html', {title: 'New User Admin'});
-});
+        res.render('login.html', {title: 'Login'});
+      });
+    
+router.get('/user', function (req, res, next) {
+        res.render('user_list.html', {title: 'List User'});
+      });
+      
+router.get('/user_admin', function (req, res, next) {
+        res.render('user_admin.html', {title: 'List User Admin'});
+      });
+ 
+      
+router.route('/new_user')
+    .get(function (req, res) {
+        res.render('create_user.html', {title: 'New User Admin'});
+    })
+    .post(app.avatar.single('avt'),(req,res) => {
 
+        if(req.file){
+            avatar = req.file.filename
+        }else{
+            avatar = "default-avatar.png" 
+        }
+
+        req.checkBody('display_name', 'Full name không được để trống').notEmpty();
+        req.checkBody('user_email','Email không được để trống').notEmpty();
+        req.checkBody('user_email','Không phải email').isEmail();
+        req.checkBody('user_name', 'user name không được để trống').notEmpty();
+        req.checkBody('user_pass','Password không được để trống').notEmpty();
+        req.checkBody('confirm_pass','Mật khẩu không đúng').equals(req.body.user_pass);
+        req.checkBody('phone','Số Điện thoại không được để trống').notEmpty();
+        req.checkBody('phone','Số diện thoại không phải là số').isInt();
+
+        let errors = req.validationErrors();
+        if(errors){
+            res.render('create_user.html', {
+                title: 'New User Admin',
+                errors : errors
+            });
+        }else{
+           User.checkUser(req.body.user_name)
+           .then(result => {
+                if(result.length > 0){
+                    res.render('create_user.html', {
+                        title: 'New User Admin',
+                        errors : [{msg:`Đã Có Người Đăng ký Với User Name: ${req.body.user_name}`}]
+                    });
+                }else{
+                    let pass = req.body.user_pass
+
+                    bcrypt.hash(pass,10, (err,hash ) => {
+                        if(err) throw err;
+                        let create = {}
+
+                        create['pass'] = hash
+                        create['avatar'] = avatar
+                        create['fullname'] = req.body.display_name
+                        create['email'] = req.body.user_email
+                        create['name'] =  req.body.user_name
+                        create['phone'] = req.body.phone
+                        
+                        User.insertNewUser(create)
+                            .then(() => {
+                                res.redirect('/admin/user')
+                            })
+
+                    })
+                }
+           })
+        }
+    })
 
 
 module.exports = router;

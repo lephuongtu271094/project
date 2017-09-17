@@ -8,9 +8,14 @@
 
     <section class="content">
         <div class="col-md-12">
-            <form id="edit-form" method="post">
-
-
+            <form id="edit-form" method="post" enctype="multipart/form-data">
+                {% if errors %}
+                    {% for error in errors %}
+                <div class="alert alert-warning">
+                    <strong>Warning! </strong> {{ error.msg }}
+                </div>
+                    {% endfor %}
+                {% endif %}
                 <div class="box box-solid box-primary">
                     <div class="box-body">
                         <div class="row">
@@ -18,25 +23,22 @@
                                 <div class="form-group">
                                     <label>Full Name<span
                                             class="required"> *</span></label>
-                                    <input type="text" class="form-control" name="display_name"
-                                           value="" required="required"/>
+                                    <input type="text" class="form-control" name="display_name" required="required"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Email<span class="required"> *</span></label>
-                                    <input type="email" class="form-control" name="user_email"
-                                           value="" required="required"/>
+                                    <input type="email" class="form-control" name="user_email" required="required"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone<span class="required"> *</span></label>
+                                    <input type="number" class="form-control" name="phone" required="required"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Avatar
                                         <span class="help-block" style="display: inline;">(128x128px) </span>
                                     </label>
+                                     <input type="file" id="image" name="avt">
 
-                                    <a href="#" id="avt" class="btn btn-primary btn-block"><i class="fa fa-upload"></i>
-                                        Choose/upload avatar image</a>
-
-                                    <img style="margin: 15px 0" class="img img-thumbnail" id="user_image"
-                                         src=""/>
-                                    <input type="hidden" name="user_image_url" value="">
                                 </div>
 
 
@@ -45,7 +47,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>User Name<span class="required"></span></label>
-                                    <input type="text" class="form-control" name="user_email"
+                                    <input type="text" class="form-control" name="user_name"
                                            value="" required="required"/>
                                 </div>
 
@@ -53,24 +55,20 @@
                                     <label>Password
                                         <span class="required"> *</span>
                                     </label>
-                                    <input type="password" class="form-control" id="user_pass" name="user_pass"
-                                           pattern=".{6,}" required title="Password must be greater than 5 character"/>
+                                    <input type="password" class="form-control" id="user_pass" name="user_pass"  required="required"/>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Confirm password
                                         <span class="required"> *</span>
                                     </label>
-                                    <input type="password" class="form-control" id="confirm_pass"
-                                           required="required"/>
+                                    <input type="password" class="form-control" id="confirm_pass" name="confirm_pass" required="required"/>
                                 </div>
                             </div>
                             <div class="col-md-12" style="text-align: center;">
-                                <a href="javascript:void(0)">
                                     <button type="submit" class="btn btn-success" id="saveForm" style="width:80%;">
                                         <i class="fa fa-check"></i> Save
                                     </button>
-                                </a>
                             </div>
 
                         </div>
