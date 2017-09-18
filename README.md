@@ -77,6 +77,19 @@
 );
 ```
 
+### UserAdmim :
+```sql
+    ﻿CREATE TABLE useradmin(
+    	id serial primary key,
+        displayName varchar(200),
+        username varchar(200),
+        password varchar(200),
+        email varchar(200),
+        phone varchar(200),
+       	avatar varchar(200)
+    )
+```
+
 ## Insert Table
 
 ### Table city 

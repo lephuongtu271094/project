@@ -8,7 +8,7 @@
 
     <section class="content">
         <div class="col-md-12">
-            <form id="edit-form" method="post" enctype="multipart/form-data">
+
                 {% if errors %}
                     {% for error in errors %}
                 <div class="alert alert-warning">
@@ -17,21 +17,24 @@
                     {% endfor %}
                 {% endif %}
                 <div class="box box-solid box-primary">
+
                     <div class="box-body">
+
                         <div class="row">
+                            <form id="edit-form" method="post" enctype="multipart/form-data">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Full Name<span
                                             class="required"> *</span></label>
-                                    <input type="text" class="form-control" name="display_name" required="required"/>
+                                    <input type="text" class="form-control" name="display_name" required="required" value="{{userupdate.displayname}}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Email<span class="required"> *</span></label>
-                                    <input type="email" class="form-control" name="user_email" required="required"/>
+                                    <input type="email" class="form-control" name="user_email" required="required" value="{{userupdate.email}}" />
                                 </div>
                                 <div class="form-group">
-                                    <label>Phone<span class="required"> *</span></label>
-                                    <input type="number" class="form-control" name="phone" required="required"/>
+                                    <label>Số Điện thoại<span class="required"> *</span></label>
+                                    <input type="number" class="form-control" name="phone" required="required" value="{{ userupdate.phone }}" />
                                 </div>
                                 <div class="form-group">
                                     <label>Avatar
@@ -44,39 +47,66 @@
 
                             </div>
 
+                            {% if userupdate %}
+                            <input type="text" value="{{userupdate.avatar}}" name="img" style="visibility: hidden">
+                            <div class="col-md-6" style="text-align: center;">
+                                <button type="submit" class="btn btn-success" style="width:100%;">
+                                    <i class="fa fa-check"></i> Update
+                                </button>
+                            </div>
+
+
+                            {% else %}
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>User Name<span class="required"></span></label>
+                                    <label>Tên đăng nhập<span class="required"></span></label>
                                     <input type="text" class="form-control" name="user_name"
                                            value="" required="required"/>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Password
+                                    <label>Mật Khẩu
                                         <span class="required"> *</span>
                                     </label>
                                     <input type="password" class="form-control" id="user_pass" name="user_pass"  required="required"/>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Confirm password
+                                    <label>Nhập lại mật khẩu
                                         <span class="required"> *</span>
                                     </label>
                                     <input type="password" class="form-control" id="confirm_pass" name="confirm_pass" required="required"/>
                                 </div>
                             </div>
                             <div class="col-md-12" style="text-align: center;">
-                                    <button type="submit" class="btn btn-success" id="saveForm" style="width:80%;">
-                                        <i class="fa fa-check"></i> Save
-                                    </button>
+                                <button type="submit" class="btn btn-success" id="saveForm" style="width:80%;">
+                                    <i class="fa fa-check"></i> Save
+                                </button>
                             </div>
+                            {% endif %}
 
+
+                            </form>
+                            {% if userupdate %}
+                            <div class="col-md-6" style="text-align: center;">
+                                <form method="post" action="?_method=DELETE">
+                                    <input type="text" value="{{userupdate.avatar}}" name="img" style="visibility: hidden">
+                                    <button type="submit" class="btn btn-danger" style="width:100% ; margin-top: 10px;">
+                                        <i class="fa fa-check"></i> Delete
+                                    </button>
+                                </form>
+
+                            </div>
+                            {% endif %}
                         </div>
 
                     </div>
+
+
                 </div>
 
-            </form>
+
+
         </div>
     </section>
     <!-- /.content -->

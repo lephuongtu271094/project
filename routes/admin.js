@@ -4,6 +4,7 @@ const app = express()
 const multer = require('multer')
 const shortid = require('shortid')
 const bcrypt = require('bcrypt')
+const fs = require('fs')
 const {db, pagination} = require('../pgp')
 const ListBook = require('../models/list_book')
 const ListAdmin = require('../models/list_admin')
@@ -18,9 +19,9 @@ const storage = multer.diskStorage({
         cb(null, './public/image_location')
     },
     filename: function (req, file, cb) {
-        // cb(null, shortid.generate() + '-' + file.originalname)
+        cb(null, shortid.generate() + '-' + file.originalname.replace(" ", "-").trim())
         // Tạo tên file mới cho file vừa upload
-        cb(null, file.originalname.replace(" ", "-"))
+        // cb(null, file.originalname.replace(" ", "-"))
     }
 
 })
@@ -31,9 +32,9 @@ const avata = multer.diskStorage({
         cb(null, './public/avatar')
     },
     filename: function (req, file, cb) {
-        // cb(null, shortid.generate() + '-' + file.originalname)
+        cb(null, shortid.generate() + '-' + file.originalname)
         // Tạo tên file mới cho file vừa upload
-        cb(null, file.originalname.replace(" ", "-"))
+        // cb(null, file.originalname.replace(" ", "-"))
     }
 
 })
@@ -437,17 +438,20 @@ router.route('/posts/detail/:location')
                 res.redirect('/admin/posts_list')
             })
     })
-
-router.get('/login', function (req, res, next) {
-        res.render('login.html', {title: 'Login'});
-      });
     
-router.get('/user', function (req, res, next) {
+router.get('/user', function (req, res) {
         res.render('user_list.html', {title: 'List User'});
       });
       
-router.get('/user_admin', function (req, res, next) {
-        res.render('user_admin.html', {title: 'List User Admin'});
+router.get('/user_admin', function (req, res) {
+        User.listUserAdmin()
+            .then(data => {
+                res.render('user_admin.html', {
+                    title: 'List User Admin',
+                    data : data
+                });
+            })
+
       });
  
       
@@ -456,7 +460,6 @@ router.route('/new_user')
         res.render('create_user.html', {title: 'New User Admin'});
     })
     .post(app.avatar.single('avt'),(req,res) => {
-
         if(req.file){
             avatar = req.file.filename
         }else{
@@ -499,10 +502,10 @@ router.route('/new_user')
                         create['email'] = req.body.user_email
                         create['name'] =  req.body.user_name
                         create['phone'] = req.body.phone
-                        
+
                         User.insertNewUser(create)
                             .then(() => {
-                                res.redirect('/admin/user')
+                                res.redirect('/admin/user_admin')
                             })
 
                     })
@@ -510,6 +513,70 @@ router.route('/new_user')
            })
         }
     })
+router.route('/user_admin/:id')
+    .get(function (req, res) {
+        let id = req.params.id
+        User.selectUser(id)
+            .then(data => {
+                res.render('create_user.html', {
+                    title: 'User Admin',
+                    userupdate : data[0]
+                });
+            })
+    })
+    .post(app.avatar.single('avt'),(req,res) => {
+        let id = req.params.id
+        let defaultimg = 'default-avatar.png'
 
+        if(req.file){
+            if(req.body.img === defaultimg){
+                avatar = req.file.filename
+            }else{
+                avatar = req.file.filename
+                fs.unlinkSync('./public/avatar/'+ req.body.img)
+            }
+        }else{
+            avatar = req.body.img
+        }
+
+        req.checkBody('display_name', 'Full name không được để trống').notEmpty();
+        req.checkBody('user_email','Email không được để trống').notEmpty();
+        req.checkBody('user_email','Không phải email').isEmail();
+        req.checkBody('phone','Số Điện thoại không được để trống').notEmpty();
+        req.checkBody('phone','Số diện thoại không phải là số').isInt();
+
+        let errors = req.validationErrors();
+        if(errors){
+            res.render('create_user.html', {
+                title: 'User Admin',
+                errors : errors
+            });
+        }else{
+            let obj = {}
+            obj['fullname'] = req.body.display_name
+            obj['id'] = id
+            obj['phone'] = req.body.phone
+            obj['email'] = req.body.user_email
+            obj['avatar'] = avatar
+
+            User.updateUser(obj)
+                .then(() => {
+                    res.redirect('/admin/user_admin')
+                })
+        }
+
+    })
+    .delete((req,res) => {
+        let id = req.params.id
+        User.deleteUser(id)
+            .then(() => {
+                fs.unlinkSync('./public/avatar/'+ req.body.img)
+                res.redirect('/admin/user_admin')
+            })
+    })
+
+router.get('/login', function (req, res) {
+    res.render('login.html', {title: 'Login'});
+});
 
 module.exports = router;

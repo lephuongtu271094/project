@@ -19,34 +19,20 @@
                         <thead>
                         <tr class="filters">
                             <th><input type="number" class="form-control" placeholder="ID" disabled></th>
-                            <th><input type="number" class="form-control" placeholder="Phone" disabled></th>
                             <th><input type="text" class="form-control" placeholder="Name" disabled></th>
-                            <th><input type="text" class="form-control" placeholder="Time &amp date" disabled></th>
-                            <th><input type="text" class="form-control" placeholder="location" disabled></th>
+                            <th><input type="number" class="form-control" placeholder="Phone" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Email" disabled></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <td>@mdo</td>
-                        </tr>
+                        {% for user in data %}
+                            <tr>
+                                <td><a href="/admin/user_admin/{{user.id}}">{{user.id}}</a></td>
+                                <td><a href="/admin/user_admin/{{user.id}}">{{user.displayname}}</a></td>
+                                <td><a href="/admin/user_admin/{{user.id}}">{{user.phone}}</a></td>
+                                <td><a href="/admin/user_admin/{{user.id}}">{{user.email}}</a></td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
