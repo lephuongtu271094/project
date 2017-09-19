@@ -14,6 +14,7 @@ const pagination = require('./models/custom_filter/pagination');
 
 const index = require('./routes/index');
 const admin = require('./routes/admin');
+const user = require('./routes/users');
 
 const app = express();
 
@@ -50,7 +51,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(flash());
 app.use(passport.session());
-
+app.use((req, res, next) => {
+    res.locals.message = req.session.flash;
+    delete req.session.flash;
+    next();
+})
 
 app.use(expressValidator({
     errorFormatter: (param, msg, value) => {
@@ -69,7 +74,15 @@ app.use(expressValidator({
 }))
 
 app.use('/', index);
-app.use('/admin', admin);
+app.use('/admin', user);
+app.use('/admin',checkAuthenticated, admin);
+function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next()
+    } else {
+        res.redirect('/admin/login')
+    }
+}
 
 
 // catch 404 and forward to error handler

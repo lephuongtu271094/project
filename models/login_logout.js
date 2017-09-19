@@ -5,7 +5,7 @@ class login {
         this.db = db
     }
     UserLogin(name){
-        return this.db.any('SELECT * FROM useradmin WHERE username = $1',name)
+        return this.db.one('SELECT * FROM useradmin WHERE username = $1',[name])
     }
 
 }

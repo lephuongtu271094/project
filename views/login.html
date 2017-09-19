@@ -34,7 +34,11 @@
     <!-- /.login-logo -->
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to start</p>
-
+        {% if message %}
+            {% for key,value in message %}
+                <div class="alert alert-{{ key }}">{{ value }}</div>
+            {% endfor %}
+        {% endif %}
         <form method="post">
             <div class="form-group has-feedback">
                 <input type="text" class="form-control" placeholder="User Name" name="username">
