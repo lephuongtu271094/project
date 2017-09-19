@@ -1,16 +1,21 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 const app = express()
 const multer = require('multer')
 const shortid = require('shortid')
 const bcrypt = require('bcrypt')
+const passport = require('passport')
 const fs = require('fs')
+const LocalStrategy = require('passport-local').Strategy
 const {db, pagination} = require('../pgp')
 const ListBook = require('../models/list_book')
 const ListAdmin = require('../models/list_admin')
 const ListCat = require('../models/list_cat')
 const Posts = require('../models/posts')
 const User = require('../models/create_newUserAdmin')
+const UserLogin = require('../models/login_logout')
+
+
 
 
 const storage = multer.diskStorage({
@@ -54,6 +59,37 @@ app.upload = multer({storage: storage , fileFilter:fileFilter});
 app.avatar = multer({ storage : avata, fileFilter:fileFilter })
 
 let cpUpload = app.upload.fields([{ name: 'photo', maxCount: 1 }, { name: 'album', maxCount: 12 }]);
+
+
+passport.serializeUser((user,done) => {
+    done(null,user)
+})
+
+passport.deserializeUser((user,done) => {
+    UserLogin.UserLogin(user)
+        .then(user => {
+            done(null,user)
+        }).catch(err => {
+        console.log(err)
+    })
+})
+
+passport.use(new LocalStrategy(
+    (username, password,done) => {
+
+        UserLogin.UserLogin(username)
+            .then(user => {
+                bcrypt.compare(password, user.password, (err,result) => {
+
+                    if(err) return done(err)
+                    if(!result){
+                        return done(null,false,{ message: 'Incorrect username and password' })
+                    }
+                    return done(null,user)
+                })
+            }).catch(err => done(err))
+    }
+))
 
 //-------------------------------------------ADMIN-------------------------------------------
 
@@ -575,8 +611,24 @@ router.route('/user_admin/:id')
             })
     })
 
-router.get('/login', function (req, res) {
-    res.render('login.html', {title: 'Login'});
-});
+router.route('/login')
+    .get(function (req, res) {
+        res.render('login.html', {title: 'Login'});
+    })
+    .post(passport.authenticate('local' ,{
+            failureRedirect : '/admin/login',
+            failureFlash : 'Tên đăng nhập hoặc mật khẩu không đúng'
+    }),
+        (req,res) => {
+            console.log('Authentication successful');
+            req.flash('success', 'you are logged in');
+
+            let checkUsername = req.body.username;
+            UserLogin.UserLogin(checkUsername)
+                .then(() => {
+                    res.redirect('/admin')
+                })
+        }
+    )
 
 module.exports = router;

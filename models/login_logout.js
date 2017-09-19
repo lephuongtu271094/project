@@ -1,10 +1,13 @@
 const {db,} = require('../pgp');
 
-class log {
+class login {
     constructor(db){
         this.db = db
+    }
+    UserLogin(name){
+        return this.db.any('SELECT * FROM useradmin WHERE username = $1',name)
     }
 
 }
 
-module.exports = new log(db)
+module.exports = new login(db)

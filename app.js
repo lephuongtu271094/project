@@ -6,16 +6,14 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport')
+const flash = require('connect-flash');
 const nunjucks = require('nunjucks');
 const expressValidator = require('express-validator');
 const methodOverride = require('method-override')
 const pagination = require('./models/custom_filter/pagination');
 
-const { db, config} = require('./pgp');
-
 const index = require('./routes/index');
 const admin = require('./routes/admin');
-const users = require('./routes/users');
 
 const app = express();
 
@@ -42,6 +40,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(methodOverride('_method'))
 
+app.use(session({
+    secret: "secret",
+    key: "LePhuongTu",
+    saveUninitialized: true,
+    resave: true
+}));
+
+app.use(passport.initialize());
+app.use(flash());
+app.use(passport.session());
+
 
 app.use(expressValidator({
     errorFormatter: (param, msg, value) => {
@@ -61,8 +70,6 @@ app.use(expressValidator({
 
 app.use('/', index);
 app.use('/admin', admin);
-app.use('/admin/users', users);
-
 
 
 // catch 404 and forward to error handler
