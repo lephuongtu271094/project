@@ -6,10 +6,12 @@ const LocalStrategy = require('passport-local').Strategy
 const UserLogin = require('../models/login_logout')
 
 passport.serializeUser((user,done) => {
+
     done(null,user)
 })
 
 passport.deserializeUser((user,done) => {
+
     done(null,user)
 })
 
@@ -39,6 +41,7 @@ router.route('/login')
         failureFlash : 'Tên đăng nhập hoặc mật khẩu không đúng'
 }),
     (req,res) => {
+        console.log(res.user)
         res.redirect('/admin')
     }
 )

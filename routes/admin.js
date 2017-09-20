@@ -63,10 +63,11 @@ let cpUpload = app.upload.fields([{ name: 'photo', maxCount: 1 }, { name: 'album
 router.get('/', function (req, res, next) {
     ListBook.BookList()
         .then(data => {
+
             res.render('admin.html', {
                 title: 'New book',
-                listBook: data
-
+                listBook: data,
+                user : req.user
             });
         }).catch(err => {
         console.log(err.message)
@@ -81,7 +82,8 @@ router.route('/book/:id_book')
             .then(data => {
                 res.render('detail_admin.html', {
                     title: 'New book',
-                    detailBook: data
+                    detailBook: data,
+                    user : req.user
                 });
             }).catch(err => {
             console.log(err.message)
@@ -105,7 +107,9 @@ router.get('/posts_list', function (req, res) {
         .then(data => {
             res.render('posts_list.html', {
                 title: 'Posts List',
-                data: data
+                data: data,
+                user : req.user
+
             });
         }).catch(err => console.log(err.message))
 
@@ -117,7 +121,9 @@ router.route('/posts_categories')
             .then(data => {
                 res.render('categories.html', {
                     title: 'Categories',
-                    cat: data
+                    cat: data,
+                    user : req.user
+
                 });
             }).catch(err => console.log(err.message))
     })
@@ -134,7 +140,8 @@ router.route('/posts_categories')
                     res.render('categories.html', {
                         errors: errors[0],
                         title: 'Categories',
-                        cat: data
+                        cat: data,
+                        user : req.user
                     });
                 }).catch(err => console.log(err.message))
         } else {
@@ -164,7 +171,9 @@ router.route('/posts_categories/:id')
             res.render('categories.html', {
                 title: 'Categories',
                 cat: data[0],
-                category: data[1]
+                category: data[1],
+                user : req.user
+
             })
         }).catch(err => console.log(err.message))
     })
@@ -188,7 +197,9 @@ router.route('/posts_categories/:id')
                     title: 'Categories',
                     errors: errors[0],
                     cat: data[0],
-                    category: data[1]
+                    category: data[1],
+                    user : req.user
+
                 })
             }).catch(err => console.log(err.message))
         } else {
@@ -218,7 +229,9 @@ router.route('/posts_categories/sub_cat/:id')
             res.render('categories.html', {
                 title: 'Categories',
                 cat: data[0],
-                sub_category: data[1]
+                sub_category: data[1],
+                user : req.user
+
             })
         }).catch(err => console.log(err.message))
     })
@@ -240,7 +253,9 @@ router.route('/posts_categories/sub_cat/:id')
                     title: 'Categories',
                     errors: errors[0],
                     cat: data[0],
-                    sub_category: data[1]
+                    sub_category: data[1],
+                    user : req.user
+
                 })
             }).catch(err => console.log(err.message))
         } else {
@@ -270,7 +285,9 @@ router.get('/posts', function (req, res) {
         res.render('posts.html', {
             title: 'Posts',
             city: data[0],
-            sub_category: data[1]
+            sub_category: data[1],
+            user : req.user
+
         })
     }).catch(err => console.log(err.message))
 
@@ -289,7 +306,9 @@ router.route('/posts/:id')
                 title: 'Posts',
                 city: data[0],
                 sub_category: data[1],
-                districts : data[2]
+                districts : data[2],
+                user : req.user
+
             })
         }).catch(err => console.log(err.message))
     })
@@ -317,7 +336,9 @@ router.route('/posts/:id')
                     title: 'Posts',
                     city: data[0],
                     sub_category: data[1],
-                    districts : data[2]
+                    districts : data[2],
+                    user : req.user
+
                 })
             })
         }else{
@@ -378,7 +399,9 @@ router.route('/posts/detail/:location')
                 data : data[0],
                 detail : data[1][0],
                 timeOpen : timeOpen,
-                timeClose : timeClose
+                timeClose : timeClose,
+                user : req.user
+
             })
         }).catch(err => console.log(err.message))
     })
@@ -408,7 +431,9 @@ router.route('/posts/detail/:location')
                     data : data[0],
                     detail : data[1][0],
                     timeOpen : timeOpen,
-                    timeClose : timeClose
+                    timeClose : timeClose,
+                    user : req.user
+
                 })
             })
         }
@@ -442,7 +467,11 @@ router.route('/posts/detail/:location')
     })
     
 router.get('/user', function (req, res) {
-        res.render('user_list.html', {title: 'List User'});
+        res.render('user_list.html', {
+            title: 'List User',
+            user : req.user
+
+        });
       });
       
 router.get('/user_admin', function (req, res) {
@@ -450,7 +479,9 @@ router.get('/user_admin', function (req, res) {
             .then(data => {
                 res.render('user_admin.html', {
                     title: 'List User Admin',
-                    data : data
+                    data : data,
+                    user : req.user
+
                 });
             })
 
@@ -459,7 +490,11 @@ router.get('/user_admin', function (req, res) {
       
 router.route('/new_user')
     .get(function (req, res) {
-        res.render('create_user.html', {title: 'New User Admin'});
+        res.render('create_user.html', {
+            title: 'New User Admin',
+            user : req.user
+
+        });
     })
     .post(app.avatar.single('avt'),(req,res) => {
         if(req.file){
@@ -481,7 +516,8 @@ router.route('/new_user')
         if(errors){
             res.render('create_user.html', {
                 title: 'New User Admin',
-                errors : errors
+                errors : errors,
+                user : req.user
             });
         }else{
            User.checkUser(req.body.user_name)
@@ -489,7 +525,9 @@ router.route('/new_user')
                 if(result.length > 0){
                     res.render('create_user.html', {
                         title: 'New User Admin',
-                        errors : [{msg:`Đã Có Người Đăng ký Với User Name: ${req.body.user_name}`}]
+                        errors : [{msg:`Đã Có Người Đăng ký Với User Name: ${req.body.user_name}`}],
+                        user : req.user
+
                     });
                 }else{
                     let pass = req.body.user_pass
@@ -522,7 +560,9 @@ router.route('/user_admin/:id')
             .then(data => {
                 res.render('create_user.html', {
                     title: 'User Admin',
-                    userupdate : data[0]
+                    userupdate : data[0],
+                    user : req.user
+
                 });
             })
     })
@@ -551,7 +591,9 @@ router.route('/user_admin/:id')
         if(errors){
             res.render('create_user.html', {
                 title: 'User Admin',
-                errors : errors
+                errors : errors,
+                user : req.user
+
             });
         }else{
             let obj = {}
@@ -563,6 +605,7 @@ router.route('/user_admin/:id')
 
             User.updateUser(obj)
                 .then(() => {
+
                     res.redirect('/admin/user_admin')
                 })
         }
